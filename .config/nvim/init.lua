@@ -112,11 +112,12 @@ require('lazy').setup({
     },
   },
 
-  { -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+  {
+    'folke/tokyonight.nvim',
     priority = 1000,
+    transparent = true,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -125,8 +126,8 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
+        icons_enabled = true,
+        theme = 'tokyonight',
         component_separators = '|',
         section_separators = '',
       },
@@ -184,7 +185,7 @@ require('lazy').setup({
   --
   --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
-  { import = 'custom.plugins' },
+  -- { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
