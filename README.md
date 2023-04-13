@@ -16,7 +16,7 @@ I've decided to switch to using `lua` for my `nvim` config as well as using `fis
 ## Installation
 ```sh
 # Install the requirements
-sudo apt install curl exa neovim xclip git tmux ripgrep -y
+sudo apt install bat curl entr exa fzf git neovim ripgrep tmux xclip zoxide -y
 
 # Install requirements for c/cpp development
 sudo apt install clang clangd -y
