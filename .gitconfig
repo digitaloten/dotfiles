@@ -3,3 +3,5 @@
     email = mxaddict@codedmaster.com
 [color]
     ui = true
+[core]
+    excludesfile = ~/.gitignore
