@@ -22,5 +22,5 @@ sudo apt install curl exa neovim xclip git tmux ripgrep -y
 sudo apt install clang clangd -y
 
 # Run this in a non root terminal
-sh -c "$(curl -sL https://raw.githubusercontent.com/mxaddict/dotfiles/master/install)"
+curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/install | sh
 ```
