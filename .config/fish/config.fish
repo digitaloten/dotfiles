@@ -16,10 +16,10 @@ set -Ux FZF_DEFAULT_OPTS    "--height 30%"
 # Replace default ls command
 alias ls="exa -F"
 
-# some more ls aliases
-alias l='ls -l'
-alias ll='ls -al'
-alias la='ls -a'
+# Some more ls aliases
+alias l="ls -l"
+alias ll="ls -al"
+alias la="ls -a"
 
 # I want v to open vi and vi to open vim
 alias v="nvim"
@@ -28,4 +28,4 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 
 # Alias make to use max cores/threads
-alias make='make -j (nproc)'
+alias make="make -j (nproc)"
