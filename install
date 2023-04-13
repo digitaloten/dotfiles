@@ -2,8 +2,10 @@
 
 # Create our base dir structure
 mkdir -p $HOME/.config/fish
+mkdir -p $HOME/.config/nvim
 
 # Copy dotfiles
 cp .gitconfig $HOME/.gitconfig
 cp .gitignore $HOME/.gitignore
 cp .config/fish/config.fish $HOME/.config/fish/config.fish
+cp .config/nvim/init.lua $HOME/.config/nvim/init.lua
