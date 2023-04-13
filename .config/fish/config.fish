@@ -59,3 +59,6 @@ fzf_key_bindings
 
 # Load zoxide
 zoxide init fish | source
+
+# Load starship prompt
+starship init fish | source
