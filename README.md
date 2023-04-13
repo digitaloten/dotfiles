@@ -21,6 +21,9 @@ sudo apt install bat curl entr exa fzf git neovim ripgrep tmux xclip zoxide -y
 # Install requirements for c/cpp development
 sudo apt install clang clangd -y
 
-# Run this in a non root terminal
-curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/install | sh
+# Install starship prompt
+curl -sS https://starship.rs/install.sh | sh
+
+# Run the actual installer dotfiles
+curl -sS https://raw.github.com/mxaddict/dotfiles/master/install | sh
 ```
