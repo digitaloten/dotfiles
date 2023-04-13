@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Copy dotfiles
+cp .gitconfig $HOME/.gitconfig
+cp .gitignore $HOME/.gitignore
