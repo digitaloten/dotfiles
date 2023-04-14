@@ -27,7 +27,7 @@ abbr cat     "bat --plain"
 abbr bathelp "bat --plain --language=help"
 
 function belp
-    $argv --help 2>&1 | bathelp
+    $argv --help 2>&1 | bat --plain --language=help
 end
 
 # Replace default ls command
