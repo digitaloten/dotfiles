@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 
 # Where is the DIR for dotfiles?
-DOTFILES_DIR="${HOME}/.files"
+DOTFILES="${HOME}/.files"
 
 # Clone the repo if we don't have it cloned yet
-[ -d $DOTFILES_DIR ] || git clone https://github.com/mxaddict/dotfiles.git $DOTFILES_DIR
+[ -d $DOTFILES ] || git clone https://github.com/mxaddict/dotfiles.git $DOTFILES
 
 # Update the repo
-cd $DOTFILES_DIR && git checkout main && git pull
+cd $DOTFILES && git checkout main && git pull
 
 # Create our base dir structure
 for dir in .config/fish .config/nvim/lua/plugins
@@ -19,19 +19,19 @@ done
 # Copy dotfiles
 for file in .gitconfig .gitignore .config/fish/config.fish .config/starship.toml
 do
-    echo "Copying $file to $HOME..."
-    cp $file $HOME/$file
+    echo "Copying $file"
+    cp $DOTFILES/$file $HOME/$file
 done
 
 # Copy nvim configs
 for file in .config/nvim/init.lua .config/nvim/lua/main.lua .config/nvim/lua/remap.lua
 do
-    echo "Copying $file to $HOME..."
-    cp $file $HOME/$file
+    echo "Copying $file"
+    cp $DOTFILES/$file $HOME/$file
 done
 
 echo "Deleting old .config/nvim/lua/plugins/..."
 rm -rf $HOME/.config/nvim/lua/plugins
 
 echo "Copying new .config/nvim/lua/plugins/..."
-cp -r .config/nvim/lua/plugins $HOME/.config/nvim/lua/plugins
+cp -r $DOTFILES/.config/nvim/lua/plugins $HOME/.config/nvim/lua/plugins
