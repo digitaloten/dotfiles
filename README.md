@@ -25,5 +25,5 @@ sudo apt install clang clangd -y
 curl -sS https://starship.rs/install.sh | sh
 
 # Run the actual installer dotfiles
-curl -sS https://raw.github.com/mxaddict/dotfiles/master/install | sh
+curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/install | sh
 ```
