@@ -54,6 +54,14 @@ alias gg "git status"
 alias m    "make -j (nproc)"
 alias make "make -j (nproc)"
 
+# Alias for quiting the command line
+alias :q  "exit"
+alias :qa "exit"
+alias :wq "exit"
+alias q   "exit"
+alias qa  "exit"
+alias wq  "exit"
+
 # Load fzf
 fzf_key_bindings
 
