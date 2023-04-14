@@ -17,50 +17,50 @@ set -Ux FZF_DEFAULT_OPTS    "--height 30%"
 # Use BAT for our man pages
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-# Alias for zoxide interactive
-alias z  "z"
-alias zx "zi"
-alias zz "z -"
+# abbr for zoxide interactive
+abbr z  "z"
+abbr zx "zi"
+abbr zz "z -"
 
 # Replace cat with batcat
-alias cat "bat --plain"
-alias bathelp='bat --plain --language=help'
+abbr cat     "bat --plain"
+abbr bathelp "bat --plain --language=help"
 
 function belp
     $argv --help 2>&1 | bathelp
 end
 
 # Replace default ls command
-alias ls "exa -F"
+abbr ls "exa -F"
 
-# Some more ls aliases
-alias l  "ls -l"
-alias la "ls -a"
-alias ll "ls -al"
+# Some more ls abbrs
+abbr l  "ls -l"
+abbr la "ls -a"
+abbr ll "ls -al"
 
 # I want v to open vi and vi to open vim
-alias v       "nvim"
-alias vd      "nvim -d"
-alias vi      "nvim"
-alias vim     "nvim"
-alias vimdiff "nvim -d"
+abbr v       "nvim"
+abbr vd      "nvim -d"
+abbr vi      "nvim"
+abbr vim     "nvim"
+abbr vimdiff "nvim -d"
 
-# Alias g to git (saves a few key strokes)
-alias g  "git"
-alias gg "git status"
+# abbr g to git (saves a few key strokes)
+abbr g  "git"
+abbr gg "git status"
 
-# Alias for make to m (save a few key strokes)
+# abbr for make to m (save a few key strokes)
 # as well as make sure to use the max threads available
-alias m    "make -j (nproc)"
-alias make "make -j (nproc)"
+abbr m    "make -j (nproc)"
+abbr make "make -j (nproc)"
 
-# Alias for quiting the command line
-alias :q  "exit"
-alias :qa "exit"
-alias :wq "exit"
-alias q   "exit"
-alias qa  "exit"
-alias wq  "exit"
+# abbr for quiting the command line
+abbr :q  "exit"
+abbr :qa "exit"
+abbr :wq "exit"
+abbr q   "exit"
+abbr qa  "exit"
+abbr wq  "exit"
 
 # Load fzf
 fzf_key_bindings
