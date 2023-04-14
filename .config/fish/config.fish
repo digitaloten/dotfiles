@@ -18,25 +18,27 @@ set -Ux FZF_DEFAULT_OPTS    "--height 30%"
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 # abbr for zoxide interactive
-abbr z  "z"
 abbr zx "zi"
 abbr zz "z -"
 
 # Replace cat with batcat
-abbr cat     "bat --plain"
-abbr bathelp "bat --plain --language=help"
+alias cat "bat --plain"
 
-function belp
+# Replace fish help with command for colorfull help calls
+function help
     $argv --help 2>&1 | bat --plain --language=help
 end
 
-# Replace default ls command
-abbr ls "exa -F"
+# Replace default ls command with exa
+alias ls "exa"
+
+# Replace tree command with exa
+alias tree "exa --tree"
 
 # Some more ls abbrs
-abbr l  "ls -l"
-abbr la "ls -a"
-abbr ll "ls -al"
+abbr l  "ls -lF"
+abbr la "ls -aF"
+abbr ll "ls -alF"
 
 # I want v to open vi and vi to open vim
 abbr v       "nvim"
