@@ -6,7 +6,7 @@ set fish_greeting
 fish_add_path -g ~/.local/bin
 
 # Set default editor to vim
-set -Ux EDITOR "vim"
+set -Ux EDITOR "nvim"
 
 # Setup our default FZF command
 set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
