@@ -51,6 +51,9 @@ abbr vimdiff "nvim -d"
 abbr g  "git"
 abbr gg "git status"
 
+# Kitten ssh
+abbr ksh "kitty +kitten ssh"
+
 # abbr for make to m (save a few key strokes)
 # as well as make sure to use the max threads available
 abbr m    "make -j (nproc)"
