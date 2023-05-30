@@ -1,0 +1,65 @@
+* {
+	border: none;
+	border-radius: 0;
+	font-family: "Hack Nerd Font";
+	font-weight: bold;
+	font-size: 16px;
+	min-height: 0;
+}
+
+window#waybar {
+	background: rgba(21, 18, 27, 0);
+	color: #cdd6f4;
+}
+
+tooltip {
+	background: #1e1e2e;
+	opacity: 0.8;
+	border-radius: 8px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #11111b;
+}
+
+tooltip label{
+	color: #cdd6f4;
+}
+
+#custom-lock_screen,
+#custom-power_btn,
+#window,
+#workspaces,
+#disk,
+#memory,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#temperature {
+	background: #1e1e2e;
+	opacity: 0.8;
+	padding: 0px 12px;
+	margin: 2px 0px;
+	margin-top: 10px;
+	border: 0px;
+	border-radius: 8px;
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
+#temperature.critical {
+	color: #e92d4d;
+}
+
+#clock {
+	margin-right: 10px;
+}
+
+#pulseaudio {
+	color: #89b4fa;
+}
+
+#pulseaudio.microphone {
+	color: #cba6f7;
+}
