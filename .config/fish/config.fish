@@ -13,7 +13,6 @@ set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -Ux FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
 set -Ux FZF_CTRL_T_OPTS     "--preview 'bat -n --color=always {}'"
 set -Ux FZF_DEFAULT_OPTS    "--height 30%"
-set -Ux GOPRIVATE           "github.com/digitalmonsters/go-common"
 
 # Use BAT for our man pages
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
