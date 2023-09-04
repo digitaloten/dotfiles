@@ -4,6 +4,7 @@ set fish_greeting
 
 # Set some stuff for out path
 fish_add_path -g ~/.local/bin
+fish_add_path -g ~/.cargo/bin
 
 # Set default editor to vim
 set -Ux EDITOR "nvim"
