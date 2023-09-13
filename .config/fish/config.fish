@@ -9,6 +9,9 @@ fish_add_path -g ~/.cargo/bin
 # Set default editor to vim
 set -Ux EDITOR "nvim"
 
+# Set MAKEFLAGS
+set -Ux MAKEFLAGS "-j $(nproc)"
+
 # Setup our default FZF command
 set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -Ux FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
