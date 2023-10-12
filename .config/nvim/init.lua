@@ -23,6 +23,9 @@ require("lazy").setup({
     -- Cause git is <3
     "tpope/vim-fugitive",
 
+    -- We need to talk to tmux while navigating
+    { 'christoomey/vim-tmux-navigator', lazy = false },
+
     -- What are we pressing
     { 'folke/which-key.nvim', opts = {} },
 
