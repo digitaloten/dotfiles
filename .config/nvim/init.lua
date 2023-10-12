@@ -24,7 +24,7 @@ require("lazy").setup({
     "tpope/vim-fugitive",
 
     -- We need to talk to tmux while navigating
-    { 'christoomey/vim-tmux-navigator', lazy = false },
+    { 'christoomey/vim-tmux-navigator' },
 
     -- What are we pressing
     { 'folke/which-key.nvim', opts = {} },
@@ -46,6 +46,21 @@ require("lazy").setup({
         cond = function()
             return vim.fn.executable "make" == 1
         end,
+    },
+
+    {
+        "jackMort/ChatGPT.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("chatgpt").setup({
+                api_key_cmd = "pass show chatgpt.nvim"
+            })
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
     },
 
     { import = "plugins" },

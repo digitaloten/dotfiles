@@ -16,7 +16,7 @@ return { -- LSP Configuration & Plugins
             -- clangd = {},
             -- gopls = {},
             -- pyright = {},
-            -- rust_analyzer = {},
+            rust_analyzer = {},
             -- tsserver = {},
 
             lua_ls = {
