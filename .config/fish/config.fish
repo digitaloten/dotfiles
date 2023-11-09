@@ -9,9 +9,6 @@ fish_add_path -g ~/.cargo/bin
 # Set default editor to vim
 set -Ux EDITOR "nvim"
 
-# Set MAKEFLAGS
-set -Ux MAKEFLAGS "-j $(nproc)"
-
 # Setup our default FZF command
 set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -Ux FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
@@ -57,11 +54,6 @@ abbr gg "git status"
 
 # Kitten ssh
 abbr ksh "kitty +kitten ssh"
-
-# abbr for make to m (save a few key strokes)
-# as well as make sure to use the max threads available
-abbr m    "make -j (nproc)"
-abbr make "make -j (nproc)"
 
 # abbr for quiting the command line
 abbr :q  "exit"
