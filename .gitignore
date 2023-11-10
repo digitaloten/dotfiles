@@ -3,3 +3,5 @@
 .base16*
 .cache
 compile_commands.json
+.config/tmux/plugins
+.config/fish/fish_variables
