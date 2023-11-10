@@ -21,7 +21,7 @@ tooltip {
 	border-color: #11111b;
 }
 
-tooltip label{
+tooltip label {
 	color: #cdd6f4;
 }
 
@@ -32,6 +32,8 @@ tooltip label{
 #disk,
 #memory,
 #clock,
+#custom-notification,
+#cpu,
 #battery,
 #pulseaudio,
 #network,
@@ -52,8 +54,9 @@ tooltip label{
 	color: #e92d4d;
 }
 
-#clock {
+#custom-notification {
 	margin-right: 10px;
+	padding-right: 18px;
 }
 
 #pulseaudio {
