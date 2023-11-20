@@ -7,7 +7,7 @@
 	"gtk-layer-shell": true,
 	"height": 50,
 	"modules-left": ["hyprland/workspaces", "hyprland/window"],
-	"modules-right": ["tray", "network", "cpu", "memory", "disk", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
+	"modules-right": ["tray", "network", "cpu", "memory", "disk", "battery", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
 
 	"hyprland/window": {
 		"format": "{}"
@@ -16,12 +16,7 @@
 	"hyprland/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
-		"format": "{icon} ",
-		"format-icons": {
-			"urgent": "",
-			"focused": "",
-			"default": ""
-		}
+		"format": "{}"
 	},
 
 	"tray": {
@@ -87,7 +82,7 @@
 
 	"pulseaudio": {
 		"format": "{icon} {volume}%",
-		"format-muted": "",
+		"format-muted": " Muted",
 		"format-icons": {
 			"headphone": "",
 			"hands-free": "",
@@ -105,8 +100,8 @@
 
 	"pulseaudio#microphone": {
 		"format": "{format_source}",
-		"format-source": " {volume}%",
-		"format-source-muted": "",
+		"format-source": " {volume}%",
+		"format-source-muted": " Muted",
 		"on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
 		"on-click-right": "pavucontrol",
 		"on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",

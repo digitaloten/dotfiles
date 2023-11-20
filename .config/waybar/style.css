@@ -4,7 +4,7 @@
 	font-family: "Hack";
 	font-weight: bold;
 	font-size: 16px;
-	min-height: 0;
+	min-height: 16px;
 }
 
 window#waybar {
@@ -14,14 +14,6 @@ window#waybar {
 
 tooltip {
 	background: #1e1e2e;
-	opacity: 0.8;
-	border-radius: 8px;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #11111b;
-}
-
-tooltip label {
 	color: #cdd6f4;
 }
 
@@ -48,6 +40,11 @@ tooltip label {
 	border-radius: 8px;
 	margin-left: 10px;
 	margin-right: 0px;
+}
+
+#workspaces button.active,
+#workspaces button:hover {
+	color: #89b4fa;
 }
 
 #temperature.critical {
