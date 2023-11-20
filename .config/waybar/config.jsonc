@@ -7,7 +7,7 @@
 	"gtk-layer-shell": true,
 	"height": 50,
 	"modules-left": ["hyprland/workspaces", "hyprland/window"],
-	"modules-right": ["tray", "network", "cpu", "memory", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
+	"modules-right": ["tray", "network", "cpu", "memory", "disk", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
 
 	"hyprland/window": {
 		"format": "{}"
@@ -16,14 +16,8 @@
 	"hyprland/workspaces": {
 		"disable-scroll": true,
 		"all-outputs": true,
-		"format": "{name}:{icon}",
+		"format": "{icon} ",
 		"format-icons": {
-			"1": "",
-			"2": "\udb81\ude6f",
-			"3": "",
-			"4": "",
-			"5": "",
-			"6": "\udb80\udcab",
 			"urgent": "",
 			"focused": "",
 			"default": ""
@@ -37,14 +31,20 @@
 
 	"cpu": {
 		"interval": 5,
-		"format": " {}% {max_frequency}GHz",
-		"max-length": 30
+		"format": " {}%",
+		"on-click": "kitty -e btop"
 	},
 
 	"memory": {
 		"interval": 5,
-		"format": " {}% {used:0.1f}GiB/{total:0.1f}GiB",
-		"max-length": 50
+		"format": " {}%",
+		"on-click": "kitty -e btop"
+	},
+
+	"disk": {
+		"interval": 5,
+		"format": " {percentage_used}%",
+		"on-click": "kitty -e btop"
 	},
 
 	"network": {
@@ -60,7 +60,7 @@
 	},
 
 	"clock": {
-		"format": "{: %I:%M %p}",
+		"format": "{:%I:%M %p}",
 		"format-alt": "{: %A, %B %d, %Y %I:%M %p}"
 	},
 
@@ -96,12 +96,20 @@
 			"portable": "",
 			"car": "",
 			"default": ["", "", ""]
-		}
+		},
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click-right": "pavucontrol",
+		"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+		"on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%"
 	},
 
 	"pulseaudio#microphone": {
 		"format": "{format_source}",
 		"format-source": " {volume}%",
-		"format-source-muted": ""
+		"format-source-muted": "",
+		"on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+		"on-click-right": "pavucontrol",
+		"on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
+		"on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%"
 	}
 }
