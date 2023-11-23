@@ -8,6 +8,7 @@ fish_add_path -g ~/.cargo/bin
 
 # Set default editor to vim
 set -Ux EDITOR "nvim"
+set -Ux MANGOHUD 1
 
 # Setup our default FZF command
 set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
@@ -37,31 +38,31 @@ alias ls "exa"
 alias tree "exa --tree"
 
 # Some more ls abbrs
-abbr l  "ls -lF"
-abbr la "ls -aF"
-abbr ll "ls -alF"
+alias l  "ls -lF"
+alias la "ls -aF"
+alias ll "ls -alF"
 
 # I want v to open vi and vi to open vim
-abbr v       "nvim"
-abbr vd      "nvim -d"
-abbr vi      "nvim"
-abbr vim     "nvim"
-abbr vimdiff "nvim -d"
+alias v       "nvim"
+alias vi      "nvim"
+alias vim     "nvim"
+alias vd      "nvim -d"
+alias vimdiff "nvim -d"
 
 # abbr g to git (saves a few key strokes)
-abbr g  "git"
-abbr gg "git status"
+alias g  "git"
+alias gg "git status"
 
 # Kitten ssh
-abbr ksh "kitty +kitten ssh"
+alias ssh "kitten ssh"
 
 # abbr for quiting the command line
-abbr :q  "exit"
-abbr :qa "exit"
-abbr :wq "exit"
-abbr q   "exit"
-abbr qa  "exit"
-abbr wq  "exit"
+alias :q  "exit"
+alias :qa "exit"
+alias :wq "exit"
+alias q   "exit"
+alias qa  "exit"
+alias wq  "exit"
 
 # TokyoNight Color Palette
 set -l foreground c0caf5
