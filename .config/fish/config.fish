@@ -99,8 +99,17 @@ set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $comment
 set -g fish_pager_color_selected_background --background=$selection
 
+# Turn on vi mode for fish
+fish_vi_key_bindings
+
 # Load fzf
 fzf_key_bindings
+
+# Lets bind fzf for our / and ? search
+function fish_user_key_bindings
+	bind -M default / fzf-history-widget
+	bind -M default \? fzf-file-widget
+end
 
 # Load zoxide
 zoxide init fish | source
