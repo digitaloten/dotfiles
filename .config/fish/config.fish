@@ -14,14 +14,14 @@ set -Ux MANGOHUD 1
 set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -Ux FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
 set -Ux FZF_CTRL_T_OPTS     "--preview 'bat -n --color=always {}'"
-set -Ux FZF_DEFAULT_OPTS    "--height 30%"
+set -Ux FZF_DEFAULT_OPTS    "--height 100%"
 
 # Use BAT for our man pages
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-# abbr for zoxide interactive
-abbr zx "zi"
-abbr zz "z -"
+# for zoxide interactive
+alias zx "zi"
+alias zz "z -"
 
 # Replace cat with batcat
 alias cat "bat --plain"
@@ -37,7 +37,7 @@ alias ls "exa"
 # Replace tree command with exa
 alias tree "exa --tree"
 
-# Some more ls abbrs
+# Some more ls
 alias l  "ls -lF"
 alias la "ls -aF"
 alias ll "ls -alF"
@@ -49,14 +49,14 @@ alias vim     "nvim"
 alias vd      "nvim -d"
 alias vimdiff "nvim -d"
 
-# abbr g to git (saves a few key strokes)
+# g to git (saves a few key strokes)
 alias g  "git"
 alias gg "git status"
 
 # Kitten ssh
 alias ssh "kitten ssh"
 
-# abbr for quiting the command line
+# for quiting the command line
 alias :q  "exit"
 alias :qa "exit"
 alias :wq "exit"
@@ -99,11 +99,11 @@ set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $comment
 set -g fish_pager_color_selected_background --background=$selection
 
+# Load fzf
+type -q fzf_key_bindings && fzf_key_bindings
+
 # Turn on vi mode for fish
 fish_vi_key_bindings
-
-# Load fzf
-fzf_key_bindings
 
 # Lets bind fzf for our / and ? search
 function fish_user_key_bindings
