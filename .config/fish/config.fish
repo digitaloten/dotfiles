@@ -7,17 +7,17 @@ fish_add_path -g ~/.local/bin
 fish_add_path -g ~/.cargo/bin
 
 # Set default editor to vim
-set -Ux EDITOR "nvim"
-set -Ux MANGOHUD 1
+set -gx EDITOR "nvim"
+set -gx MANGOHUD 1
 
 # Setup our default FZF command
-set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
-set -Ux FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
-set -Ux FZF_CTRL_T_OPTS     "--preview 'bat -n --color=always {}'"
-set -Ux FZF_DEFAULT_OPTS    "--height 100%"
+set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
+set -gx FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
+set -gx FZF_CTRL_T_OPTS     "--preview 'bat -n --color=always {}'"
+set -gx FZF_DEFAULT_OPTS    "--height 100%"
 
 # Use BAT for our man pages
-set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 # for zoxide interactive
 alias zx "zi"
