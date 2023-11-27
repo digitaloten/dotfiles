@@ -8,7 +8,7 @@ fish_add_path -g ~/.cargo/bin
 
 # Set default editor to vim
 set -gx EDITOR "nvim"
-set -gx MANGOHUD 1
+set -gx MANGOHUD 0
 
 # Setup our default FZF command
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
