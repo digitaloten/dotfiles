@@ -1,7 +1,7 @@
 * {
 	border: none;
 	border-radius: 0;
-	font-family: "Hack";
+	font-family: "Hack", "Roboto", "Font Awesome 6 Free";
 	font-weight: bold;
 	font-size: 16px;
 	min-height: 16px;
@@ -17,20 +17,19 @@ tooltip {
 	color: #cdd6f4;
 }
 
-#custom-lock_screen,
-#custom-power_btn,
-#window,
-#workspaces,
+#battery,
+#clock,
+#cpu,
+#custom-notification,
+#custom-power,
 #disk,
 #memory,
-#clock,
-#custom-notification,
-#cpu,
-#battery,
-#pulseaudio,
 #network,
+#pulseaudio,
+#temperature,
 #tray,
-#temperature {
+#window,
+#workspaces {
 	background: #1e1e2e;
 	opacity: 0.8;
 	padding: 0px 12px;
@@ -40,6 +39,10 @@ tooltip {
 	border-radius: 8px;
 	margin-left: 10px;
 	margin-right: 0px;
+}
+
+#custom-power {
+  color: cyan;
 }
 
 #workspaces button.active,
@@ -53,7 +56,6 @@ tooltip {
 
 #custom-notification {
 	margin-right: 10px;
-	padding-right: 18px;
 }
 
 #pulseaudio {
