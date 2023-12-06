@@ -23,10 +23,7 @@
     "script-fail-notify": true,
     "widgets": [
         "title",
-        "buttons-grid",
         "mpris",
-        "volume",
-        "backlight",
         "dnd",
         "notifications"
     ],
@@ -46,52 +43,6 @@
         "mpris": {
             "image-size": 96,
             "image-radius": 7
-        },
-        "volume": {
-            "label": "󰕾"
-        },
-        "backlight": {
-            "label": "󰃟"
-        },
-        "buttons-grid": {
-            "actions": [
-                {
-                    "label": "󰐥",
-                    "command": "systemctl poweroff"
-                },
-                {
-                    "label": "󰜉",
-                    "command": "systemctl reboot"
-                },
-                {
-                    "label": "󰌾",
-                    "command": "swaylock"
-                },
-                {
-                    "label": "󰍃",
-                    "command": "swaymsg exit"
-                },
-                {
-                    "label": "󰏥",
-                    "command": "systemctl suspend"
-                },
-                {
-                    "label": "󰕾",
-                    "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-                },
-                {
-                    "label": "󰍬",
-                    "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-                },
-                {
-                    "label": "󰖩",
-                    "command": "nm-connection-editor"
-                },
-                {
-                    "label": "󰂯",
-                    "command": "blueman-manager"
-                }
-            ]
         }
     }
 }
