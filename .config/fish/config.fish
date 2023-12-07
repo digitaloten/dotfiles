@@ -12,6 +12,9 @@ set -gx EDITOR nvim
 # Disable MANGOHUD by default
 set -gx MANGOHUD 0
 
+# Add makeflags
+set -gx MAKEFLAGS "-j$(nproc)"
+
 # Setup our default FZF command
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
