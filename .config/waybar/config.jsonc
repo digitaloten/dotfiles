@@ -43,15 +43,17 @@
 	},
 
 	"network": {
-		"format": "{ifname}",
-		"format-wifi": " {essid} ({signalStrength}%)",
-		"format-ethernet": " {ipaddr}/{cidr}",
-		"format-disconnected": "", //An empty format will hide the module.
-		"tooltip-format": "{ifname} via {gwaddr}",
-		"tooltip-format-wifi": "{essid} ({signalStrength}%)",
-		"tooltip-format-ethernet": "{ifname}",
-		"tooltip-format-disconnected": "Disconnected",
-		"max-length": 50
+		"format-icons": {
+			"wifi": "",
+			"ethernet": "",
+			"disconnected": "",
+		},
+		"format": "{icon} {ifname} {bandwidthUpBytes} {bandwidthDownBytes}",
+		"format-wifi": "{icon} {essid} ({signalStrength}%) {bandwidthUpBytes} {bandwidthDownBytes}",
+		"format-ethernet": "{icon} {ipaddr}/{cidr} {bandwidthUpBytes} {bandwidthDownBytes}",
+		"format-disconnected": "{icon} {bandwidthUpBytes} {bandwidthDownBytes}",
+		"max-length": 50,
+		"interval": 1,
 	},
 
 	"clock": {
