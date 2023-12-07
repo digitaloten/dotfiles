@@ -7,24 +7,25 @@ fish_add_path -g ~/.local/bin
 fish_add_path -g ~/.cargo/bin
 
 # Set default editor to vim
-set -gx EDITOR "nvim"
+set -gx EDITOR nvim
+
+# Disable MANGOHUD by default
 set -gx MANGOHUD 0
 
 # Setup our default FZF command
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
-set -gx FZF_CTRL_T_COMMAND  "$FZF_DEFAULT_COMMAND"
-set -gx FZF_CTRL_T_OPTS     "--preview 'bat -n --color=always {}'"
-set -gx FZF_DEFAULT_OPTS    "--height 100%"
-
-# Use BAT for our man pages
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
+set -gx FZF_DEFAULT_OPTS "--height 100%"
 
 # for zoxide interactive
-alias zx "zi"
+alias zx zi
 alias zz "z -"
 
 # Replace cat with batcat
 alias cat "bat --plain"
+alias man batman
+alias less cat
 
 # Replace fish help with command for colorfull help calls
 function help
@@ -32,37 +33,41 @@ function help
 end
 
 # Replace default ls command with exa
-alias ls "exa"
+alias ls exa
 
 # Replace tree command with exa
 alias tree "exa --tree"
 
 # Some more ls
-alias l  "ls -lF"
+alias l "ls -lF"
 alias la "ls -aF"
 alias ll "ls -alF"
 
 # I want v to open vi and vi to open vim
-alias v       "nvim"
-alias vi      "nvim"
-alias vim     "nvim"
-alias vd      "nvim -d"
+alias v nvim
+alias vi nvim
+alias vim nvim
+alias vd "nvim -d"
 alias vimdiff "nvim -d"
 
 # g to git (saves a few key strokes)
-alias g  "git"
+alias g git
+alias ga "git add"
+alias gc "git commit"
 alias gg "git status"
 
-# Kitten ssh
-alias ssh "kitten ssh"
+if type -q kitten
+    # Kitten ssh
+    alias ssh "kitten ssh"
+end
 
 # for quiting the command line
-alias :q  "exit"
-alias :qa "exit"
-alias :wq "exit"
-alias q   "exit"
-alias qa  "exit"
-alias wq  "exit"
+alias :q exit
+alias :qa exit
+alias :wq exit
+alias q exit
+alias qa exit
+alias wq exit
 
 # TokyoNight Color Palette
 set -l foreground c0caf5
@@ -107,8 +112,8 @@ fish_vi_key_bindings
 
 # Lets bind fzf for our / and ? search
 function fish_user_key_bindings
-	bind -M default / fzf-history-widget
-	bind -M default \? fzf-file-widget
+    bind -M default / fzf-history-widget
+    bind -M default \? fzf-file-widget
 end
 
 # Load zoxide
