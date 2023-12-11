@@ -15,6 +15,9 @@ set -gx MANGOHUD 0
 # Add makeflags
 set -gx MAKEFLAGS "-j$(nproc)"
 
+# Make sure QT uses are GTK themes
+set -gx QT_QPA_PLATFORMTHEME gtk2
+
 # Setup our default FZF command
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
@@ -36,7 +39,7 @@ function help
 end
 
 # Replace default ls command with exa
-alias ls exa
+alias ls "exa --group-directories-first"
 
 # Replace tree command with exa
 alias tree "exa --tree"
