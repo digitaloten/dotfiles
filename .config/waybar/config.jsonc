@@ -6,8 +6,9 @@
 	"passthrough": false,
 	"gtk-layer-shell": true,
 	"height": 50,
-	"modules-left": ["custom/power", "hyprland/workspaces", "hyprland/window"],
-	"modules-right": ["tray", "network", "cpu", "memory", "disk", "battery", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
+	"modules-left": ["custom/power", "cpu", "memory", "disk", "battery", "network" ],
+	"modules-center": ["hyprland/workspaces"],
+	"modules-right": ["tray", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
 
 	"hyprland/window": {
 		"format": "{}"
@@ -58,13 +59,14 @@
 
 	"clock": {
 		"format": "{:%I:%M %p}",
-		"format-alt": "{: %A, %B %d, %Y %I:%M %p}"
+		"format-alt": "{: %A, %B %d, %Y %I:%M %p}",
+		"tooltip-format": "{calendar}"
 	},
 
-  "custom/power" : {
-    "format": "",
-    "on-click": "wlogout -p layer-shell"
-  },
+	"custom/power" : {
+		"format": "",
+		"on-click": "wlogout -p layer-shell"
+	},
 
 	"custom/notification": {
 		"tooltip": false,
@@ -83,7 +85,7 @@
 		"exec-if": "which swaync-client",
 		"exec": "swaync-client -swb",
 		"on-click": "sleep 0.1 && swaync-client -t -sw",
-		"on-click-right": "swaync-client -d -sw",
+		"on-click-right": "sleep 0.1 && swaync-client -d -sw",
 		"escape": true
 	},
 
