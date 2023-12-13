@@ -1,6 +1,6 @@
 #!/bin/sh
-chromium
-discord
-teams-for-linux
-thunderbird
-steam
+chromium &
+discord &
+teams-for-linux &
+thunderbird &
+steam &
