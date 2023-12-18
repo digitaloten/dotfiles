@@ -2,7 +2,9 @@
 
 # Where is the DIR for dotfiles?
 DOTFILES="${HOME}/.files"
+DOTFILES_DOTCONFIG="${HOME}/.files/.config"
 TPM="${HOME}/.tmux/plugins/tpm"
+DOTCONFIG="${HOME}/.config"
 
 # Clone dotfiles if we don't have it cloned yet
 # Or update if we have it
@@ -14,36 +16,8 @@ cd $DOTFILES && git checkout main && git pull
 [ -d $TPM ] || git clone https://github.com/tmux-plugins/tpm $TPM
 cd $TPM && git pull && cd $DOTFILES
 
-# Create our base dir structure
-for dir in .config/fish .config/nvim/lua/plugins .config/kitty .config/tmux
-do
-    echo "Creating $HOME/$dir..."
-    mkdir -p $HOME/$dir
-done
+# Backup old .config dir
+[ -d $DOTCONFIG ] || mv $DOTCONFIG "${DOTCONFIG}.bak"
 
-# Copy dotfiles
-for file in .gitconfig .gitignore .config/fish/config.fish .config/starship.toml .config/tmux/tmux.conf
-do
-    echo "Copying $file"
-    cp $file $HOME/$file
-done
-
-# Copy kitty
-for file in .config/kitty/kitty.conf .config/kitty/theme.conf
-do
-    echo "Copying $file"
-    cp $file $HOME/$file
-done
-
-# Copy nvim configs
-for file in .config/nvim/init.lua .config/nvim/lua/main.lua .config/nvim/lua/remap.lua
-do
-    echo "Copying $file"
-    cp $file $HOME/$file
-done
-
-echo "Deleting old .config/nvim/lua/plugins/..."
-rm -rf $HOME/.config/nvim/lua/plugins
-
-echo "Copying new .config/nvim/lua/plugins/..."
-cp -r .config/nvim/lua/plugins $HOME/.config/nvim/lua/plugins
+# Create symlink if we don't have one already
+[ -e $DOTCONFIG ] || ln -s $DOTFILES_DOTCONFIG $DOTCONFIG
