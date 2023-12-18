@@ -17,7 +17,7 @@ cd $DOTFILES && git checkout main && git pull
 cd $TPM && git pull && cd $DOTFILES
 
 # Backup old .config dir
-[ -d $DOTCONFIG ] || mv $DOTCONFIG "${DOTCONFIG}.bak"
+[ -d $DOTCONFIG ] && mv $DOTCONFIG "${DOTCONFIG}.bak"
 
 # Create symlink if we don't have one already
 [ -e $DOTCONFIG ] || ln -s $DOTFILES_DOTCONFIG $DOTCONFIG
