@@ -119,6 +119,9 @@ function fish_user_key_bindings
     bind -M default \? fzf-file-widget
 end
 
+# Load nvm
+load_nvm > /dev/stderr
+
 # Load zoxide
 zoxide init fish | source
 
