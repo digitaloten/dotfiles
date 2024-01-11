@@ -5,6 +5,7 @@ set fish_greeting
 # Set some stuff for out path
 fish_add_path -g ~/.local/bin
 fish_add_path -g ~/.cargo/bin
+fish_add_path -g /opt/homebrew/bin
 
 # Set default editor to vim
 set -gx EDITOR nvim
@@ -118,9 +119,6 @@ function fish_user_key_bindings
     bind -M default / fzf-history-widget
     bind -M default \? fzf-file-widget
 end
-
-# Load nvm
-load_nvm > /dev/stderr
 
 # Load zoxide
 zoxide init fish | source
