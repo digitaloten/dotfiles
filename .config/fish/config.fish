@@ -28,8 +28,12 @@ alias zz "z -"
 
 # Replace cat with batcat
 alias cat "bat --plain"
-alias man batman
 alias less cat
+
+# Replace man with command for colorfull man calls
+function man
+    /usr/bin/man $argv | bat --plain --language=man
+end
 
 # Replace fish help with command for colorfull help calls
 function help
