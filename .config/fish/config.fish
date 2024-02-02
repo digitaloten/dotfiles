@@ -69,14 +69,6 @@ if type -q kitten
     alias ssh "kitten ssh"
 end
 
-# for quiting the command line
-alias :q exit
-alias :qa exit
-alias :wq exit
-alias q exit
-alias qa exit
-alias wq exit
-
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 283457
