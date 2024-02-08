@@ -40,6 +40,9 @@ function help
     $argv --help 2>&1 | bat --plain --language=help
 end
 
+# Add navcoin alias
+alias nav navcoin-cli
+
 # Replace default ls command with exa
 alias ls "exa --group-directories-first"
 
