@@ -1,0 +1,12 @@
+import = [
+    "~/.config/alacritty/macos.toml",
+    "~/.config/alacritty/tokyo-night.toml",
+]
+
+[font]
+size = 16
+
+[window]
+padding = { x = 10, y = 10 }
+dynamic_padding = false
+opacity = 1
