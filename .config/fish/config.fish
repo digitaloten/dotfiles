@@ -67,11 +67,6 @@ alias ga "git add"
 alias gc "git commit"
 alias gg "git status"
 
-if type -q kitten
-    # Kitten ssh
-    alias ssh "kitten ssh"
-end
-
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 283457
