@@ -10,3 +10,6 @@ size = 16
 padding = { x = 10, y = 10 }
 dynamic_padding = false
 opacity = 1
+
+[selection]
+save_to_clipboard = true
