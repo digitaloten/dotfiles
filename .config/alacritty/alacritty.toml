@@ -1,10 +1,12 @@
 import = [
-    "~/.config/alacritty/macos.toml",
     "~/.config/alacritty/tokyo-night.toml",
 ]
 
 [font]
 size = 16
+
+[font.normal]
+family = "Hack Nerd Font"
 
 [window]
 padding = { x = 10, y = 10 }
