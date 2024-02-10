@@ -8,8 +8,12 @@ size = 16
 
 [window]
 padding = { x = 10, y = 10 }
-dynamic_padding = false
+dynamic_padding = true
 opacity = 1
+
+[window.dimensions]
+columns = 128
+lines = 32
 
 [selection]
 save_to_clipboard = true
