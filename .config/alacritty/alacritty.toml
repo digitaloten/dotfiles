@@ -2,6 +2,9 @@ import = [
     "~/.config/alacritty/tokyo-night.toml",
 ]
 
+[env]
+TERM = "xterm-256color"
+
 [font]
 size = 16
 
