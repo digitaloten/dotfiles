@@ -43,11 +43,11 @@ end
 # Add navcoin alias
 alias nav navcoin-cli
 
-# Replace default ls command with exa
-alias ls "exa --group-directories-first"
+# Replace default ls command with eza
+alias ls "eza --group-directories-first"
 
-# Replace tree command with exa
-alias tree "exa --tree"
+# Replace tree command with eza
+alias tree "eza --tree"
 
 # Some more ls
 alias l "ls -lF"
