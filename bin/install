@@ -2,22 +2,19 @@
 
 # Where is the DIR for dotfiles?
 DOTFILES="${HOME}/.files"
-DOTFILES_DOTCONFIG="${HOME}/.files/.config"
 TPM="${HOME}/.tmux/plugins/tpm"
-DOTCONFIG="${HOME}/.config"
 
 # Clone dotfiles if we don't have it cloned yet
 # Or update if we have it
 [ -d $DOTFILES ] || git clone https://github.com/mxaddict/dotfiles.git $DOTFILES
-cd $DOTFILES && git checkout main && git pull
+pushd $DOTFILES
+git pull
+stow --adopt .
+popd
 
 # Clone tpm if we don't have it cloned yet
 # Or update if we have it
 [ -d $TPM ] || git clone https://github.com/tmux-plugins/tpm $TPM
-cd $TPM && git pull && cd $DOTFILES
-
-# Backup old .config dir
-[ ! -L $DOTCONFIG ] && [ -d $DOTCONFIG ] && mv $DOTCONFIG "${DOTCONFIG}.bak" && echo "Backed up old ${DOTCONFIG}"
-
-# Create symlink if we don't have one already
-[ ! -L $DOTCONFIG ] && ln -s $DOTFILES_DOTCONFIG $DOTCONFIG && echo "Created ${DOTCONFIG} -> ${DOTFILES_DOTCONFIG}"
+pushd $TPM
+git pull
+popd
