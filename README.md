@@ -13,7 +13,7 @@
 1. `zoxide` for navigation (alternative to `cd` command)
 
 ## Requirements
-```
+```sh
 # Arch
 paru -S \
     alacritty \
