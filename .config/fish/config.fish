@@ -3,9 +3,10 @@
 set fish_greeting
 
 # Set some stuff for out path
-fish_add_path -g ~/.local/bin
-fish_add_path -g ~/.cargo/bin
 fish_add_path -g /opt/homebrew/bin
+fish_add_path -g ~/.cargo/bin
+fish_add_path -g ~/.files/bin
+fish_add_path -g ~/.local/bin
 
 # Set default editor to vim
 set -gx EDITOR nvim
@@ -25,6 +26,11 @@ set -gx FZF_DEFAULT_OPTS "--height 100%"
 # for zoxide interactive
 alias zx zi
 alias zz "z -"
+
+# Check for batcat
+if command -v batcat > /dev/null
+    alias bat batcat
+end
 
 # Replace cat with batcat
 alias cat "bat --plain"
@@ -60,12 +66,6 @@ alias vi nvim
 alias vim nvim
 alias vd "nvim -d"
 alias vimdiff "nvim -d"
-
-# g to git (saves a few key strokes)
-alias g git
-alias ga "git add"
-alias gc "git commit"
-alias gg "git status"
 
 # TokyoNight Color Palette
 set -l foreground c0caf5
