@@ -23,10 +23,6 @@ set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
 set -gx FZF_DEFAULT_OPTS "--height 100%"
 
-# for zoxide interactive
-alias zx zi
-alias zz "z -"
-
 # Check for batcat
 if command -v batcat > /dev/null
     alias bat batcat
@@ -115,7 +111,7 @@ function fish_user_key_bindings
 end
 
 # Load zoxide
-zoxide init fish | source
+zoxide init fish --cmd cd | source
 
 # Load starship prompt
 starship init fish | source
