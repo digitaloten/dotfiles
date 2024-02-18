@@ -28,19 +28,19 @@
 	"cpu": {
 		"interval": 5,
 		"format": " {usage}%",
-		"on-click": "kitty -e btop"
+		"on-click": "alacritty -e btop"
 	},
 
 	"memory": {
 		"interval": 5,
 		"format": " {}%",
-		"on-click": "kitty -e btop"
+		"on-click": "alacritty -e btop"
 	},
 
 	"disk": {
 		"interval": 5,
 		"format": " {percentage_used}%",
-		"on-click": "kitty -e btop"
+		"on-click": "alacritty -e btop"
 	},
 
 	"network": {
