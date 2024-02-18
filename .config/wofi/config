@@ -16,4 +16,4 @@ gtk_dark=true
 dynamic_lines=true
 layer=overlay
 matching=fuzzy
-term=kitty
+term=alacritty
