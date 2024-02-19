@@ -4,6 +4,7 @@ set fish_greeting
 
 # Set some stuff for out path
 fish_add_path -g /opt/homebrew/bin
+fish_add_path -g /opt/homebrew/opt/llvm/bin
 fish_add_path -g ~/.cargo/bin
 fish_add_path -g ~/.files/bin
 fish_add_path -g ~/.local/bin
