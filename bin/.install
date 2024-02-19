@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Where is the DIR for dotfiles?
 DOTFILES="${HOME}/.files"
