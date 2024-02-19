@@ -3,3 +3,4 @@
 .base16*
 .cache
 compile_commands.json
+.config/fish/fish_variables
