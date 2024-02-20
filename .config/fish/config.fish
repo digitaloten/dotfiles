@@ -29,6 +29,11 @@ if command -v batcat > /dev/null
     alias bat batcat
 end
 
+# Check for exa and alias to eza
+if command -v exa > /dev/null
+    alias eza exa
+end
+
 # Replace cat with batcat
 alias cat "bat --plain"
 alias less cat
