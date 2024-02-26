@@ -6,7 +6,7 @@
 	"passthrough": false,
 	"gtk-layer-shell": true,
 	"height": 50,
-	"modules-left": ["custom/power", "cpu", "memory", "disk", "battery", "network" ],
+	"modules-left": ["cpu", "memory", "disk", "battery", "network"],
 	"modules-center": ["hyprland/workspaces"],
 	"modules-right": ["tray", "pulseaudio", "pulseaudio#microphone", "clock", "custom/notification"],
 
@@ -82,11 +82,6 @@
 			"on-scroll-up": "shift_up",
 			"on-scroll-down": "shift_down"
 		}
-	},
-
-	"custom/power" : {
-		"format": "",
-		"on-click": "wlogout -p layer-shell"
 	},
 
 	"custom/notification": {
