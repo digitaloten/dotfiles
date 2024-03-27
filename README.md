@@ -28,6 +28,39 @@ paru -S \
     stow \
     tmux \
     zoxide
+
+# Mac
+brew install \
+    alacritty \
+    bat \
+    eza \
+    fish \
+    fzf \
+    git \
+    neovim \
+    ripgrep \
+    starship \
+    stow \
+    tmux \
+    zoxide
+
+# Ubuntu 22.04
+curl -sS https://starship.rs/install.sh | sh
+curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository ppa:fish-shell/release-3
+sudo apt install \
+    alacritty \
+    bat \
+    exa \
+    fish \
+    fzf \
+    git \
+    neovim \
+    ripgrep \
+    stow \
+    tmux \
+    zoxide
 ```
 
 ## Installation
