@@ -1,3 +1,6 @@
+# What shell to use?
+shell = "fish"
+
 # TokyoNight Alacritty Colors
 # Default colors
 [colors.primary]
