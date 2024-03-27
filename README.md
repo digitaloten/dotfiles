@@ -50,7 +50,6 @@ curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | 
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo add-apt-repository ppa:fish-shell/release-3
 sudo apt install \
-    alacritty \
     bat \
     exa \
     fish \
