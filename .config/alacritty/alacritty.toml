@@ -1,5 +1,5 @@
 # What shell to use?
-shell = "fish"
+#shell = "fish"
 
 # TokyoNight Alacritty Colors
 # Default colors
