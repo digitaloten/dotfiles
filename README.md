@@ -22,6 +22,7 @@ paru -S \
     fish \
     fzf \
     git \
+    lazygit \
     neovim \
     ripgrep \
     starship \
@@ -37,6 +38,7 @@ brew install \
     fish \
     fzf \
     git \
+    lazygit \
     neovim \
     ripgrep \
     starship \
@@ -55,6 +57,7 @@ sudo apt install \
     fish \
     fzf \
     git \
+    lazygit \
     neovim \
     ripgrep \
     stow \
