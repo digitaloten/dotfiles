@@ -87,3 +87,25 @@ paru -Syu \
     ttf-roboto-mono \
     ttf-roboto-mono-nerd
 ```
+
+## Cursor
+```sh
+paru -Syu bibata-cursor-theme
+```
+
+## Icon Theme
+```sh
+git clone https://github.com/vinceliuice/Colloid-icon-theme.git colloid --depth=1
+cd colloid
+./install.sh
+rm -rf lavanda
+```
+
+## Gtk Theme
+```sh
+paru -Syu gnome-themes-extra gtk-engine-murrine sassc
+git clone https://github.com/vinceliuice/Lavanda-gtk-theme.git lavanda --depth=1
+cd lavanda
+./install.sh
+rm -rf lavanda
+```
