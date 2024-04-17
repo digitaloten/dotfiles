@@ -66,3 +66,15 @@ sudo apt install \
 ```sh
 curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install | bash
 ```
+
+## Fonts
+```sh
+paru -Syu \
+    ttf-hack \
+    ttf-hack-nerd \
+    ttf-noto-emoji-monochrome \
+    ttf-noto-nerd \
+    ttf-roboto \
+    ttf-roboto-mono \
+    ttf-roboto-mono-nerd
+```
