@@ -24,7 +24,9 @@ paru -S \
     git \
     lazygit \
     neovim \
+    nodejs \
     ripgrep \
+    rust \
     starship \
     stow \
     tmux \
@@ -40,7 +42,9 @@ brew install \
     git \
     lazygit \
     neovim \
+    nodejs \
     ripgrep \
+    rust \
     starship \
     stow \
     tmux \
@@ -59,7 +63,9 @@ sudo apt install \
     git \
     lazygit \
     neovim \
+    nodejs \
     ripgrep \
+    rust \
     stow \
     tmux \
     zoxide
