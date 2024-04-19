@@ -13,57 +13,72 @@
 1. `zoxide` for navigation (alternative to `cd` command)
 
 ## Requirements
+
+### Arch
 ```sh
-# Arch
-paru -S \
+paru -Syu \
     alacritty \
     bat \
+    btop \
     eza \
     fish \
     fzf \
     git \
+    go \
     lazygit \
     neovim \
     nodejs \
+    npm \
     ripgrep \
     rust \
     starship \
     stow \
     tmux \
     zoxide
+```
 
-# Mac
+### Mac
+```sh
 brew install \
     alacritty \
     bat \
+    btop \
     eza \
     fish \
     fzf \
     git \
+    go \
     lazygit \
     neovim \
     nodejs \
+    npm \
     ripgrep \
     rust \
     starship \
     stow \
     tmux \
     zoxide
+```
 
-# Ubuntu 22.04
+### Ubuntu 22.04
+```sh
 curl -sS https://starship.rs/install.sh | sh
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo add-apt-repository ppa:fish-shell/release-3
 sudo apt install \
+    alacritty \
     bat \
+    btop \
     exa \
     fish \
     fzf \
     git \
+    go \
     lazygit \
     neovim \
     nodejs \
+    npm \
     ripgrep \
     rust \
     stow \
@@ -76,7 +91,33 @@ sudo apt install \
 curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install | bash
 ```
 
-## Fonts
+## Hyprland...
+
+### NetworkManager (Network)
+```sh
+paru -Syu networkmanager network-manager-applet
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+```
+
+### Bluez (Bluetooth)
+```sh
+paru -Syu blueman bluez
+sudo systemctl enable bluetoothd
+sudo systemctl start bluetoothd
+```
+
+### Pipewire (Audio)
+```sh
+paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol
+```
+
+### Notifications / Wallpaper / Waybar / Lockscreen
+```sh
+paru -Syu hyprpaper waybar swaync swaylock
+```
+
+### Fonts
 ```sh
 paru -Syu \
     ttf-hack \
@@ -85,15 +126,16 @@ paru -Syu \
     ttf-noto-nerd \
     ttf-roboto \
     ttf-roboto-mono \
-    ttf-roboto-mono-nerd
+    ttf-roboto-mono-nerd \
+    ttf-font-awesome
 ```
 
-## Cursor
+### Cursor
 ```sh
 paru -Syu bibata-cursor-theme
 ```
 
-## Icon Theme
+### Icon Theme
 ```sh
 git clone https://github.com/vinceliuice/Colloid-icon-theme.git colloid --depth=1
 cd colloid
@@ -101,9 +143,9 @@ cd colloid
 rm -rf lavanda
 ```
 
-## Gtk Theme
+### Gtk Theme
 ```sh
-paru -Syu gnome-themes-extra gtk-engine-murrine sassc
+paru -Syu gnome-themes-extra gtk-engine-murrine sassc qt6ct
 git clone https://github.com/vinceliuice/Lavanda-gtk-theme.git lavanda --depth=1
 cd lavanda
 ./install.sh
