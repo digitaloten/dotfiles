@@ -38,6 +38,9 @@ end
 alias cat "bat --plain"
 alias less cat
 
+# neofetch
+alias n neofetch
+
 # Replace man with command for colorfull man calls
 function man
     /usr/bin/man $argv | bat --plain --language=man
