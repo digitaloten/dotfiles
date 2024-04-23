@@ -103,13 +103,13 @@ sudo systemctl start NetworkManager
 ### Bluez (Bluetooth)
 ```sh
 paru -Syu blueman bluez
-sudo systemctl enable bluetoothd
-sudo systemctl start bluetoothd
+sudo systemctl enable bluetooth
+sudo systemctl start bluetooth
 ```
 
 ### Pipewire (Audio)
 ```sh
-paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol
+paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
 ```
 
 ### Notifications / Wallpaper / Waybar / Lockscreen
