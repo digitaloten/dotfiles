@@ -140,6 +140,11 @@ paru -Syu \
     ttf-font-awesome
 ```
 
+### Screenshots and Screenrecording
+```sh
+paru -Syu grimblast-git kooha
+```
+
 ### Cursor
 ```sh
 paru -Syu bibata-cursor-theme
