@@ -93,6 +93,16 @@ curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install
 
 ## Hyprland...
 
+### QT support
+```sh
+paru -Syu qt5-wayland qt6-wayland qt5ct qt6ct
+```
+
+### Video Codecs
+```sh
+paru -Syu gst-libav gst-plugins-{base,good,bad,ugly}
+```
+
 ### NetworkManager (Network)
 ```sh
 paru -Syu networkmanager network-manager-applet
