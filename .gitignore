@@ -5,3 +5,5 @@
 compile_commands.json
 .config/fish/fish_variables
 .config/tmux/plugins
+.config/hypr/monitors.conf
+.config/hypr/workspaces.conf
