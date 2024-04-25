@@ -31,6 +31,18 @@
 		"on-click": "alacritty -e btop"
 	},
 
+    "battery": {
+        "states": {
+            "half": 50,
+            "warning": 25,
+            "critical": 15
+        },
+        "format": " {capacity}%",
+        "format-half": " {capacity}%",
+        "format-warning": " {capacity}%",
+        "format-critical": " {capacity}%"
+    },
+
 	"memory": {
 		"interval": 5,
 		"format": " {}%",
@@ -46,20 +58,18 @@
 	"network": {
 		"format-icons": {
 			"wifi": "",
-			"ethernet": "",
-			"disconnected": "",
+			"ethernet": ""
 		},
-		"format": "{icon} {ifname} {bandwidthUpBytes} {bandwidthDownBytes}",
+		"format": " YOU IN THE WOODS?",
 		"format-wifi": "{icon} {essid} ({signalStrength}%) {bandwidthUpBytes} {bandwidthDownBytes}",
 		"format-ethernet": "{icon} {ipaddr}/{cidr} {bandwidthUpBytes} {bandwidthDownBytes}",
-		"format-disconnected": "{icon} {bandwidthUpBytes} {bandwidthDownBytes}",
 		"max-length": 50,
-		"interval": 1,
+		"interval": 1
 	},
 
 	"clock": {
 		"format": "{:%I:%M %p}",
-		"format-alt": "{: %A, %B %d, %Y %I:%M %p}",
+		"format-alt": "{:%A, %B %d, %Y %I:%M %p}",
 		"tooltip-format": "<tt><small>{calendar}</small></tt>",
 		"calendar": {
 			"mode"          : "year",
