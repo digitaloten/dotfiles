@@ -60,22 +60,30 @@ brew install \
     zoxide
 ```
 
-### Ubuntu 22.04
+### Ubuntu 24.04
 ```sh
 curl -sS https://starship.rs/install.sh | sh
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 sudo add-apt-repository ppa:neovim-ppa/unstable
-sudo add-apt-repository ppa:fish-shell/release-3
+```
+
+```sh
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+```
+
+```sh
 sudo apt install \
     alacritty \
     bat \
     btop \
-    exa \
+    eza \
     fish \
     fzf \
     git \
-    go \
-    lazygit \
+    golang \
     neovim \
     nodejs \
     npm \
