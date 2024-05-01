@@ -26,6 +26,7 @@ paru -Syu \
     git \
     go \
     lazygit \
+    neofetch \
     neovim \
     nodejs \
     npm \
@@ -49,6 +50,7 @@ brew install \
     git \
     go \
     lazygit \
+    neofetch \
     neovim \
     nodejs \
     npm \
@@ -84,14 +86,19 @@ sudo apt install \
     fzf \
     git \
     golang \
+    neofetch \
     neovim \
     nodejs \
     npm \
     ripgrep \
-    rust \
+    rustup \
     stow \
     tmux \
     zoxide
+```
+
+```sh
+rustup install stable
 ```
 
 ## Installation
