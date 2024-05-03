@@ -51,6 +51,10 @@ function help
     $argv --help 2>&1 | bat --plain --language=help
 end
 
+# Alias for quick and dirty git commit
+alias gc "git commit -am 'Updates'"
+alias gca "git add . && git commit -m 'Updates'"
+
 # Add navcoin alias
 alias nav navcoin-cli
 
