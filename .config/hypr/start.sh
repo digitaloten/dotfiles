@@ -4,3 +4,4 @@ discord &
 teams-for-linux &
 thunderbird &
 spotify-launcher &
+steam &
