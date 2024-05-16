@@ -132,6 +132,11 @@ sudo systemctl enable bluetooth
 sudo systemctl start bluetooth
 ```
 
+### BIND
+```sh
+paru -Syu bind
+```
+
 ### Pipewire (Audio)
 ```sh
 paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
@@ -139,7 +144,7 @@ paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
 
 ### Notifications / Wallpaper / Waybar / Lockscreen
 ```sh
-paru -Syu hyprpaper waybar swaync swaylock
+paru -Syu hyprpaper waybar swaync hyprlock
 ```
 
 ### Fonts
