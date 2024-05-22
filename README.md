@@ -162,7 +162,7 @@ paru -Syu \
 
 ### Screenshots and Screenrecording
 ```sh
-paru -Syu grimblast-git kooha
+paru -Syu grimblast-git kooha wl-clipboard
 ```
 
 ### Cursor
