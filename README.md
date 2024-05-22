@@ -176,7 +176,7 @@ git clone https://github.com/vinceliuice/Colloid-icon-theme.git colloid --depth=
 cd colloid
 ./install.sh
 cd ..
-rm -rf lavanda
+rm -rf colloid
 ```
 
 ### Gtk Theme
