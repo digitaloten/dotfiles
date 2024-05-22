@@ -175,6 +175,7 @@ paru -Syu bibata-cursor-theme
 git clone https://github.com/vinceliuice/Colloid-icon-theme.git colloid --depth=1
 cd colloid
 ./install.sh
+cd ..
 rm -rf lavanda
 ```
 
@@ -184,5 +185,11 @@ paru -Syu gnome-themes-extra gtk-engine-murrine sassc qt6ct
 git clone https://github.com/vinceliuice/Lavanda-gtk-theme.git lavanda --depth=1
 cd lavanda
 ./install.sh
+cd ..
 rm -rf lavanda
+```
+
+### Util for displays and gtk settings
+```sh
+paru -Syu nwg-displays nwg-look
 ```
