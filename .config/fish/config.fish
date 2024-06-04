@@ -57,8 +57,8 @@ function help
 end
 
 # Alias for quick and dirty git commit
-alias g "git pull; git commit -am 'Updates!'; git push"
-alias gg "git pull; git add .; git commit -m 'Witness me!!!'; git push"
+alias g "git commit -am 'Updates!'; git pull; git push"
+alias gg "git add .; git commit -m 'Witness me!!!'; git pull; git push"
 
 # Add navcoin alias
 alias nav navcoin-cli
