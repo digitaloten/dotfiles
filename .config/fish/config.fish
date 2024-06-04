@@ -38,6 +38,11 @@ end
 alias cat "bat --plain"
 alias less cat
 
+# Replace diff command with a more usefull git command
+function diff
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+end
+
 # neofetch
 alias n neofetch
 
