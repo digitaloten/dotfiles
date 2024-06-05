@@ -6,4 +6,4 @@
 [core]
     excludesfile = ~/.gitignore
 [pull]
-    rebase = true
+    rebase = false
