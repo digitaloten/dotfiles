@@ -43,6 +43,15 @@ function diff
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
 end
 
+# Git typo
+function got
+    echo "Hey! Fat fingers!!!"
+    git $argv
+end
+
+alias gti got
+alias gto got
+
 # neofetch
 alias n neofetch
 
