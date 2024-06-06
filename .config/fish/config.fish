@@ -43,6 +43,20 @@ function diff
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
 end
 
+# Some git shortcuts
+function pull
+    git pull $argv
+end
+function push
+    git push $argv
+end
+function fetch
+    git fetch $argv
+end
+function merge
+    git merge $argv
+end
+
 # Git typo
 function got
     echo "Hey! Fat fingers!!!"
