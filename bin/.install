@@ -8,7 +8,9 @@ TPM="${HOME}/.tmux/plugins/tpm"
 # Or update if we have it
 [ -d $DOTFILES ] || git clone https://github.com/mxaddict/dotfiles.git $DOTFILES
 pushd $DOTFILES
+git stash
 git pull
+git stash pop
 stow --adopt .
 popd
 
