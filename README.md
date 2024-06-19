@@ -150,14 +150,15 @@ paru -Syu hyprpaper waybar swaync hyprlock
 ### Fonts
 ```sh
 paru -Syu \
+    noto-fonts-cjk \
+    ttf-font-awesome \
     ttf-hack \
     ttf-hack-nerd \
     ttf-noto-emoji-monochrome \
     ttf-noto-nerd \
     ttf-roboto \
     ttf-roboto-mono \
-    ttf-roboto-mono-nerd \
-    ttf-font-awesome
+    ttf-roboto-mono-nerd
 ```
 
 ### Screenshots and Screenrecording
