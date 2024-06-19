@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 chromium &
 discord &
 teams-for-linux &
