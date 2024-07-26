@@ -21,12 +21,12 @@ paru -Syu \
     bat \
     btop \
     eza \
+    fastfetch \
     fish \
     fzf \
     git \
     go \
     lazygit \
-    neofetch \
     neovim \
     nodejs \
     npm \
