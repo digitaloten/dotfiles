@@ -54,8 +54,9 @@ alias gti got
 alias gto got
 alias tgi got
 
-# neofetch
-alias n neofetch
+# fastfetch
+alias n fastfetch
+alias f fastfetch
 
 # Replace man with command for colorfull man calls
 function man
