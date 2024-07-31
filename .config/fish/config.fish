@@ -50,6 +50,7 @@ function got
     git $argv
 end
 
+# More git
 alias gti got
 alias gto got
 alias tgi got
@@ -57,6 +58,9 @@ alias tgi got
 # fastfetch
 alias n fastfetch
 alias f fastfetch
+
+# Alias for lazygit
+alias lg lazygit
 
 # Replace man with command for colorfull man calls
 function man
