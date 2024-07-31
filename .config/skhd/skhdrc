@@ -1,0 +1,39 @@
+# Move focus with vim keys
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+
+# Move window position with vim keys
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - h : yabai -m window --warp west
+shift + alt - l : yabai -m window --warp east
+
+# Move window to other workspaces
+shift + alt - 1 : yabai -m window --space 1;
+shift + alt - 2 : yabai -m window --space 2;
+shift + alt - 3 : yabai -m window --space 3;
+shift + alt - 4 : yabai -m window --space 4;
+shift + alt - 5 : yabai -m window --space 5;
+shift + alt - 6 : yabai -m window --space 6;
+shift + alt - 7 : yabai -m window --space 7;
+shift + alt - 8 : yabai -m window --space 8;
+shift + alt - 9 : yabai -m window --space 9;
+shift + alt - 0 : yabai -m window --space 10;
+
+# Fake fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Toggle floating
+alt - v : yabai -m window --toggle 
+
+# Quit/Close window
+alt - q : yabai -m window --close
+
+# Some common shortcuts
+alt - c : alacritty
+alt - e : finder
+alt - r : calculator
+
+shift + alt - r : yabai --restart-service && skhd --restart-service
