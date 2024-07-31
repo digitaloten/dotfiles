@@ -37,3 +37,11 @@ vim.o.completeopt = "menuone,noselect"
 
 -- Turn on term gui colors
 vim.o.termguicolors = true
+
+-- Disable folding for dbout filetype
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dbout",
+    callback = function()
+        vim.opt_local.foldenable = false
+    end,
+})
