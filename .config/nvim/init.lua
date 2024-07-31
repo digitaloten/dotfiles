@@ -87,6 +87,17 @@ require("lazy").setup({
         end
     },
 
+    -- Noice CmdLine
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {},
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        }
+    },
+
     { import = "plugins" },
 }, {})
 
