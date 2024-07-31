@@ -29,8 +29,7 @@ shift + alt - 0 : yabai -m window --space 10;
 alt - f : yabai -m window --toggle zoom-fullscreen
 
 # Toggle floating
-alt - v : yabai -m window --toggle float; \
-          yabai -m window --grid 5:5:1:1:3:3
+alt - v : yabai -m window --toggle float --grid 8:8:1:1:6:6
 
 # Quit/Close window
 alt - q : yabai -m window --close
