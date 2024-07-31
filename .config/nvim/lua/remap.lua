@@ -125,7 +125,10 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open float
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Dismiss Noice Notifications
-vim.keymap.set("n", "<leader>d", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice Notifications" })
+vim.keymap.set("n", "<leader>dm", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice Notifications" })
+
+-- Toggle DBUI for DadBod
+vim.keymap.set("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "Toggle DadBod UI" })
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
