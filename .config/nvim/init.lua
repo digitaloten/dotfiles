@@ -118,6 +118,16 @@ require("lazy").setup({
         }
     },
 
+    -- nvim-notify disable animations
+    {
+        "rcarriga/nvim-notify",
+        event = "VeryLazy",
+        opts = {
+            animate = false,
+            stages = "static",
+        }
+    },
+
     { import = "plugins" },
 }, {})
 
