@@ -48,21 +48,21 @@ require("telescope").setup {
 pcall(require("telescope").load_extension, "fzf")
 
 -- See `:help telescope.builtin`
-vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "Search recent files" })
+vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "Search buffers" })
 vim.keymap.set("n", "<leader>/", function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
         winblend = 10,
         previewer = false,
     })
-end, { desc = "[/] Fuzzily search in current buffer" })
+end, { desc = "Search current buffer" })
 
-vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
-vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "Search files" })
+vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Search help" })
+vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "Search current word" })
+vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "Search by grep" })
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "Search diagnostics" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -151,17 +151,17 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("n", "<leader>m", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss notifications" })
 
 -- Toggle DBUI for DadBod
-vim.keymap.set("n", "<leader>d", "<cmd>DBUIToggle<cr>", { desc = "Toggle DBUI" })
+vim.keymap.set("n", "<leader>d", "<cmd>DBUIToggle<cr>", { desc = "Toggle database client" })
 
 -- Git stuff
-require('gitsigns').setup{
+require('gitsigns').setup {
     on_attach = function()
         local gitsigns = require('gitsigns')
 
         -- Navigation
         vim.keymap.set('n', ']c', function()
             if vim.wo.diff then
-                vim.cmd.normal({']c', bang = true})
+                vim.cmd.normal({ ']c', bang = true })
             else
                 gitsigns.nav_hunk('next')
             end
@@ -169,28 +169,30 @@ require('gitsigns').setup{
 
         vim.keymap.set('n', '[c', function()
             if vim.wo.diff then
-                vim.cmd.normal({'[c', bang = true})
+                vim.cmd.normal({ '[c', bang = true })
             else
                 gitsigns.nav_hunk('prev')
             end
         end)
 
         -- Actions
-        vim.keymap.set('n', '<leader>gr', gitsigns.reset_hunk, { desc = "[G]it [R]eset hunk" })
-        vim.keymap.set('v', '<leader>gr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "[G]it [R]eset hunk" })
-        vim.keymap.set('n', '<leader>gs', gitsigns.stage_hunk, { desc = "[G]it [S]tage hunk" })
-        vim.keymap.set('v', '<leader>gs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "[G]it [S]tage hunk" })
-        vim.keymap.set('n', '<leader>gS', gitsigns.stage_buffer, { desc = "[G]it [S]tage file" })
-        vim.keymap.set('n', '<leader>gR', gitsigns.reset_buffer, { desc = "[G]it [R]eset buffer" })
-        vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { desc = "[G]it [P]review hunk" })
-        vim.keymap.set('n', '<leader>gb', function() gitsigns.blame_line{full=true} end, { desc = "[G]it [S]tage hunk" })
-        vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, { desc = "[G]it [D]iff Line" })
-        vim.keymap.set('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = "[G]it [D]iff File" })
-        vim.keymap.set('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = "[G]it [T]oggle blame line" })
-        vim.keymap.set('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = "[G]it [T]oggle delete" })
+        vim.keymap.set('n', '<leader>gr', gitsigns.reset_hunk, { desc = "Git reset hunk" })
+        vim.keymap.set('v', '<leader>gr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+            { desc = "Git reset hunk" })
+        vim.keymap.set('n', '<leader>gs', gitsigns.stage_hunk, { desc = "Git stage hunk" })
+        vim.keymap.set('v', '<leader>gs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+            { desc = "Git stage hunk" })
+        vim.keymap.set('n', '<leader>gS', gitsigns.stage_buffer, { desc = "Git stage buffer" })
+        vim.keymap.set('n', '<leader>gR', gitsigns.reset_buffer, { desc = "Git reset buffer" })
+        vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { desc = "Git preview hunk" })
+        vim.keymap.set('n', '<leader>gb', gitsigns.blame, { desc = "Git blame" })
+        vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, { desc = "Git diff" })
+        vim.keymap.set('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = "Git diff full" })
+        vim.keymap.set('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = "Git toggle blame line" })
+        vim.keymap.set('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = "Git toggle delete" })
 
         -- Text object
-        vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 
         -- Add commit hook
         vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
