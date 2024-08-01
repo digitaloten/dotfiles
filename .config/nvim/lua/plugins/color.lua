@@ -5,5 +5,6 @@ return { -- Setup tokyonight options
     opts = {
         style = "night",
         transparent = false,
+        plugins = { auto = false },
     },
 }
