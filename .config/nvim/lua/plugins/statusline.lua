@@ -8,5 +8,9 @@ return { -- Set lualine as statusline
             component_separators = "|",
             section_separators = "",
         },
-    },
+
+        tabline = {
+            lualine_a = { "tabs" },
+        },
+    }
 }
