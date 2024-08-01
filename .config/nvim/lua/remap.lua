@@ -11,7 +11,7 @@ vim.keymap.set("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, silent = tr
 -- Mappings for tabs
 vim.keymap.set("n", "<leader>k", "<cmd>tabnext<cr>", { desc = "Next tab" })
 vim.keymap.set("n", "<leader>j", "<cmd>tabprev<cr>", { desc = "Previous tab" })
-vim.keymap.set("n", "<leader>t", "<cmd>tabnew<cr>", { desc = "New tab" })
+vim.keymap.set("n", "<leader>t", "<cmd>tabnew<cr><cmd>Telescope find_files<cr>", { desc = "New tab (Search files)" })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
