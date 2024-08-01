@@ -1,6 +1,6 @@
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function()
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don"t have to repeat yourself
     -- many times.
@@ -28,7 +28,7 @@ local on_attach = function(_, bufnr)
     end, { desc = "Workspace list folders" })
 
     -- Format the current buffer with lsp
-    vim.keymap.set("n", "<leader>F", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
+    vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, { desc = "Format buffer" })
 end
 
 return { -- LSP Configuration & Plugins
