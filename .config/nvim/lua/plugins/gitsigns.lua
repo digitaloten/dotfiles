@@ -3,11 +3,13 @@ return { -- Adds git releated signs to the gutter, as well as utilities for mana
     opts = {
         -- See `:help gitsigns.txt`
         signs = {
-            add = { text = "+" },
-            change = { text = "~" },
-            delete = { text = "_" },
-            topdelete = { text = "‾" },
-            changedelete = { text = "~" },
+            add          = { text = '┃' },
+            change       = { text = '┃' },
+            delete       = { text = '_' },
+            topdelete    = { text = '‾' },
+            changedelete = { text = '~' },
+            untracked    = { text = '┆' },
         },
-    },
+        current_line_blame = false,
+    }
 }
