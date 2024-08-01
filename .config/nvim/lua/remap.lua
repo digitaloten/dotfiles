@@ -198,8 +198,11 @@ require('gitsigns').setup {
 
         -- Text object
         vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-
-        -- Add commit hook
-        vim.keymap.set("n", "<leader>gc", "<cmd>tab Git commit<cr>", { desc = "Git commit" })
     end
 }
+
+-- Add mappings for commit and push
+vim.keymap.set("n", "<leader>gg", "<cmd>tab Git commit<cr>", { desc = "Git commit" })
+vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch --all<cr>", { desc = "Git fetch all" })
+vim.keymap.set("n", "<leader>gj", "<cmd>Git pull<cr>", { desc = "Git pull" })
+vim.keymap.set("n", "<leader>gk", "<cmd>Git push<cr>", { desc = "Git push" })
