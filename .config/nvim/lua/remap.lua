@@ -19,10 +19,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
+local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
+table.insert(vimgrep_arguments, "--hidden")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require("telescope").setup {
     defaults = {
+        vimgrep_arguments = vimgrep_arguments,
         mappings = {
             i = {
                 ["<C-u>"] = false,
@@ -30,6 +36,12 @@ require("telescope").setup {
             },
         },
     },
+
+    pickers = {
+        find_files = {
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" }
+        }
+    }
 }
 
 -- Enable telescope fzf native, if installed

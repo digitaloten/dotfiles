@@ -88,7 +88,7 @@ require("lazy").setup({
         keys = {
             {
                 mode = { 'v', 'n' },
-                '<Leader>n',
+                '<leader>n',
                 '<cmd>MCstart<cr>',
                 desc = 'Create a selection for selected text or word under the cursor',
             },
