@@ -8,6 +8,11 @@ vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 vim.keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
 vim.keymap.set("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
 
+-- Mappings for tabs
+vim.keymap.set("n", "<leader>k", "<cmd>tabnext<cr>", { desc = "Next tab" })
+vim.keymap.set("n", "<leader>j", "<cmd>tabprev<cr>", { desc = "Previous tab" })
+vim.keymap.set("n", "<leader>t", "<cmd>tabnew<cr>", { desc = "New tab" })
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
