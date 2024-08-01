@@ -16,8 +16,8 @@ local on_attach = function()
         { desc = "Workspace symbols" })
 
     -- See `:help K` for why this keymap
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Documentation" })
+    vim.keymap.set("n", "<leader>H", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+    vim.keymap.set("n", "<leader>S", vim.lsp.buf.signature_help, { desc = "Signature Documentation" })
 
     -- Lesser used LSP functionality
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" })
