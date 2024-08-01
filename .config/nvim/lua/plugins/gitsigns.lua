@@ -10,6 +10,6 @@ return { -- Adds git releated signs to the gutter, as well as utilities for mana
             changedelete = { text = '~' },
             untracked    = { text = '┆' },
         },
-        current_line_blame = false,
+        current_line_blame = true,
     }
 }
