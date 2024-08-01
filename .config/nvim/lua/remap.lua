@@ -200,6 +200,6 @@ require('gitsigns').setup {
         vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 
         -- Add commit hook
-        vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
+        vim.keymap.set("n", "<leader>gc", "<cmd>tab Git commit<cr>", { desc = "Git commit" })
     end
 }
