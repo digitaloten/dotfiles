@@ -38,4 +38,3 @@ alt - q : yabai -m window --close
 alt - c : alacritty
 alt - e : open ~
 alt - b : open https://codedmaster.com
-
