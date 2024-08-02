@@ -47,7 +47,6 @@ return { -- LSP Configuration & Plugins
         --  the `settings` field of the server config. You must look up that documentation yourself.
         local servers = {
             clangd = {},
-            gopls = {},
             tsserver = {},
             pyright = {},
             rust_analyzer = {},
