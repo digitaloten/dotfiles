@@ -206,3 +206,6 @@ vim.keymap.set("n", "<leader>gg", "<cmd>tab Git commit<cr>", { desc = "Git commi
 vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch --all<cr>", { desc = "Git fetch all" })
 vim.keymap.set("n", "<leader>gj", "<cmd>Git pull<cr>", { desc = "Git pull" })
 vim.keymap.set("n", "<leader>gk", "<cmd>Git push<cr>", { desc = "Git push" })
+
+-- Add mapping for lazygit
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Lazy Git" })
