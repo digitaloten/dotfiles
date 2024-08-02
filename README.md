@@ -11,6 +11,7 @@
 1. `neovim` for my `$EDITOR`
 1. `ripgrep` for a better `grep` alternative
 1. `starship` for my prompt
+1. `tldr` for a nice short alternative to man pages
 1. `tmux` for my terminal multiplexer
 1. `zoxide` for navigation (alternative to `cd` command)
 
@@ -37,6 +38,7 @@ paru -Syu \
     rust \
     starship \
     stow \
+    tldr \
     tmux \
     zoxide
 ```
@@ -62,6 +64,7 @@ brew install \
     rust \
     starship \
     stow \
+    tldr \
     tmux \
     zoxide
 ```
@@ -98,6 +101,7 @@ sudo apt install \
     ripgrep \
     rustup \
     stow \
+    tldr \
     tmux \
     zoxide
 ```
