@@ -23,6 +23,7 @@ set -gx MAKEFLAGS "-j$(nproc)"
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
+set -gx FZF_ALT_C_COMMAND "fd --type=d --hidden --exclude .git"
 set -gx FZF_DEFAULT_OPTS "--height 100%"
 set -gx PARU_PAGER "bat --color=always"
 
