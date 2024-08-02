@@ -177,3 +177,6 @@ zoxide init fish --cmd cd | source
 
 # Load starship prompt
 starship init fish | source
+
+# Load the fuck
+thefuck --alias | source
