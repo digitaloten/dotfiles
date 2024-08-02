@@ -12,6 +12,7 @@ git stash
 git pull
 git stash pop
 stow --adopt .
+bat cache --build
 popd
 
 # Clone tpm if we don't have it cloned yet
