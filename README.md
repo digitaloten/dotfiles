@@ -3,6 +3,8 @@
 ## Tools
 1. `bat` for `cat` replacement
 1. `eza` for `ls`
+1. `fastfect` for a nice system info command
+1. `fd` for a better `find` alternative
 1. `fish` for my `shell`
 1. `fzf` for fuzzy finder in cli for `history` and files
 1. `git` for `git` duh...
@@ -22,6 +24,7 @@ paru -Syu \
     btop \
     eza \
     fastfetch \
+    fd \
     fish \
     fzf \
     git \
@@ -50,7 +53,8 @@ brew install \
     git \
     go \
     lazygit \
-    neofetch \
+    fastfetch \
+    fd \
     neovim \
     nodejs \
     npm \
@@ -86,7 +90,8 @@ sudo apt install \
     fzf \
     git \
     golang \
-    neofetch \
+    fastfetch \
+    fd \
     neovim \
     nodejs \
     npm \
