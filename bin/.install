@@ -13,6 +13,7 @@ git pull
 git stash pop
 stow --adopt .
 bat cache --build
+fish -c "fisher update"
 popd
 
 # Clone tpm if we don't have it cloned yet

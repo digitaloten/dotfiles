@@ -16,8 +16,11 @@ set -gx EDITOR nvim
 # Disable MANGOHUD by default
 set -gx MANGOHUD 0
 
+# Set JOSBS
+set -gx JOBS "$(nproc)"
+
 # Add makeflags
-set -gx MAKEFLAGS "-j$(nproc)"
+set -gx MAKEFLAGS "-j$JOBS"
 
 # Setup our default FZF command
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden -g '!.git'"
@@ -160,17 +163,11 @@ set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $comment
 set -g fish_pager_color_selected_background --background=$selection
 
-# Load fzf
-type -q fzf_key_bindings && fzf_key_bindings
-
 # Turn on vi mode for fish
 fish_vi_key_bindings
 
-# Lets bind fzf for our / and ? search
-function fish_user_key_bindings
-    bind -M default / fzf-history-widget
-    bind -M default \? fzf-file-widget
-end
+# Load fzf
+type -q fzf_key_bindings && fzf_key_bindings
 
 # Load zoxide
 zoxide init fish --cmd cd | source

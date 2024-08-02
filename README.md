@@ -3,7 +3,8 @@
 ## Tools
 1. `bat` for `cat` replacement
 1. `eza` for `ls`
-1. `fastfect` for a nice system info command
+1. `fastfetch` for a nice system info command
+1. `fisher` for managing fish plugins
 1. `fd` for a better `find` alternative
 1. `fish` for my `shell`
 1. `fzf` for fuzzy finder in cli for `history` and files
@@ -26,6 +27,7 @@ paru -Syu \
     btop \
     eza \
     fastfetch \
+    fisher \
     fd \
     fish \
     fzf \
@@ -58,6 +60,7 @@ brew install \
     go \
     lazygit \
     fastfetch \
+    fisher \
     fd \
     neovim \
     nodejs \
@@ -97,6 +100,7 @@ sudo apt install \
     git \
     golang \
     fastfetch \
+    fisher \
     fd \
     neovim \
     nodejs \
@@ -117,6 +121,11 @@ rustup install stable
 ## Installation
 ```sh
 curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install | bash
+```
+
+## Install fisher plugins
+```sh 
+fisher update
 ```
 
 ## Hyprland...
