@@ -123,11 +123,6 @@ rustup install stable
 curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install | bash
 ```
 
-## Install fisher plugins
-```sh 
-fisher update
-```
-
 ## Hyprland...
 
 ### QT support
