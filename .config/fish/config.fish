@@ -69,6 +69,9 @@ alias less cat
 # Alias fk to fuck command
 alias fk fuck
 
+# Alias for cmatrix
+alias c cmatrix
+
 # Replace diff command with a more usefull git command
 function diff
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
