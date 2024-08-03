@@ -1,72 +1,70 @@
 # Restarting
-cmd + shift - r : yabai --restart-service && skhd --restart-service
+alt + shift - r : yabai --restart-service && skhd --restart-service
 
 # Move focus with vim keys
-cmd - h : yabai -m window --focus west
-cmd - j : yabai -m window --focus south
-cmd - k : yabai -m window --focus north
-cmd - l : yabai -m window --focus east
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
 
 # Move window position with vim keys
-cmd + shift - h : yabai -m window --warp west
-cmd + shift - j : yabai -m window --warp south
-cmd + shift - k : yabai -m window --warp north
-cmd + shift - l : yabai -m window --warp east
+alt + shift - h : yabai -m window --warp west
+alt + shift - j : yabai -m window --warp south
+alt + shift - k : yabai -m window --warp north
+alt + shift - l : yabai -m window --warp east
 
 # Move window to other workspaces
-cmd + shift - 1 : yabai -m window --space 1;
-cmd + shift - 2 : yabai -m window --space 2;
-cmd + shift - 3 : yabai -m window --space 3;
-cmd + shift - 4 : yabai -m window --space 4;
-cmd + shift - 5 : yabai -m window --space 5;
-cmd + shift - 6 : yabai -m window --space 6;
-cmd + shift - 7 : yabai -m window --space 7;
-cmd + shift - 8 : yabai -m window --space 8;
-cmd + shift - 9 : yabai -m window --space 9;
-cmd + shift - 0 : yabai -m window --space 10;
+alt + shift - 1 : yabai -m window --space 1;
+alt + shift - 2 : yabai -m window --space 2;
+alt + shift - 3 : yabai -m window --space 3;
+alt + shift - 4 : yabai -m window --space 4;
+alt + shift - 5 : yabai -m window --space 5;
+alt + shift - 6 : yabai -m window --space 6;
+alt + shift - 7 : yabai -m window --space 7;
+alt + shift - 8 : yabai -m window --space 8;
+alt + shift - 9 : yabai -m window --space 9;
+alt + shift - 0 : yabai -m window --space 10;
 
 # Fake fullscreen
-cmd - f : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
 
 # fullscreen
-cmd + shift - f : skhd -k "ctrl + cmd - f"
+alt + shift - f : skhd -k "ctrl + cmd - f"
 
 # Toggle floating
-cmd - d : yabai -m window --toggle float --grid 8:8:1:1:6:6
+alt - v : yabai -m window --toggle float --grid 8:8:1:1:6:6
 
 # Quit/Close window
-cmd - q : yabai -m window --close
+alt - q : yabai -m window --close
 
 # Some common shortcuts
-cmd - c : alacritty
-cmd - e : open ~
-cmd - b : open https://codedmaster.com
+alt - c : alacritty
+alt - e : open ~
+alt - b : open https://codedmaster.com
 
 # Lockscreen
-cmd - m : skhd -k "ctrl + cmd - q"
+alt - m : skhd -k "ctrl + cmd - q"
+
+# Raycast mapping
+alt - space : skhd -k "cmd - space"
 
 # Clipboard
-ctrl - c  [
-    "*"         : skhd -k "cmd - c" 
-    "alacritty" ~ 
+cmd - c [
+    *           ~
+    "alacritty" : skhd -k "ctrl - c" 
 ]
-ctrl - v  [
-    "*"         : skhd -k "cmd - v" 
-    "alacritty" ~ 
+cmd - v [
+    *           ~
+    "alacritty" : skhd -k "ctrl - v" 
 ]
-ctrl + shift - v : skhd -k "cmd - v"
-ctrl - a : skhd -k "cmd - a" 
-ctrl - x : skhd -k "cmd - x"
-
-# Emulate cmd + w and cmd + t
-ctrl - w : skhd -k "cmd - w"
-ctrl - n : skhd -k "cmd - n"
-
-# Emulate ctrl + t
-ctrl - t  [
-    "*"         : skhd -k "cmd - t"
-    "alacritty" ~ # Disable in alacritty
+cmd - r [
+    *           ~
+    "alacritty" : skhd -k "ctrl - r" 
+]
+cmd + shift - v [
+    *           ~
+    "alacritty" : skhd -k "cmd - v"
 ]
 
 # Emulate ctrl + shift - i
-ctrl + shift - i : skhd -k "cmd + alt - i"
+cmd + shift - i : skhd -k "cmd + alt - i"
