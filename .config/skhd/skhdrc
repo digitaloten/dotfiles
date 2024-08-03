@@ -42,29 +42,39 @@ alt - c : alacritty
 alt - e : open ~
 alt - b : open https://codedmaster.com
 
+# Alt Tab
+alt - tab : skhd -k "cmd - tab"
+
 # Lockscreen
 alt - m : skhd -k "ctrl + cmd - q"
 
 # Raycast mapping
 alt - space : skhd -k "cmd - space"
 
-# Clipboard
-cmd - c [
-    *           ~
-    "alacritty" : skhd -k "ctrl - c" 
+# CONTROL EMULATION
+ctrl - c [
+    *           : skhd -k "cmd - c"
+    "alacritty" ~
 ]
-cmd - v [
-    *           ~
-    "alacritty" : skhd -k "ctrl - v" 
+ctrl - v [
+    *           : skhd -k "cmd - v"
+    "alacritty" ~
 ]
-cmd - r [
-    *           ~
-    "alacritty" : skhd -k "ctrl - r" 
+ctrl - r [
+    *           : skhd -k "cmd - r"
+    "alacritty" ~
 ]
-cmd + shift - v [
-    *           ~
+ctrl + shift - v [
+    *           : skhd -k "cmd + shift - v"
     "alacritty" : skhd -k "cmd - v"
 ]
+ctrl - a : skhd -k "cmd - a"
+ctrl - f : skhd -k "cmd - f"
+ctrl - n : skhd -k "cmd - n"
+ctrl - t : skhd -k "cmd - t"
+ctrl - w : skhd -k "cmd - w"
+ctrl + shift - n : skhd -k "cmd + shift - n"
+ctrl + shift - t : skhd -k "cmd + shift - t"
 
 # Emulate ctrl + shift - i
-cmd + shift - i : skhd -k "cmd + alt - i"
+ctrl + shift - i : skhd -k "cmd + alt - i"
