@@ -10,6 +10,7 @@
 1. `fzf` for fuzzy finder in cli for `history` and files
 1. `git` for `git` duh...
 1. `neovim` for my `$EDITOR`
+1. `rink` for our calculator support
 1. `ripgrep` for a better `grep` alternative
 1. `starship` for my prompt
 1. `thefuck` for quickly fixing typo in commands
@@ -38,6 +39,7 @@ paru -Syu \
     neovim \
     nodejs \
     npm \
+    rink \
     ripgrep \
     rust \
     starship \
