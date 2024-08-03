@@ -50,14 +50,23 @@ ctrl - c  [
     "*"         : skhd -k "cmd - c" 
     "alacritty" ~ 
 ]
+ctrl - v  [
+    "*"         : skhd -k "cmd - v" 
+    "alacritty" ~ 
+]
+ctrl + shift - v : skhd -k "cmd - v"
 ctrl - a : skhd -k "cmd - a" 
-ctrl - v : skhd -k "cmd - v" 
 ctrl - x : skhd -k "cmd - x"
 
 # Emulate cmd + w and cmd + t
 ctrl - w : skhd -k "cmd - w"
-ctrl - t : skhd -k "cmd - t"
 ctrl - n : skhd -k "cmd - n"
+
+# Emulate ctrl + t
+ctrl - t  [
+    "*"         : skhd -k "cmd - t"
+    "alacritty" ~ # Disable in alacritty
+]
 
 # Emulate ctrl + shift - i
 ctrl + shift - i : skhd -k "cmd + alt - i"
