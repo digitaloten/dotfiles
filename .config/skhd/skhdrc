@@ -1,5 +1,5 @@
 # Restarting
-shift + cmd - r : yabai --restart-service && skhd --restart-service
+cmd + shift - r : yabai --restart-service && skhd --restart-service
 
 # Move focus with vim keys
 cmd - h : yabai -m window --focus west
@@ -8,28 +8,28 @@ cmd - k : yabai -m window --focus north
 cmd - l : yabai -m window --focus east
 
 # Move window position with vim keys
-shift + cmd - h : yabai -m window --warp west
-shift + cmd - j : yabai -m window --warp south
-shift + cmd - k : yabai -m window --warp north
-shift + cmd - l : yabai -m window --warp east
+cmd + shift - h : yabai -m window --warp west
+cmd + shift - j : yabai -m window --warp south
+cmd + shift - k : yabai -m window --warp north
+cmd + shift - l : yabai -m window --warp east
 
 # Move window to other workspaces
-shift + cmd - 1 : yabai -m window --space 1;
-shift + cmd - 2 : yabai -m window --space 2;
-shift + cmd - 3 : yabai -m window --space 3;
-shift + cmd - 4 : yabai -m window --space 4;
-shift + cmd - 5 : yabai -m window --space 5;
-shift + cmd - 6 : yabai -m window --space 6;
-shift + cmd - 7 : yabai -m window --space 7;
-shift + cmd - 8 : yabai -m window --space 8;
-shift + cmd - 9 : yabai -m window --space 9;
-shift + cmd - 0 : yabai -m window --space 10;
+cmd + shift - 1 : yabai -m window --space 1;
+cmd + shift - 2 : yabai -m window --space 2;
+cmd + shift - 3 : yabai -m window --space 3;
+cmd + shift - 4 : yabai -m window --space 4;
+cmd + shift - 5 : yabai -m window --space 5;
+cmd + shift - 6 : yabai -m window --space 6;
+cmd + shift - 7 : yabai -m window --space 7;
+cmd + shift - 8 : yabai -m window --space 8;
+cmd + shift - 9 : yabai -m window --space 9;
+cmd + shift - 0 : yabai -m window --space 10;
 
 # Fake fullscreen
 cmd - f : yabai -m window --toggle zoom-fullscreen
 
 # fullscreen
-shift + cmd - f : skhd -k "ctrl + cmd - f"
+cmd + shift - f : skhd -k "ctrl + cmd - f"
 
 # Toggle floating
 cmd - d : yabai -m window --toggle float --grid 8:8:1:1:6:6
