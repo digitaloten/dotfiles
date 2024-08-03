@@ -48,6 +48,9 @@ alt - tab : skhd -k "cmd - tab"
 # Lockscreen
 alt - m : skhd -k "ctrl + cmd - q"
 
+# Screenshots
+alt - p : skhd -k "cmd + shift - 4"
+
 # Raycast mapping
 alt - space : skhd -k "cmd - space"
 
