@@ -54,6 +54,9 @@ alt - p : skhd -k "cmd + shift - 4"
 # Raycast mapping
 alt - space : skhd -k "cmd - space"
 
+# Delete
+alt - backspace : skhd -k "cmd - backspace"
+
 # CONTROL EMULATION
 ctrl - c [
     *           : skhd -k "cmd - c"
@@ -67,6 +70,22 @@ ctrl - r [
     *           : skhd -k "cmd - r"
     "alacritty" ~
 ]
+ctrl - t [
+    *           : skhd -k "cmd - t"
+    "alacritty" ~
+]
+ctrl - z [
+    *           : skhd -k "cmd - z"
+    "alacritty" ~
+]
+ctrl - y [
+    *           : skhd -k "cmd - y"
+    "alacritty" ~
+]
+ctrl - x [
+    *           : skhd -k "cmd - x"
+    "alacritty" ~
+]
 ctrl + shift - v [
     *           : skhd -k "cmd + shift - v"
     "alacritty" : skhd -k "cmd - v"
@@ -74,10 +93,10 @@ ctrl + shift - v [
 ctrl - a : skhd -k "cmd - a"
 ctrl - f : skhd -k "cmd - f"
 ctrl - n : skhd -k "cmd - n"
-ctrl - t : skhd -k "cmd - t"
 ctrl - w : skhd -k "cmd - w"
 ctrl + shift - n : skhd -k "cmd + shift - n"
 ctrl + shift - t : skhd -k "cmd + shift - t"
+ctrl + shift - z : skhd -k "cmd + shift - z"
 
 # Emulate ctrl + shift - i
 ctrl + shift - i : skhd -k "cmd + alt - i"
