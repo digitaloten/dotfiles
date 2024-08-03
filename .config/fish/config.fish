@@ -26,6 +26,7 @@ set -gx MAKEFLAGS "-j$JOBS"
 set -gx PARU_PAGER "bat --color=always"
 
 # FZF theme
+set -gx FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
 set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
     --height 100%
     --highlight-line \
