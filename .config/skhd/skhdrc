@@ -28,6 +28,9 @@ shift + cmd - 0 : yabai -m window --space 10;
 # Fake fullscreen
 cmd - f : yabai -m window --toggle zoom-fullscreen
 
+# fullscreen
+shift + cmd - f : skhd -k "ctrl + cmd - f"
+
 # Toggle floating
 cmd - d : yabai -m window --toggle float --grid 8:8:1:1:6:6
 
@@ -39,6 +42,9 @@ cmd - c : alacritty
 cmd - e : open ~
 cmd - b : open https://codedmaster.com
 
+# Lockscreen
+cmd - m : skhd -k "ctrl + cmd - q"
+
 # Clipboard
 ctrl - c  [
     "*"         : skhd -k "cmd - c" 
@@ -47,3 +53,11 @@ ctrl - c  [
 ctrl - a : skhd -k "cmd - a" 
 ctrl - v : skhd -k "cmd - v" 
 ctrl - x : skhd -k "cmd - x"
+
+# Emulate cmd + w and cmd + t
+ctrl - w : skhd -k "cmd - w"
+ctrl - t : skhd -k "cmd - t"
+ctrl - n : skhd -k "cmd - n"
+
+# Emulate ctrl + shift - i
+ctrl + shift - i : skhd -k "cmd + alt - i"
