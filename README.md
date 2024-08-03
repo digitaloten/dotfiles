@@ -16,7 +16,7 @@
 1. `thefuck` for quickly fixing typo in commands
 1. `tldr` for a nice short alternative to man pages
 1. `tmux` for my terminal multiplexer
-1. `walker` for my launcher
+1. `findex` for my launcher
 1. `zoxide` for navigation (alternative to `cd` command)
 
 ## Requirements
@@ -47,7 +47,7 @@ paru -Syu \
     thefuck \
     tldr \
     tmux \
-    walker \
+    findex \
     zoxide
 ```
 
