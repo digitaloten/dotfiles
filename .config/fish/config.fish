@@ -168,6 +168,14 @@ fish_vi_key_bindings
 # Load fzf
 type -q fzf_key_bindings && fzf_key_bindings
 
+# FZF binds
+fzf_configure_bindings \
+    --directory=\cf \
+    --git_log=\ch \
+    --git_status=\cg \
+    --variables=\cv \
+    --processes=\cp
+
 # Load zoxide
 zoxide init fish --cmd cd | source
 
