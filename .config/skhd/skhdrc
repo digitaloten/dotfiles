@@ -39,7 +39,7 @@ cmd - c : alacritty
 cmd - e : open ~
 cmd - b : open https://codedmaster.com
 
-# # Pass the commands to app for ctrl + alt combos
+# Clipboard
 ctrl - c  [
     "*"         : skhd -k "cmd - c" 
     "alacritty" ~ 
