@@ -34,12 +34,6 @@ table.insert(vimgrep_arguments, "!**/.git/*")
 require("telescope").setup {
     defaults = {
         vimgrep_arguments = vimgrep_arguments,
-        mappings = {
-            i = {
-                ["<C-u>"] = false,
-                ["<C-d>"] = false,
-            },
-        },
     },
 
     pickers = {
@@ -63,11 +57,13 @@ vim.keymap.set("n", "<leader>/", function()
     })
 end, { desc = "Search current buffer" })
 
-vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "Search files" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Search help" })
-vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "Search current word" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "Search by grep" })
-vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "Search diagnostics" })
+vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>fF", require("telescope.builtin").git_files, { desc = "Find files (git repo)" })
+vim.keymap.set("n", "<leader>fd", require("telescope.builtin").live_grep, { desc = "Grep files" })
+vim.keymap.set("n", "<leader>f*", require("telescope.builtin").grep_string, { desc = "Grep current word" })
+vim.keymap.set("n", "<leader>fs", require("telescope.builtin").git_status, { desc = "Find files (git status)" })
+vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, { desc = "Search help" })
+vim.keymap.set("n", "<leader>fD", require("telescope.builtin").diagnostics, { desc = "Search diagnostics" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
