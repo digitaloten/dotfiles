@@ -114,17 +114,15 @@ require("lazy").setup({
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        }
-    },
-
-    -- nvim-notify disable animations
-    {
-        "rcarriga/nvim-notify",
-        event = "VeryLazy",
-        opts = {
-            animate = false,
-            stages = "static",
+            -- nvim-notify disable animations
+            {
+                "rcarriga/nvim-notify",
+                event = "VeryLazy",
+                opts = {
+                    animate = false,
+                    stages = "static",
+                }
+            },
         }
     },
 
