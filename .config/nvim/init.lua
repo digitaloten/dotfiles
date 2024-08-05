@@ -25,16 +25,16 @@ require("lazy").setup({
 
     -- DB Client
     {
-        'kristijanhusak/vim-dadbod-ui',
+        "kristijanhusak/vim-dadbod-ui",
         dependencies = {
-            { 'tpope/vim-dadbod',                     lazy = true },
-            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+            { "tpope/vim-dadbod",                     lazy = true },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
         },
         cmd = {
-            'DBUI',
-            'DBUIToggle',
-            'DBUIAddConnection',
-            'DBUIFindBuffer',
+            "DBUI",
+            "DBUIToggle",
+            "DBUIAddConnection",
+            "DBUIFindBuffer",
         },
         init = function()
             -- Your DBUI configuration
@@ -43,13 +43,13 @@ require("lazy").setup({
     },
 
     -- We need to talk to tmux while navigating
-    { 'christoomey/vim-tmux-navigator' },
+    { "christoomey/vim-tmux-navigator" },
 
     -- What are we pressing
-    { 'folke/which-key.nvim',          opts = {} },
+    { "folke/which-key.nvim",          opts = {} },
 
     -- "gc" to comment visual regions/lines
-    { 'numToStr/Comment.nvim',         opts = {} },
+    { "numToStr/Comment.nvim",         opts = {} },
 
     -- Fuzzy Finder (files, lsp, etc)
     { "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
@@ -81,16 +81,16 @@ require("lazy").setup({
         "smoka7/multicursors.nvim",
         event = "VeryLazy",
         dependencies = {
-            'smoka7/hydra.nvim',
+            "smoka7/hydra.nvim",
         },
         opts = {},
-        cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+        cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
         keys = {
             {
-                mode = { 'v', 'n' },
-                '<leader>n',
-                '<cmd>MCstart<cr>',
-                desc = 'Create a selection for selected text or word under the cursor',
+                mode = { "v", "n" },
+                "<leader>n",
+                "<cmd>MCstart<cr>",
+                desc = "Create a selection for selected text or word under the cursor",
             },
         },
     },

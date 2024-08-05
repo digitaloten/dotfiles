@@ -5,8 +5,8 @@
 vim.keymap.set({ "n", "v" }, "<space>", "<nop>", { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
-vim.keymap.set("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? \"gk\" : \"k\"", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? \"gj\" : \"j\"", { expr = true, silent = true })
 
 -- Mappings for tabs
 vim.keymap.set("n", "<leader>k", "<cmd>tabnext<cr>", { desc = "Next tab" })
@@ -155,45 +155,45 @@ vim.keymap.set("n", "<leader>m", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss noti
 vim.keymap.set("n", "<leader>d", "<cmd>DBUIToggle<cr>", { desc = "Toggle database client" })
 
 -- Git stuff
-require('gitsigns').setup {
+require("gitsigns").setup {
     on_attach = function()
-        local gitsigns = require('gitsigns')
+        local gitsigns = require("gitsigns")
 
         -- Navigation
-        vim.keymap.set('n', ']c', function()
+        vim.keymap.set("n", "]c", function()
             if vim.wo.diff then
-                vim.cmd.normal({ ']c', bang = true })
+                vim.cmd.normal({ "]c", bang = true })
             else
-                gitsigns.nav_hunk('next')
+                gitsigns.nav_hunk("next")
             end
         end)
 
-        vim.keymap.set('n', '[c', function()
+        vim.keymap.set("n", "[c", function()
             if vim.wo.diff then
-                vim.cmd.normal({ '[c', bang = true })
+                vim.cmd.normal({ "[c", bang = true })
             else
-                gitsigns.nav_hunk('prev')
+                gitsigns.nav_hunk("prev")
             end
         end)
 
         -- Actions
-        vim.keymap.set('n', '<leader>gr', gitsigns.reset_hunk, { desc = "Git reset hunk" })
-        vim.keymap.set('v', '<leader>gr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+        vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Git reset hunk" })
+        vim.keymap.set("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
             { desc = "Git reset hunk" })
-        vim.keymap.set('n', '<leader>gs', gitsigns.stage_hunk, { desc = "Git stage hunk" })
-        vim.keymap.set('v', '<leader>gs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end,
+        vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Git stage hunk" })
+        vim.keymap.set("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
             { desc = "Git stage hunk" })
-        vim.keymap.set('n', '<leader>gS', gitsigns.stage_buffer, { desc = "Git stage buffer" })
-        vim.keymap.set('n', '<leader>gR', gitsigns.reset_buffer, { desc = "Git reset buffer" })
-        vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { desc = "Git preview hunk" })
-        vim.keymap.set('n', '<leader>gb', gitsigns.blame, { desc = "Git blame" })
-        vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, { desc = "Git diff" })
-        vim.keymap.set('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = "Git diff full" })
-        vim.keymap.set('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = "Git toggle blame line" })
-        vim.keymap.set('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = "Git toggle delete" })
+        vim.keymap.set("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Git stage buffer" })
+        vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Git reset buffer" })
+        vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Git preview hunk" })
+        vim.keymap.set("n", "<leader>gb", gitsigns.blame, { desc = "Git blame" })
+        vim.keymap.set("n", "<leader>gd", gitsigns.diffthis, { desc = "Git diff" })
+        vim.keymap.set("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "Git diff full" })
+        vim.keymap.set("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "Git toggle blame line" })
+        vim.keymap.set("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "Git toggle delete" })
 
         -- Text object
-        vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
     end
 }
 
