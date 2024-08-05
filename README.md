@@ -2,6 +2,7 @@
 
 ## Tools
 1. `bat` for `cat` replacement
+1. `bear` for creating a `compile_commands.json`
 1. `eza` for `ls`
 1. `fastfetch` for a nice system info command
 1. `fisher` for managing fish plugins
@@ -26,6 +27,7 @@
 paru -Syu \
     alacritty \
     bat \
+    bear \
     btop \
     eza \
     fastfetch \
@@ -56,6 +58,7 @@ paru -Syu \
 brew install \
     alacritty \
     bat \
+    bear \
     btop \
     eza \
     fish \
@@ -97,6 +100,7 @@ sudo install lazygit /usr/local/bin
 sudo apt install \
     alacritty \
     bat \
+    bear \
     btop \
     eza \
     fish \
