@@ -11,8 +11,8 @@ local on_attach = function()
     vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "Goto references" })
     vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "Goto implementation" })
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type definition" })
-    vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, { desc = "Document symbols" })
-    vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
+    vim.keymap.set("n", "<leader>S", require("telescope.builtin").lsp_document_symbols, { desc = "Document symbols" })
+    vim.keymap.set("n", "<leader>W", require("telescope.builtin").lsp_dynamic_workspace_symbols,
         { desc = "Workspace symbols" })
 
     -- See `:help K` for why this keymap
