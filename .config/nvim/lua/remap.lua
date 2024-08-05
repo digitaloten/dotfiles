@@ -204,4 +204,4 @@ vim.keymap.set("n", "<leader>gj", "<cmd>Git pull<cr>", { desc = "Git pull" })
 vim.keymap.set("n", "<leader>gk", "<cmd>Git push<cr>", { desc = "Git push" })
 
 -- Add mapping for lazygit
-vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Lazy Git" })
+vim.keymap.set("n", "<leader>l", "<cmd>LazyGit<cr>", { desc = "Lazy Git" })
