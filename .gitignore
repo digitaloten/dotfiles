@@ -8,3 +8,6 @@ compile_commands.json
 .config/hypr/monitors.conf
 .config/hypr/workspaces.conf
 .config/nvim/lazy-lock.json
+.config/fish/completions/
+.config/fish/conf.d/
+.config/fish/functions/
