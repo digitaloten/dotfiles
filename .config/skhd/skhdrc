@@ -43,7 +43,8 @@ alt - e : open ~
 alt - b : open https://codedmaster.com
 
 # Alt Tab
-alt - tab : skhd -k "cmd - tab"
+alt - tab : yabai -m window --focus next
+alt + shift - tab : yabai -m window --focus prev
 
 # Lockscreen
 alt - m : skhd -k "ctrl + cmd - q"
