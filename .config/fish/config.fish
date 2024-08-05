@@ -185,6 +185,10 @@ if command -v zoxide > /dev/null
     zoxide init fish --cmd cd | source
 end
 
+# Disable ctrl-d for fish quit/exit
+bind --mode insert \cd false
+bind --mode default \cd false
+
 # Load starship prompt
 if command -v starship > /dev/null
     starship init fish | source
