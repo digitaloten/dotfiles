@@ -12,7 +12,7 @@ git stash
 git pull
 git stash pop
 stow --adopt .
-bat cache --build
+bat cache --build | batcat cache --build
 fish -c "fisher update"
 nvim --headless "+Lazy! update" +qa
 popd

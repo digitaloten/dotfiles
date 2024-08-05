@@ -173,7 +173,7 @@ fish_vi_key_bindings
 type -q fzf_key_bindings && fzf_key_bindings
 
 # FZF binds
-fzf_configure_bindings \
+type -q fzf_configure_bindings && fzf_configure_bindings \
     --directory=\cf \
     --git_log=\ch \
     --git_status=\cg \
@@ -181,10 +181,16 @@ fzf_configure_bindings \
     --processes=\cp
 
 # Load zoxide
-zoxide init fish --cmd cd | source
+if command -v zoxide > /dev/null
+    zoxide init fish --cmd cd | source
+end
 
 # Load starship prompt
-starship init fish | source
+if command -v starship > /dev/null
+    starship init fish | source
+end
 
 # Load the fuck
-thefuck --alias | source
+if command -v thefuck > /dev/null
+    thefuck --alias | source
+end
