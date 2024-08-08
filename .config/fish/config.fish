@@ -172,22 +172,22 @@ fish_vi_key_bindings
 # Load fzf
 type -q fzf_key_bindings && fzf_key_bindings
 
+# Disable ctrl-d for fish quit/exit
+bind --mode insert \cd false
+bind --mode default \cd false
+
 # FZF binds
 type -q fzf_configure_bindings && fzf_configure_bindings \
-    --directory=\cf \
+    --directory=\cd \
     --git_log=\ch \
     --git_status=\cg \
-    --variables=\cv \
+    --variables=\cb \
     --processes=\cp
 
 # Load zoxide
 if command -v zoxide > /dev/null
     zoxide init fish --cmd cd | source
 end
-
-# Disable ctrl-d for fish quit/exit
-bind --mode insert \cd false
-bind --mode default \cd false
 
 # Load starship prompt
 if command -v starship > /dev/null
