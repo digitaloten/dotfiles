@@ -12,8 +12,8 @@ git stash
 git pull
 git stash pop
 stow --adopt .
-bat cache --build | batcat cache --build
-fish -c "fisher update"
+fish -c "bat cache --build"
+fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
 nvim --headless "+Lazy! update" +qa
 popd
 
