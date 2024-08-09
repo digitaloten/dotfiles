@@ -1,2 +1,2 @@
 #!/usr/bin/env fish
-gamescope --scaler stretch stretch --fullscreen --steam --nested-refresh 180 --adaptive-sync --immediate-flips --backend sdl --steam -- steam
+gamescope --scaler stretch --fullscreen --steam --nested-refresh 180 --adaptive-sync --immediate-flips --backend sdl --steam -- steam
