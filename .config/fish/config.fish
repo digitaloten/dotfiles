@@ -179,8 +179,8 @@ bind --mode default \cd false
 # FZF binds
 type -q fzf_configure_bindings && fzf_configure_bindings \
     --directory=\cd \
-    --git_log=\ch \
-    --git_status=\cg \
+    --git_log=\cg \
+    --git_status=\cs \
     --variables=\cv \
     --processes=\cp
 
