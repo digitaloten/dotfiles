@@ -24,7 +24,7 @@
 
 ### Arch
 ```sh
-paru -Syu \
+paru -S \
     alacritty \
     bat \
     bear \
@@ -135,46 +135,46 @@ curl -sS https://raw.githubusercontent.com/mxaddict/dotfiles/master/bin/.install
 
 ### QT support
 ```sh
-paru -Syu qt5-wayland qt6-wayland qt5ct qt6ct
+paru -S qt5-wayland qt6-wayland qt5ct qt6ct
 ```
 
 ### Video Codecs
 ```sh
-paru -Syu gst-libav gst-plugins-{base,good,bad,ugly}
+paru -S gst-libav gst-plugins-{base,good,bad,ugly}
 ```
 
 ### NetworkManager (Network)
 ```sh
-paru -Syu networkmanager network-manager-applet
+paru -S networkmanager network-manager-applet
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
 ```
 
 ### Bluez (Bluetooth)
 ```sh
-paru -Syu blueman bluez
+paru -S blueman bluez
 sudo systemctl enable bluetooth
 sudo systemctl start bluetooth
 ```
 
 ### BIND
 ```sh
-paru -Syu bind
+paru -S bind
 ```
 
 ### Pipewire (Audio)
 ```sh
-paru -Syu pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
+paru -S pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
 ```
 
-### Notifications / Wallpaper / Waybar / Lockscreen
+### Notifications / Wallpaper / Waybar / Lockscreen / Color Picker
 ```sh
-paru -Syu hyprpaper waybar swaync hyprlock
+paru -S hyprpaper waybar swaync hyprlock
 ```
 
 ### Fonts
 ```sh
-paru -Syu \
+paru -S \
     noto-fonts-cjk \
     ttf-font-awesome \
     ttf-hack \
@@ -186,14 +186,14 @@ paru -Syu \
     ttf-roboto-mono-nerd
 ```
 
-### Screenshots and Screenrecording
+### Colorpicker, Screenshots and Screenrecording
 ```sh
-paru -Syu grimblast-git kooha wl-clipboard
+paru -S grimblast-git kooha wl-clipboard hyprpicker
 ```
 
 ### Cursor
 ```sh
-paru -Syu bibata-cursor-theme
+paru -S bibata-cursor-theme
 ```
 
 ### Icon Theme
@@ -207,7 +207,7 @@ rm -rf colloid
 
 ### Gtk Theme
 ```sh
-paru -Syu gnome-themes-extra gtk-engine-murrine sassc qt6ct
+paru -S gnome-themes-extra gtk-engine-murrine sassc qt6ct
 git clone https://github.com/vinceliuice/Lavanda-gtk-theme.git lavanda --depth=1
 cd lavanda
 ./install.sh
@@ -217,5 +217,5 @@ rm -rf lavanda
 
 ### Util for displays and gtk settings
 ```sh
-paru -Syu nwg-displays nwg-look
+paru -S nwg-displays nwg-look
 ```
