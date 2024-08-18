@@ -123,6 +123,9 @@ alias l "ls -lF"
 alias la "ls -aF"
 alias ll "ls -alF"
 
+# Clear alias
+alias cl clear
+
 # I want v to open vi and vi to open vim
 alias v nvim
 alias vi nvim
