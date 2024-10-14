@@ -107,7 +107,15 @@ end
 
 # Alias for quick and dirty git commit
 alias g "git commit -am 'Updates!'; git pull; git push"
-alias gg "git add .; git commit -m 'Witness me!!!'; git pull; git push"
+alias gg "git add .; git commit -m '
+ _______________
+< Witness me!!! >
+ ---------------
+        \   ^__^
+         \  (\$\$)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||'; git pull; git push"
 
 # Add navcoin alias
 alias nav navcoin-cli
