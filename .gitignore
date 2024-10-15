@@ -1,4 +1,5 @@
 *~
+*.log
 *.gpg
 .base16*
 .cache
