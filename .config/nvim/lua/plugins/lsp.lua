@@ -47,10 +47,10 @@ return { -- LSP Configuration & Plugins
         --  the `settings` field of the server config. You must look up that documentation yourself.
         local servers = {
             clangd = {},
-            tsserver = {},
-            pyright = {},
             rust_analyzer = {},
             intelephense = {},
+            ts_ls = {},
+            pyright = {},
 
             lua_ls = {
                 Lua = {
