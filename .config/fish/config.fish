@@ -88,10 +88,13 @@ end
 alias gti got
 alias gto got
 alias tgi got
+alias gut got
+alias fur got
+alias hot got
 
 # fastfetch
-alias n fastfetch
 alias f fastfetch
+alias ff fastfetch
 
 # Alias for lazygit
 alias lg lazygit
