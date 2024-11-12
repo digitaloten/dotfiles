@@ -419,8 +419,6 @@ require("lazy").setup({
         },
         build = ":TSUpdate",
     },
-
-    { import = "plugins" },
 }, {})
 
 -- Load the main config
