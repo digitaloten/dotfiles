@@ -64,6 +64,7 @@ vim.keymap.set("n", "<leader>f*", require("telescope.builtin").grep_string, { de
 vim.keymap.set("n", "<leader>fs", require("telescope.builtin").git_status, { desc = "Find files (git status)" })
 vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, { desc = "Search help" })
 vim.keymap.set("n", "<leader>fD", require("telescope.builtin").diagnostics, { desc = "Search diagnostics" })
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Search TODO list" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
