@@ -18,7 +18,7 @@ ssh_only = false
 format = '[$hostname](bold red):'
 
 [directory]
-truncate_to_repo = false
+truncate_to_repo = true
 
 [git_branch]
 symbol = ' '
