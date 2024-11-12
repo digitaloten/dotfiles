@@ -1,6 +1,5 @@
 # .files
 
-
 ## Tools
 1. `bat` for `cat` replacement
 1. `bear` for creating a `compile_commands.json`
