@@ -51,6 +51,3 @@ require("lazy").setup({
     },
   },
 })
-
--- Disable phpcs linter
-require("lint").linters_by_ft.php = {}
