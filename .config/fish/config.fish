@@ -110,8 +110,8 @@ function help
 end
 
 # Alias for quick and dirty git commit
-alias g "git commit -am '(quoty)'; git pull; git push"
-alias gg "git add .; git commit -m '(quoty)'; git pull; git push"
+alias g 'git commit -am "$(quoty)"; git pull; git push'
+alias gg 'git add . && git commit -m "$(quoty)"; git pull; git push'
 
 # Add navcoin alias
 alias nav navcoin-cli
