@@ -1,9 +1,9 @@
 [user]
-    name = mxaddict
-    email = mxaddict@codedmaster.com
+	name = mxaddict
+	email = mxaddict@kryptic.sh
 [color]
-    ui = true
+	ui = true
 [core]
-    excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
 [pull]
-    rebase = false
+	rebase = false
