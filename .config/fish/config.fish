@@ -54,12 +54,12 @@ set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
     "
 
 # Check for batcat
-if command -v batcat > /dev/null
+if command -v batcat >/dev/null
     alias bat batcat
 end
 
 # Check for exa and alias to eza
-if command -v exa > /dev/null
+if command -v exa >/dev/null
     alias eza exa
 end
 
@@ -110,8 +110,8 @@ function help
 end
 
 # Alias for quick and dirty git commit
-alias g "git commit -am 'updates'; git pull; git push"
-alias gg "git add .; git commit -m 'WITNESS US'; git pull; git push"
+alias g "git commit -am '(quoty)'; git pull; git push"
+alias gg "git add .; git commit -m '(quoty)'; git pull; git push"
 
 # Add navcoin alias
 alias nav navcoin-cli
@@ -192,16 +192,16 @@ type -q fzf_configure_bindings && fzf_configure_bindings \
     --processes=\cp
 
 # Load zoxide
-if command -v zoxide > /dev/null
+if command -v zoxide >/dev/null
     zoxide init fish --cmd cd | source
 end
 
 # Load starship prompt
-if command -v starship > /dev/null
+if command -v starship >/dev/null
     starship init fish | source
 end
 
 # Load the fuck
-if command -v thefuck > /dev/null
+if command -v thefuck >/dev/null
     thefuck --alias | source
 end

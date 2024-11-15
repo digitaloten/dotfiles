@@ -13,6 +13,7 @@
 1. `fzf` for fuzzy finder in cli for `history` and files
 1. `git` for `git` duh...
 1. `neovim` for my `$EDITOR`
+1. `quoty` for random programmer quotes to use with commit messages
 1. `rink` for our calculator support
 1. `ripgrep` for a better `grep` alternative
 1. `starship` for my prompt
@@ -22,6 +23,12 @@
 1. `zoxide` for navigation (alternative to `cd` command)
 
 ## Requirements
+
+### Quoty (via Cargo)
+
+```sh
+cargo install quoty
+```
 
 ### Arch
 
