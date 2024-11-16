@@ -94,6 +94,7 @@ brew install \
 ```sh
 curl -sS https://starship.rs/install.sh | sh
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+sudo apt-add-repository ppa:fish-shell/release-3
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
 ```
