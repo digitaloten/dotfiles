@@ -67,9 +67,6 @@ end
 alias cat "bat --plain"
 alias less cat
 
-# Alias fk to fuck command
-alias fk fuck
-
 # Alias for cmatrix
 alias c cmatrix
 
