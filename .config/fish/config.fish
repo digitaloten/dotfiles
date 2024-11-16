@@ -113,6 +113,9 @@ end
 alias g 'git commit -am "$(quoty)"; git pull; git push'
 alias gg 'git add . && git commit -m "$(quoty)"; git pull; git push'
 
+# Alias for kweri
+alias q kweri
+
 # Add navcoin alias
 alias nav navcoin-cli
 
