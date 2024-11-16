@@ -6,7 +6,7 @@ TPM="${HOME}/.config/tmux/plugins/tpm"
 
 # Clone dotfiles if we don't have it cloned yet
 # Or update if we have it
-[ -d $DOTFILES ] || git clone https://github.com/mxaddict/dotfiles.git "$DOTFILES"
+[ -d "$DOTFILES" ] || git clone https://github.com/mxaddict/dotfiles.git "$DOTFILES"
 pushd "$DOTFILES" || exit
 git stash
 git pull
