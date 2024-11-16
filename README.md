@@ -41,7 +41,6 @@ paru -S \
     btop \
     eza \
     fastfetch \
-    fisher \
     fd \
     fish \
     fzf \
@@ -77,7 +76,6 @@ brew install \
     go \
     lazygit \
     fastfetch \
-    fisher \
     fd \
     neovim \
     nodejs \
@@ -97,6 +95,7 @@ brew install \
 curl -sS https://starship.rs/install.sh | sh
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
 ```
 
 ```sh
@@ -118,8 +117,7 @@ sudo apt install \
     git \
     golang \
     fastfetch \
-    fisher \
-    fd \
+    fd-find \
     neovim \
     nodejs \
     npm \
