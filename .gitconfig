@@ -7,3 +7,5 @@
 	excludesfile = ~/.gitignore
 [pull]
 	rebase = false
+[commit]
+	gpgsign = false

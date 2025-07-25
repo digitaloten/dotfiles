@@ -4,6 +4,7 @@
 *~
 .base16*
 .cache
+*.lock
 .config/fish/completions/
 .config/fish/conf.d/
 .config/fish/fish_variables
@@ -13,4 +14,7 @@
 .config/nvim/lazy-lock.json
 .config/tmux/plugins
 .config/gtk-3.0/assets
+.config/qutebrowser/autoconfig.yml
+.config/qutebrowser/qsettings/QtProject.conf
+.config/qutebrowser/bookmarks/urls
 compile_commands.json
