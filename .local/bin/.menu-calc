@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# vi: ft=bash
+
+rofi_kill() {
+    pkill rofi
+}
+
+rofi_kill && exit 0
+
+history="$HOME/.local/share/qalc.history"
+if [ ! -f "$history" ]; then
+    touch "$history"
+fi
+
+qalc -e "1 BTC" &
+
+last_rofi=""
+qalc_ret=""
+while :; do
+    rofi_ret=$(tac "$history" | head -5000 | rofi -case-smart -dmenu -p Calc)
+
+    rtrn=$?
+
+    if test "$rtrn" = "0"; then
+        if [[ "$rofi_ret" =~ .*=.* ]]; then
+            result=$(echo "$rofi_ret" | awk "{'print $NF'}")
+            wl-copy "$result"
+            exit 0
+        else
+            qalc_ret=$(qalc "$rofi_ret")
+            last_rofi=$rofi_ret
+            echo "$qalc_ret" >>"$history"
+        fi
+    else
+        if [ -n "$last_rofi" ]; then
+            result=$(qalc -t "$last_rofi")
+            wl-copy "$result"
+        fi
+        exit 0
+    fi
+done

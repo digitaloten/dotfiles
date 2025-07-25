@@ -1,0 +1,235 @@
+#!/usr/bin/env sh
+# vi: ft=sh
+
+if command -v pacman >/dev/null; then
+    if ! command -v paru >/dev/null; then
+        sudo pacman -S base-devel rustup git
+        rustup install stable
+        rustup default stable
+        git clone https://aur.archlinux.org/paru.git /tmp/paru
+        pwd=$(pwd)
+        cd /tmp/paru || exit
+        makepkg -si
+        cd "$pwd" || exit
+    fi
+
+    sudo rm /etc/ly/config.ini
+    sudo rm /usr/lib/systemd/system/ly.service
+
+    paru -S --needed \
+        adw-gtk-theme \
+        alacritty \
+        alsa-firmware \
+        alsa-utils \
+        avahi \
+        bat \
+        bear \
+        bind \
+        blueman \
+        bluez \
+        bluez-utils \
+        breeze \
+        brightnessctl \
+        btop \
+        chromium \
+        cronie \
+        curl \
+        duf \
+        dysk \
+        ethtool \
+        eza \
+        fastfetch \
+        fd \
+        firefox \
+        fish \
+        fprintd \
+        fzf \
+        git \
+        gnu-free-fonts \
+        grimblast-git \
+        gst-libav \
+        gst-plugins-bad \
+        gst-plugins-base \
+        gst-plugins-good \
+        gst-plugins-ugly \
+        hypridle \
+        hyprland \
+        hyprlock \
+        hyprpaper \
+        hyprpicker \
+        hyprpolkitagent \
+        kanata \
+        kooha \
+        lazygit \
+        libadwaita \
+        ly \
+        man-db \
+        nautilus \
+        neovim \
+        networkmanager \
+        nmap \
+        nodejs \
+        noto-fonts-cjk \
+        noto-fonts-emoji \
+        npm \
+        nwg-displays \
+        papirus-icon-theme \
+        pass \
+        pass-otp \
+        pavucontrol \
+        pipewire \
+        pipewire-alsa \
+        pipewire-pulse \
+        python-tldextract \
+        qalculate-qt \
+        qt5-wayland \
+        qt5ct \
+        qt6-wayland \
+        qt6-webengine-widevine \
+        qt6ct \
+        qutebrowser \
+        ripgrep \
+        rofi-wayland \
+        rustup \
+        sof-firmware \
+        starship \
+        stow \
+        swaync \
+        swayosd \
+        tealdeer \
+        terminus-font \
+        thunderbird \
+        tlp \
+        tmux \
+        ttf-font-awesome \
+        ttf-hack \
+        ttf-hack-nerd \
+        ttf-noto-nerd \
+        ttf-roboto \
+        ttf-roboto-mono \
+        ttf-roboto-mono-nerd \
+        ufw \
+        unzip \
+        waybar \
+        wget \
+        wireless-regdb \
+        wireplumber \
+        wl-clipboard \
+        xdg-desktop-portal-hyprland \
+        zerotier-one \
+        zoxide
+
+    sudo cp "$HOME/.files/.root/etc/kanata.kbd" /etc/kanata.kbd
+    sudo cp "$HOME/.files/.root/etc/ly/config.ini" /etc/ly/config.ini
+    sudo cp "$HOME/.files/.root/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
+    sudo cp "$HOME/.files/.root/etc/systemd/logind.conf" /etc/systemd/logind.conf
+    sudo cp "$HOME/.files/.root/etc/systemd/sleep.conf" /etc/systemd/sleep.conf
+    sudo cp "$HOME/.files/.root/etc/tlp.conf" /etc/tlp.conf
+    sudo cp "$HOME/.files/.root/etc/vconsole.conf" /etc/vconsole.conf
+    sudo cp "$HOME/.files/.root/usr/lib/systemd/system/ly.service" /usr/lib/systemd/system/ly.service
+
+    sudo mkinitcpio -P
+
+    sudo systemctl mask systemd-rfkill.socket
+    sudo systemctl mask systemd-rfkill.service
+    sudo systemctl mask power-profiles-daemon.service
+    sudo systemctl disable display-manager.service
+
+    sudo systemctl enable kanata
+    sudo systemctl enable ly.service
+    sudo systemctl enable bluetooth
+    sudo systemctl enable NetworkManager
+    sudo systemctl enable NetworkManager-dispatcher
+    sudo systemctl enable ufw
+    sudo systemctl enable tlp
+    sudo systemctl enable avahi-daemon
+
+    sudo ufw allow ssh
+    sudo ufw allow mdns
+    sudo ufw allow 9993/udp                                   # zerotier port
+    sudo ufw allow proto udp from any to any port 27031:27036 # steam
+    sudo ufw allow proto tcp from any to any port 27040       # steam
+
+    sudo ufw enable
+    sudo ufw status
+fi
+
+if command -v brew >/dev/null; then
+    brew install \
+        alacritty \
+        bat \
+        bear \
+        btop \
+        eza \
+        fastfetch \
+        fd \
+        fish \
+        fzf \
+        git \
+        lazygit \
+        neovim \
+        nodejs \
+        npm \
+        ripgrep \
+        rust \
+        starship \
+        stow \
+        tldr \
+        tmux \
+        ufw \
+        unzip \
+        zoxide
+
+    rustup install stable
+    rustup default stable
+fi
+
+if command -v apt >/dev/null; then
+    [ -f /etc/apt/sources.list.d/fish-shell-ubuntu-release-3-noble.sources ] || sudo apt-add-repository ppa:fish-shell/release-3
+    [ -f /etc/apt/sources.list.d/neovim-ppa-ubuntu-unstable-noble.sources ] || sudo add-apt-repository ppa:neovim-ppa/unstable
+    [ -f /etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-noble.sources ] || sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+    sudo apt update
+
+    sudo apt install \
+        alacritty \
+        bat \
+        bear \
+        btop \
+        duf \
+        eza \
+        fastfetch \
+        fd-find \
+        fish \
+        fzf \
+        git \
+        libssl-dev \
+        neovim \
+        nodejs \
+        npm \
+        pkg-config \
+        python3 \
+        python3-venv \
+        ripgrep \
+        rustup \
+        stow \
+        tldr \
+        tmux \
+        unzip
+
+    curl -sS https://starship.rs/install.sh | sh
+    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm -rf lazygit lazygit.tar.gz
+fi
+
+rustup install stable
+rustup default stable
+
+cargo install quoty
+cargo install kweri
+
+touch "$HOME/.files/.deps.lock"

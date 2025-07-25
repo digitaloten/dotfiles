@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# vi: ft=bash
+
+actions="Lock
+Sleep
+Hibernate
+Shutdown
+Logout
+Reboot"
+action=$(pkill rofi || echo "$actions" | rofi -case-smart -dmenu -p Action -l 6 -theme-str "window { width: 300; }")
+
+cmd="echo Zzz"
+
+case $action in
+Lock)
+    cmd="loginctl lock-session"
+    ;;
+Sleep)
+    cmd="systemctl sleep"
+    ;;
+Hibernate)
+    cmd="systemctl hibernate"
+    ;;
+Shutdown)
+    cmd="poweroff"
+    ;;
+Logout)
+    cmd="hyprctl dispatch exit"
+    ;;
+Reboot)
+    cmd="reboot"
+    ;;
+*) ;;
+esac
+
+eval "$cmd"

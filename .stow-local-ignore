@@ -1,5 +1,6 @@
 .git
 .root
+.deps.lock
 FIREWALL.md
 README.md
 SUSPEND.md
