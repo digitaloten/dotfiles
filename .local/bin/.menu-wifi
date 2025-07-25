@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# vi: ft=bash
+
+pkill -9 nmcli
+
+rofi_kill() {
+    pkill -9 rofi
+}
+
+rofi_kill && exit 0
+
+lock=
+
+width=600
+rofi_cmd="rofi -case-smart -dmenu -theme-str 'window { width: $width; }'"
+
+rofi -e "Sniffing Wi-Fi..." -theme-str "window { width: $width; }" &
+
+ssids=$(nmcli -g ssid device wifi list | sort | uniq)
+ssid_active=$(nmcli -g active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+
+list=$(
+    while IFS= read -r ssid; do
+        if [[ $ssid == "SSID" || $ssid == "--" || $ssid == "" ]]; then
+            continue
+        fi
+        bars=$(nmcli -g ssid,bars device wifi list | grep -w -F "$ssid" | head -n 1 | cut -d : -f2 | sed 's/*/█/g')
+        signal=$(nmcli -g ssid,signal device wifi list | grep -w -F "$ssid" | head -n 1 | cut -d : -f2)
+        security=$(nmcli -g ssid,security device wifi list | grep -w -F "$ssid" | head -n 1 | cut -d : -f2 | sed 's/WPA[1]//g' | xargs)
+        icon=""
+        if [[ $security != "" ]]; then
+            icon=$lock
+        fi
+        echo "$signal:\"$ssid\":$bars ($signal%):$icon"
+    done <<<"$ssids"
+)
+
+list=$(echo "$list" | sort -k1 -nr | cut -d : -f2- | column -t -s :)
+wifi=$(rofi_kill && echo "$list" | eval "$rofi_cmd -p Wi-Fi")
+ssid=$(echo "$wifi" | cut -d '"' -f2)
+security=$(echo "$wifi" | cut -d '"' -f3 | awk '{print $3}')
+
+if [[ $ssid == "" || $ssid == "$ssid_active" ]]; then
+    exit
+fi
+
+connection=$(nmcli connection show | grep "wifi" | grep -w -F "$ssid" | awk '{print $1}' | head -n 1)
+if [[ -n "$connection" ]]; then
+    nmcli connection up "$ssid"
+    exit
+fi
+
+if [[ $security == "" ]]; then
+    nmcli device wifi connect "$ssid"
+    exit
+fi
+
+password=$(echo "" | eval "$rofi_cmd -p Password -password -l 0 -theme-str 'window { width: $width; children: [inputbar]; }'" | xargs)
+if [[ -z $password ]]; then
+    exit
+fi
+
+nmcli connection add type wifi con-name "$ssid" ssid "$ssid" wifi-sec.key-mgmt wpa-psk wifi-sec.psk "$password"

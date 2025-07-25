@@ -6,6 +6,7 @@ set fish_greeting
 fish_add_path -g ~/.cargo/bin
 fish_add_path -g ~/.local/bin
 fish_add_path -g ~/.config/composer/vendor/bin
+fish_add_path -g ~/.local/share/nvim/mason/bin
 fish_add_path -g /opt/homebrew/bin
 fish_add_path -g /opt/homebrew/opt/m4/bin
 fish_add_path -g /opt/homebrew/opt/llvm/bin
@@ -15,6 +16,9 @@ set -gx EDITOR nvim
 
 # Disable MANGOHUD by default
 set -gx MANGOHUD 0
+
+# Disable php_cs_fixer Check
+set -gx PHP_CS_FIXER_IGNORE_ENV 1
 
 # Set JOSBS
 set -gx JOBS "$(nproc)"
