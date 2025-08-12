@@ -1,6 +1,7 @@
 [user]
 	name = shinobu
 	email = francis.yap@everymatrix.com
+	signingkey = pekora@usada.io
 [color]
 	ui = true
 [core]
@@ -8,4 +9,6 @@
 [pull]
 	rebase = false
 [commit]
-	gpgsign = false
+	gpgsign = true
+[push]
+	autoSetupRemote = true
