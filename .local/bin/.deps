@@ -13,9 +13,6 @@ if command -v pacman >/dev/null; then
         cd "$pwd" || exit
     fi
 
-    sudo rm /etc/ly/config.ini
-    sudo rm /usr/lib/systemd/system/ly.service
-
     paru -S --needed \
         adw-gtk-theme \
         alacritty \
@@ -31,6 +28,7 @@ if command -v pacman >/dev/null; then
         breeze \
         brightnessctl \
         btop \
+        carapace-bin \
         chromium \
         cronie \
         curl \
@@ -52,6 +50,7 @@ if command -v pacman >/dev/null; then
         gst-plugins-base \
         gst-plugins-good \
         gst-plugins-ugly \
+        helix \
         hypridle \
         hyprland \
         hyprlock \
@@ -72,6 +71,7 @@ if command -v pacman >/dev/null; then
         noto-fonts-cjk \
         noto-fonts-emoji \
         npm \
+        nushell \
         nwg-displays \
         papirus-icon-theme \
         pass \
@@ -120,10 +120,14 @@ if command -v pacman >/dev/null; then
         zerotier-one \
         zoxide
 
+    sudo rm /etc/ly/config.ini
+    sudo rm /usr/lib/systemd/system/ly.service
+
     export DOTROOT="$HOME/.files/.root"
     sudo cp "$DOTROOT/etc/kanata.kbd" /etc/kanata.kbd
     sudo cp "$DOTROOT/etc/ly/config.ini" /etc/ly/config.ini
     sudo cp "$DOTROOT/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
+    sudo cp "$DOTROOT/etc/pacman.conf" /etc/pacman.conf
     sudo cp "$DOTROOT/etc/systemd/logind.conf" /etc/systemd/logind.conf
     sudo cp "$DOTROOT/etc/systemd/sleep.conf" /etc/systemd/sleep.conf
     sudo cp "$DOTROOT/etc/tlp.conf" /etc/tlp.conf
@@ -162,37 +166,37 @@ if command -v brew >/dev/null; then
         bat \
         bear \
         btop \
+        carapace \
         eza \
         fastfetch \
         fd \
         fish \
         fzf \
         git \
+        helix \
         lazygit \
         neovim \
         nodejs \
         npm \
+        nushell \
         ripgrep \
         rust \
         starship \
         stow \
         tldr \
         tmux \
-        ufw \
         unzip \
         zoxide
-
-    rustup install stable
-    rustup default stable
 fi
 
-if command -v apt >/dev/null; then
+if command -v apt-get >/dev/null; then
     [ -f /etc/apt/sources.list.d/fish-shell-ubuntu-release-3-noble.sources ] || sudo apt-add-repository ppa:fish-shell/release-3
     [ -f /etc/apt/sources.list.d/neovim-ppa-ubuntu-unstable-noble.sources ] || sudo add-apt-repository ppa:neovim-ppa/unstable
     [ -f /etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-noble.sources ] || sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
-    sudo apt update
+    [ -f /etc/apt/sources.list.d/carapace.list ] || echo "deb [trusted=yes] https://apt.fury.io/rsteube/ /" >/etc/apt/sources.list.d/carapace.list
+    sudo apt-get update
 
-    sudo apt install -y \
+    sudo apt-get install -y \
         alacritty \
         bat \
         bear \
@@ -200,6 +204,7 @@ if command -v apt >/dev/null; then
         duf \
         eza \
         fastfetch \
+        carapace-bin \
         fd-find \
         fish \
         fzf \
@@ -218,6 +223,9 @@ if command -v apt >/dev/null; then
         tmux \
         unzip
 
+    snap install nushell --classic
+    snap install helix --classic
+
     curl -sS https://starship.rs/install.sh | sh
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
@@ -233,5 +241,6 @@ rustup default stable
 
 cargo install quoty
 cargo install kweri
+cargo install fnm
 
 touch "$HOME/.files/.deps.lock"
