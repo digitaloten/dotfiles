@@ -17,11 +17,14 @@ set -gx EDITOR nvim
 # Disable MANGOHUD by default
 set -gx MANGOHUD 0
 
+# Add support for pin entry via ssh
+set -gx GPG_TTY "$(tty)"
+
 # Disable php_cs_fixer Check
 set -gx PHP_CS_FIXER_IGNORE_ENV 1
 
 # Set JOSBS
-set -gx JOBS "$(nproc)"
+set -gx JOBS "$(.nproc)"
 
 # Add makeflags
 set -gx MAKEFLAGS "-j$JOBS"
@@ -29,6 +32,9 @@ set -gx MAKEFLAGS "-j$JOBS"
 # Set paru pager
 set -gx PARU_PAGER "bat --color=always"
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# Carapace ENV
+set -gx CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
 
 # FZF theme
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
@@ -57,78 +63,148 @@ set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
     "
 
 # Check for batcat
-if command -v batcat >/dev/null
-    alias bat batcat
-end
-
-# Check for nproc
-if not command -v nproc >/dev/null
-    alias nproc "sysctl -n hw.physicalcpu"
+if command -v -q batcat
+    function bat
+        batcat
+    end
 end
 
 # Check for exa and alias to eza
-if command -v exa >/dev/null
-    alias eza exa
+if not command -v -q eza
+    function eza
+        exa $argv
+    end
 end
 
 # Replace cat with bat
-alias cat "bat --plain"
+function cat
+    bat --plain
+end
 
 # Alias for cmatrix
-alias c cmatrix
+function c
+    cmatrix
+end
 
 # Git typo
 function got
     echo "Hey! Fat fingers!!!"
-    git $argv
+    git
 end
 
 # More git
-alias gti got
-alias gto got
-alias tgi got
-alias gut got
-alias fur got
-alias hot got
+function gti
+    got
+end
+function gto
+    got
+end
+function tgi
+    got
+end
+function gut
+    got
+end
+function fur
+    got
+end
+function hot
+    got
+end
 
 # fastfetch
-alias f fastfetch
-alias ff fastfetch
+function ff
+    clear
+    fastfetch
+end
 
 # Alias for lazygit
-alias lg lazygit
+function lg
+    lazygit
+end
 
 # Alias for quick and dirty git commit
-alias g 'git commit -am "$(quoty)"; git pull --no-edit; git push'
-alias gg 'git add . && git commit -m "$(quoty)"; git pull --no-edit; git push'
+function g
+    git commit -am "$(quoty)"
+    git pull --no-edit
+    git push
+end
+function gg
+    git add . && git commit -m "$(quoty)"
+    git pull --no-edit
+    git push
+end
 
 # Alias for kweri
-alias q kweri
+function q
+    kweri
+end
 
 # Add navcoin alias
-alias nav navcoin-cli
+function nav
+    navcoin-cli
+end
 
 # Replace default ls command with eza
-alias ls "eza --group-directories-first"
+function ls
+    eza --group-directories-first $argv
+end
 
 # Replace tree command with eza
-alias tree "eza --tree"
+function tree
+    eza --tree
+end
 
 # Some more ls
-alias l "ls -lF"
-alias la "ls -aF"
-alias ll "ls -alF"
+function l
+    ls -lF
+end
+function la
+    ls -aF
+end
+function ll
+    ls -alF
+end
 
 # Clear alias
-alias cl clear
+function cl
+    clear
+end
+
+# NVM
+if command -v -q fnm
+    function nvm
+        fnm
+    end
+end
 
 # I want v to open vi and vi to open vim
-alias n nvim
-alias nv nvim
-alias nvi nvim
-alias v nvim
-alias vi nvim
-alias vim nvim
+function n
+    nvim
+end
+function nv
+    nvim
+end
+function nvi
+    nvim
+end
+function v
+    nvim
+end
+function vi
+    nvim
+end
+function vim
+    nvim
+end
+
+# Helix... Maybe replacing vim/nvim?
+function h
+    helix
+end
+function hx
+    helix
+end
 
 # TokyoNight Color Palette
 set -l foreground c0caf5
@@ -181,11 +257,21 @@ type -q fzf_configure_bindings && fzf_configure_bindings \
     --processes=\cp
 
 # Load zoxide
-if command -v zoxide >/dev/null
+if command -v -q zoxide
     zoxide init fish --cmd cd | source
 end
 
 # Load starship prompt
-if command -v starship >/dev/null
+if command -v -q starship
     starship init fish | source
+end
+
+# FNM setup env
+if command -v -q fnm
+    fnm env --shell fish | source
+end
+
+# carapace
+if command -v -q carapace
+    carapace _carapace | source
 end
