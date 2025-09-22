@@ -37,7 +37,12 @@ formatter = { command = "prettier", args = ["--parser", "markdown"] }
 [[language]]
 name = "vue"
 auto-format = true
+language-servers = ["vuels"]
 formatter = { command = "prettier", args = ["--parser", "vue"] }
+
+[language-server.vuels.config]
+vue = { hybridMode = false }
+typescript = { tsdk = "node_modules/typescript/lib" }
 
 [[language]]
 name = "typescript"
@@ -48,6 +53,11 @@ formatter = { command = "prettier", args = ["--parser", "typescript"] }
 name = "javascript"
 auto-format = true
 formatter = { command = "prettier", args = ["--parser", "babel"] }
+
+[[language]]
+name = "html"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "html"] }
 
 [[language]]
 name = "php"
