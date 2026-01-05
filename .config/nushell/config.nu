@@ -58,7 +58,8 @@ def g [] {
 }
 
 def gg [] {
-    git add .; git commit -m (quoty)
+    git add .
+    git commit -m (quoty)
     git pull --no-edit
     git push
 }

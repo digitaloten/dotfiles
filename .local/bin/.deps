@@ -29,9 +29,11 @@ if command -v pacman >/dev/null; then
         brightnessctl \
         btop \
         carapace-bin \
+        catppuccin-sddm-theme-macchiato \
         chromium \
         cronie \
         curl \
+        discord \
         duf \
         dysk \
         ethtool \
@@ -61,7 +63,6 @@ if command -v pacman >/dev/null; then
         kooha \
         lazygit \
         libadwaita \
-        ly \
         man-db \
         nautilus \
         neovim \
@@ -80,6 +81,7 @@ if command -v pacman >/dev/null; then
         pipewire \
         pipewire-alsa \
         pipewire-pulse \
+        power-profiles-daemon \
         python-tldextract \
         qalculate-qt \
         qt5-wayland \
@@ -92,15 +94,17 @@ if command -v pacman >/dev/null; then
         ripgrep \
         rofi \
         rustup \
+        sddm \
         sof-firmware \
+        spotify-launcher \
         starship \
         stow \
         swaync \
         swayosd \
         tealdeer \
+        teams-for-linux \
         terminus-font \
         thunderbird \
-        tlp \
         tmux \
         ttf-hack \
         ttf-hack-nerd \
@@ -120,38 +124,37 @@ if command -v pacman >/dev/null; then
         zerotier-one \
         zoxide
 
-    sudo rm /etc/ly/config.ini
-    sudo rm /usr/lib/systemd/system/ly.service
-
     export DOTROOT="$HOME/.files/.root"
     sudo cp "$DOTROOT/etc/kanata.kbd" /etc/kanata.kbd
-    sudo cp "$DOTROOT/etc/ly/config.ini" /etc/ly/config.ini
     sudo cp "$DOTROOT/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
     sudo cp "$DOTROOT/etc/pacman.conf" /etc/pacman.conf
+    sudo cp "$DOTROOT/etc/sddm.conf" /etc/sddm.conf
     sudo cp "$DOTROOT/etc/systemd/logind.conf" /etc/systemd/logind.conf
     sudo cp "$DOTROOT/etc/systemd/sleep.conf" /etc/systemd/sleep.conf
-    sudo cp "$DOTROOT/etc/tlp.conf" /etc/tlp.conf
     sudo cp "$DOTROOT/etc/vconsole.conf" /etc/vconsole.conf
-    sudo cp "$DOTROOT/usr/lib/systemd/system/ly.service" /usr/lib/systemd/system/ly.service
 
     sudo mkinitcpio -P
 
-    sudo systemctl mask systemd-rfkill.socket
-    sudo systemctl mask systemd-rfkill.service
-    sudo systemctl mask power-profiles-daemon.service
+    sudo systemctl unmask systemd-rfkill.socket
+    sudo systemctl unmask systemd-rfkill.service
+    sudo systemctl unmask power-profiles-daemon.service
     sudo systemctl disable display-manager.service
 
+    sudo systemctl enable sddm
+
     sudo systemctl enable kanata
-    sudo systemctl enable ly.service
     sudo systemctl enable bluetooth
     sudo systemctl enable NetworkManager
     sudo systemctl enable NetworkManager-dispatcher
     sudo systemctl enable ufw
-    sudo systemctl enable tlp
     sudo systemctl enable avahi-daemon
+    sudo systemctl enable power-profiles-daemon
 
+    sudo ufw allow http
+    sudo ufw allow https
     sudo ufw allow ssh
     sudo ufw allow mdns
+    sudo ufw allow 42069
     sudo ufw allow 9993/udp                                   # zerotier port
     sudo ufw allow proto udp from any to any port 27031:27036 # steam
     sudo ufw allow proto tcp from any to any port 27040       # steam
@@ -180,7 +183,7 @@ if command -v brew >/dev/null; then
         npm \
         nushell \
         ripgrep \
-        rust \
+        rustup \
         starship \
         stow \
         tldr \
@@ -221,19 +224,13 @@ if command -v apt-get >/dev/null; then
         stow \
         tldr \
         tmux \
-        unzip
+        unzip \
+        zoxide
 
-    snap install nushell --classic
     snap install helix --classic
-
-    curl -sS https://starship.rs/install.sh | sh
-    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit /usr/local/bin
-    rm -rf lazygit lazygit.tar.gz
+    snap install lazygit
+    snap install nushell --classic
+    snap install starship --edge
 fi
 
 rustup install stable
