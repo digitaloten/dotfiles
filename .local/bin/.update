@@ -1,54 +1,102 @@
-#!/usr/bin/env sh
-# vi: ft=sh
+#!/usr/bin/env bash
+# vi: ft=bash
+# WARN: make sure things are sure
+set -euo pipefail
 
-# Where is the DIR for dotfiles?
+GREEN_CHECK="\e[32m✅\e[0m"
+
 dotfiles="$HOME/.files"
 config="$HOME/.config"
 tpm="$config/tmux/plugins/tpm"
 
-mkdir -p "$HOME/Desktop"
-mkdir -p "$HOME/Documents"
-mkdir -p "$HOME/Downloads"
-mkdir -p "$HOME/Music"
-mkdir -p "$HOME/OSs"
-mkdir -p "$HOME/Pictures/Screenshots"
-mkdir -p "$HOME/Projects"
-mkdir -p "$HOME/Public"
-mkdir -p "$HOME/Templates"
-mkdir -p "$HOME/Videos"
-mkdir -p "$HOME/.local/log"
+echo -e "$GREEN_CHECK Creating essential user directories..."
+declare -a DIRS=(
+    "Desktop"
+    "Documents"
+    "Downloads"
+    "Music"
+    "OSs"
+    "Pictures/Screenshots"
+    "Projects"
+    "Public"
+    "Templates"
+    "Videos"
+    ".local/log"
+)
 
-mkdir -p "$config/hypr"
-touch "$config/hypr/monitors.conf"
-touch "$config/hypr/workspaces.conf"
+for DIR in "${DIRS[@]}"; do
+    mkdir -p "$HOME/$DIR" >/dev/null 2>&1
+done
 
-[ -d "$dotfiles" ] || git clone https://github.com/mxaddict/dotfiles.git "$dotfiles"
+mkdir -p "$config/hypr" >/dev/null 2>&1
+touch "$config/hypr/monitors.conf" >/dev/null 2>&1
+touch "$config/hypr/workspaces.conf" >/dev/null 2>&1
+
+echo -e "$GREEN_CHECK Updating dotfiles repository..."
+[ -d "$dotfiles" ] || git clone https://github.com/mxaddict/dotfiles.git "$dotfiles" >/dev/null 2>&1
+SELF_PATH="$(readlink -f "$0")"
+ORIGINAL_ARGS=("$@")
+
 pwd=$(pwd)
 cd "$dotfiles" || exit
-git stash
-git pull --no-edit
-git stash pop
 
-[ -f "$HOME/.files/.deps.lock" ] || "$HOME/.files/.local/bin/.deps"
+STASHED_CHANGES=false
+if ! git diff --quiet --exit-code; then
+    echo -e "$GREEN_CHECK Stashing local changes before update..."
+    git stash push --include-untracked -m "Pre-update stash by self-update script" >/dev/null 2>&1
+    STASHED_CHANGES=true
+fi
 
-stow --adopt .
+PULL_OUTPUT=$(git pull --ff-only 2>&1)
+git_pull_status=$?
+
+if [ "$git_pull_status" -eq 0 ] && [[ ! "$PULL_OUTPUT" == *"Already up to date."* ]]; then
+    echo -e "$GREEN_CHECK Dotfiles updated. Re-executing script with new version."
+    cd "$pwd"
+    exec "$SELF_PATH" "${ORIGINAL_ARGS[@]}"
+fi
+
+if [ "$STASHED_CHANGES" = true ]; then
+    echo -e "$GREEN_CHECK Applying stashed changes..."
+    git stash pop >/dev/null 2>&1 || true
+fi
+
+echo -e "$GREEN_CHECK Checking dependencies..."
+"$HOME/.files/.local/bin/.deps"
+
+echo -e "$GREEN_CHECK Stowing dotfiles..."
+stow --adopt . >/dev/null 2>&1
 cd "$pwd" || exit
+
+if command -v dconf >/dev/null; then
+    echo -e "$GREEN_CHECK Loading dconf settings..."
+    dconf load / <~/.config/dconf/user.ini >/dev/null 2>&1
+fi
 
 if command -v batcat >/dev/null; then
     alias bat=batcat
 fi
-bat cache --build
+if command -v bat >/dev/null; then
+    echo -e "$GREEN_CHECK Building bat cache..."
+    bat cache --build >/dev/null 2>&1
+fi
 
-tldr --update
-fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish > /tmp/fisher.fish"
-fish -c "source /tmp/fisher.fish && fisher update"
-nvim --headless +TSUpdate "+Lazy! install all" +qa
+echo -e "$GREEN_CHECK Updating tldr cache..."
+tldr --update >/dev/null 2>&1
+echo -e "$GREEN_CHECK Updating Fish shell plugins..."
+fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish > /tmp/fisher.fish" >/dev/null 2>&1
+fish -c "source /tmp/fisher.fish && fisher update" >/dev/null 2>&1
+echo -e "$GREEN_CHECK Updating Neovim plugins..."
+nvim --headless "+Lazy! install all" "+Lazy! update all" +TSUpdate +qa >/dev/null 2>&1
 
-[ -d "$tpm" ] || git clone https://github.com/tmux-plugins/tpm "$tpm"
+echo -e "$GREEN_CHECK Updating Tmux plugins..."
+[ -d "$tpm" ] || git clone https://github.com/tmux-plugins/tpm "$tpm" >/dev/null 2>&1
 cd "$tpm" || exit
-git pull
-tmux source "$config/tmux/tmux.conf"
-"$tpm/bin/install_plugins"
-"$tpm/bin/update_plugins" all
-"$tpm/bin/clean_plugins"
+git pull >/dev/null 2>&1
+tmux source "$config/tmux/tmux.conf" 2>/dev/null || true
+"$tpm/bin/install_plugins" >/dev/null 2>&1
+"$tpm/bin/update_plugins" all >/dev/null 2>&1
+"$tpm/bin/clean_plugins" >/dev/null 2>&1
 cd "$pwd" || exit
+
+echo -e "$GREEN_CHECK Dotfiles update complete."

@@ -1,39 +1,49 @@
-#!/usr/bin/env sh
-# vi: ft=sh
+#!/usr/bin/env bash
+# vi: ft=bash
+# WARN: make sure things are sure
+set -euo pipefail
+
+GREEN_CHECK="\e[32m  ✅\e[0m"
 
 if command -v pacman >/dev/null; then
     if ! command -v paru >/dev/null; then
-        sudo pacman -S base-devel rustup git
-        rustup install stable
-        rustup default stable
-        git clone https://aur.archlinux.org/paru.git /tmp/paru
+        echo -e "$GREEN_CHECK Installing paru (AUR helper)..."
+        sudo pacman -S base-devel rustup git --needed --noconfirm >/dev/null 2>&1
+        rustup install stable >/dev/null 2>&1
+        rustup default stable >/dev/null 2>&1
+        git clone https://aur.archlinux.org/paru.git /tmp/paru >/dev/null 2>&1
         pwd=$(pwd)
         cd /tmp/paru || exit
-        makepkg -si
+        makepkg -si --noconfirm >/dev/null 2>&1
         cd "$pwd" || exit
     fi
 
-    paru -S --needed \
+    echo -e "$GREEN_CHECK Updating Arch Linux system packages..."
+    paru -Syu --noconfirm >/dev/null 2>&1
+    echo -e "$GREEN_CHECK Installing core system packages (Arch Linux)..."
+    paru -S --needed --noconfirm \
         adw-gtk-theme \
         alacritty \
         alsa-firmware \
         alsa-utils \
+        ardour \
         avahi \
         bat \
         bear \
         bind \
-        blueman \
+        bluetui \
         bluez \
         bluez-utils \
         breeze \
         brightnessctl \
         btop \
-        carapace-bin \
-        catppuccin-sddm-theme-macchiato \
         chromium \
+        cmatrix \
         cronie \
+        cups \
+        cups-pdf \
         curl \
-        discord \
+        dex \
         duf \
         dysk \
         ethtool \
@@ -43,27 +53,37 @@ if command -v pacman >/dev/null; then
         firefox \
         fish \
         fprintd \
+        fwupd \
         fzf \
+        gemini-cli \
+        ghostscript \
         git \
         gnu-free-fonts \
-        grimblast-git \
+        grim \
+        gsfonts \
         gst-libav \
+        gst-plugin-va \
         gst-plugins-bad \
         gst-plugins-base \
         gst-plugins-good \
         gst-plugins-ugly \
-        helix \
         hypridle \
         hyprland \
         hyprlock \
         hyprpaper \
         hyprpicker \
         hyprpolkitagent \
+        hyprqt6engine \
+        imv \
+        jq \
         kanata \
         kooha \
         lazygit \
         libadwaita \
+        libnotify \
+        ly \
         man-db \
+        mpv \
         nautilus \
         neovim \
         networkmanager \
@@ -72,40 +92,40 @@ if command -v pacman >/dev/null; then
         noto-fonts-cjk \
         noto-fonts-emoji \
         npm \
-        nushell \
+        nss-mdns \
         nwg-displays \
+        nwg-look \
         papirus-icon-theme \
         pass \
         pass-otp \
-        pavucontrol \
         pipewire \
         pipewire-alsa \
+        pipewire-jack \
         pipewire-pulse \
         power-profiles-daemon \
         python-tldextract \
         qalculate-qt \
         qt5-wayland \
-        qt5ct \
         qt6-wayland \
-        qt6-webengine \
-        qt6ct \
-        qutebrowser \
         reflector \
         ripgrep \
         rofi \
+        rsync \
         rustup \
-        sddm \
+        sbctl \
+        slurp \
+        snapshot \
         sof-firmware \
-        spotify-launcher \
+        speedtest-cli \
         starship \
         stow \
         swaync \
         swayosd \
         tealdeer \
-        teams-for-linux \
         terminus-font \
         thunderbird \
         tmux \
+        traceroute \
         ttf-hack \
         ttf-hack-nerd \
         ttf-noto-nerd \
@@ -114,91 +134,150 @@ if command -v pacman >/dev/null; then
         ttf-roboto-mono-nerd \
         ufw \
         unzip \
+        usbutils \
+        vieb-bin \
         waybar \
         wget \
         wireless-regdb \
+        wiremix \
         wireplumber \
         wl-clipboard \
         woff2-font-awesome \
+        wtype \
+        xdg-desktop-portal-gtk \
         xdg-desktop-portal-hyprland \
+        yt-dlp \
         zerotier-one \
-        zoxide
+        zoxide >/dev/null 2>&1
 
     export DOTROOT="$HOME/.files/.root"
-    sudo cp "$DOTROOT/etc/kanata.kbd" /etc/kanata.kbd
-    sudo cp "$DOTROOT/etc/mkinitcpio.conf" /etc/mkinitcpio.conf
-    sudo cp "$DOTROOT/etc/pacman.conf" /etc/pacman.conf
-    sudo cp "$DOTROOT/etc/sddm.conf" /etc/sddm.conf
-    sudo cp "$DOTROOT/etc/systemd/logind.conf" /etc/systemd/logind.conf
-    sudo cp "$DOTROOT/etc/systemd/sleep.conf" /etc/systemd/sleep.conf
-    sudo cp "$DOTROOT/etc/vconsole.conf" /etc/vconsole.conf
+    declare -a FILES=(
+        "etc/kanata.kbd"
+        "etc/ly/config.ini"
+        "etc/mkinitcpio.conf"
+        "etc/mkinitcpio.d/linux.preset"
+        "etc/pacman.conf"
+        "etc/systemd/logind.conf"
+        "etc/systemd/sleep.conf"
+        "etc/systemd/system/power-check.service"
+        "etc/systemd/system/power-check.timer"
+        "etc/udev/rules.d/99-power-profiles.rules"
+        "etc/vconsole.conf"
+        "usr/bin/auto-power-profile"
+    )
 
-    sudo mkinitcpio -P
+    for FILE_PATH in "${FILES[@]}"; do
+        sudo cp "$DOTROOT/$FILE_PATH" "/$FILE_PATH"
+    done
 
-    sudo systemctl unmask systemd-rfkill.socket
-    sudo systemctl unmask systemd-rfkill.service
-    sudo systemctl unmask power-profiles-daemon.service
-    sudo systemctl disable display-manager.service
+    echo -e "$GREEN_CHECK Regenerating initramfs..."
+    sudo mkinitcpio -P >/dev/null 2>&1
+    echo -e "$GREEN_CHECK Synchronizing filesystem..."
+    sudo sync >/dev/null 2>&1
 
-    sudo systemctl enable sddm
+    echo -e "$GREEN_CHECK Reloading udev rules..."
+    sudo udevadm control --reload-rules >/dev/null 2>&1
+    echo -e "$GREEN_CHECK Triggering udev events..."
+    sudo udevadm trigger >/dev/null 2>&1
 
-    sudo systemctl enable kanata
-    sudo systemctl enable bluetooth
-    sudo systemctl enable NetworkManager
-    sudo systemctl enable NetworkManager-dispatcher
-    sudo systemctl enable ufw
-    sudo systemctl enable avahi-daemon
-    sudo systemctl enable power-profiles-daemon
+    echo -e "$GREEN_CHECK Disabling display-manager.service..."
+    sudo systemctl disable display-manager.service >/dev/null 2>&1 || true
 
-    sudo ufw allow http
-    sudo ufw allow https
-    sudo ufw allow ssh
-    sudo ufw allow mdns
-    sudo ufw allow 42069
-    sudo ufw allow 9993/udp                                   # zerotier port
-    sudo ufw allow proto udp from any to any port 27031:27036 # steam
-    sudo ufw allow proto tcp from any to any port 27040       # steam
+    echo -e "$GREEN_CHECK Enabling ly@tty2.service..."
+    sudo systemctl enable ly@tty2.service >/dev/null 2>&1
 
-    sudo ufw enable
-    sudo ufw status
+    echo -e "$GREEN_CHECK Enabling NetworkManager.service..."
+    sudo systemctl enable NetworkManager.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling NetworkManager-dispatcher.service..."
+    sudo systemctl enable NetworkManager-dispatcher.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling avahi-daemon.service..."
+    sudo systemctl enable avahi-daemon.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling bluetooth.service..."
+    sudo systemctl enable bluetooth.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling kanata.service..."
+    sudo systemctl enable kanata.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling power-check.timer..."
+    sudo systemctl enable power-check.timer >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling power-profiles-daemon.service..."
+    sudo systemctl enable power-profiles-daemon.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Enabling ufw.service..."
+    sudo systemctl enable ufw.service >/dev/null 2>&1
+
+    echo -e "$GREEN_CHECK Configuring UFW firewall rules..."
+    sudo ufw allow http >/dev/null 2>&1
+    sudo ufw allow https >/dev/null 2>&1
+    sudo ufw allow ssh >/dev/null 2>&1
+    sudo ufw allow mdns >/dev/null 2>&1
+    sudo ufw allow 42069 >/dev/null 2>&1                                      # COT
+    sudo ufw allow 9993/udp >/dev/null 2>&1                                   # zerotier port
+    sudo ufw allow proto udp from any to any port 27031:27036 >/dev/null 2>&1 # steam
+    sudo ufw allow proto tcp from any to any port 27040 >/dev/null 2>&1       # steam
+
+    echo -e "$GREEN_CHECK Enabling UFW..."
+    echo "y" | sudo ufw enable >/dev/null 2>&1
+fi
+
+if command -v dnf >/dev/null; then
+    echo -e "$GREEN_CHECK Installing core system packages (Fedora)..."
+    sudo dnf install -y \
+        alacritty \
+        bat \
+        eza \
+        fastfetch \
+        fd-find \
+        fish \
+        fzf \
+        git \
+        neovim \
+        nodejs \
+        npm \
+        ripgrep \
+        stow \
+        tealdeer \
+        tmux \
+        unzip \
+        zoxide >/dev/null 2>&1
 fi
 
 if command -v brew >/dev/null; then
-    brew install \
+    echo -e "$GREEN_CHECK Installing core system packages (macOS/Homebrew)..."
+    CI=1 brew install \
         alacritty \
         bat \
         bear \
         btop \
-        carapace \
         eza \
         fastfetch \
         fd \
         fish \
         fzf \
         git \
-        helix \
         lazygit \
         neovim \
         nodejs \
         npm \
-        nushell \
         ripgrep \
         rustup \
         starship \
         stow \
-        tldr \
+        tealdeer \
         tmux \
         unzip \
-        zoxide
+        zoxide >/dev/null 2>&1
 fi
 
 if command -v apt-get >/dev/null; then
-    [ -f /etc/apt/sources.list.d/fish-shell-ubuntu-release-3-noble.sources ] || sudo apt-add-repository ppa:fish-shell/release-3
-    [ -f /etc/apt/sources.list.d/neovim-ppa-ubuntu-unstable-noble.sources ] || sudo add-apt-repository ppa:neovim-ppa/unstable
-    [ -f /etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-noble.sources ] || sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
-    [ -f /etc/apt/sources.list.d/carapace.list ] || echo "deb [trusted=yes] https://apt.fury.io/rsteube/ /" >/etc/apt/sources.list.d/carapace.list
-    sudo apt-get update
+    echo -e "$GREEN_CHECK Updating APT package lists..."
+    sudo apt-get update >/dev/null 2>&1
 
+    echo -e "$GREEN_CHECK Installing core system packages (APT)..."
     sudo apt-get install -y \
         alacritty \
         bat \
@@ -207,7 +286,6 @@ if command -v apt-get >/dev/null; then
         duf \
         eza \
         fastfetch \
-        carapace-bin \
         fd-find \
         fish \
         fzf \
@@ -222,22 +300,26 @@ if command -v apt-get >/dev/null; then
         ripgrep \
         rustup \
         stow \
-        tldr \
+        tealdeer \
         tmux \
         unzip \
-        zoxide
-
-    snap install helix --classic
-    snap install lazygit
-    snap install nushell --classic
-    snap install starship --edge
+        zoxide >/dev/null 2>&1
 fi
 
-rustup install stable
-rustup default stable
+if command -v nvim >/dev/null; then
+    echo -e "$GREEN_CHECK Setting up Neovim symlinks..."
+    sudo ln -sf "$(which nvim)" "/usr/local/bin/vi" >/dev/null 2>&1
+    sudo ln -sf "$(which nvim)" "/usr/local/bin/vim" >/dev/null 2>&1
+    sudo ln -sf "$(which nvim)" "/usr/local/bin/v" >/dev/null 2>&1
+fi
 
-cargo install quoty
-cargo install kweri
-cargo install fnm
+echo -e "$GREEN_CHECK Installing Rust stable toolchain..."
+rustup install stable >/dev/null 2>&1
+rustup default stable >/dev/null 2>&1
 
-touch "$HOME/.files/.deps.lock"
+echo -e "$GREEN_CHECK Installing Rust tools (quoty)..."
+cargo install quoty >/dev/null 2>&1
+echo -e "$GREEN_CHECK Installing Rust tools (fnm)..."
+cargo install fnm >/dev/null 2>&1
+
+echo -e "$GREEN_CHECK Dependency installation complete."
