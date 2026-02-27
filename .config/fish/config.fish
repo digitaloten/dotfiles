@@ -198,6 +198,11 @@ function vim
     nvim $argv
 end
 
+# Use ggrep (For Mac OS)
+function grep
+    ggrep $argv
+end
+
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 283457
@@ -267,3 +272,11 @@ end
 if command -v -q carapace
     carapace _carapace | source
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
+    . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'
+end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'; end
