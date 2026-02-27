@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# vi: ft=bash
+# WARN: make sure things are sure
+set -euo pipefail
+
+# 1. Auto-elevate to root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script requires root. Elevating with sudo..."
+    exec sudo "$0" "$@"
+fi
+
+RAM_SIZE=$(free -m | awk '/^Mem:/{print $2 + 1024}')
+SWAP_PATH="/swap"
+CMDLINE_DIR="/etc/cmdline.d"
+CMDLINE_CONF="$CMDLINE_DIR/root.conf"
+CMDLINE_PROC="/proc/cmdline"
+FS_TYPE=$(findmnt -no FSTYPE -T /)
+
+echo "--- Arch Linux Swap & Hibernation Setup ---"
+echo "Detected Filesystem: $FS_TYPE"
+
+echo "Turning off swap..."
+swapoff -a 2>/dev/null || true
+rm -f "$SWAP_PATH" 2>/dev/null || true
+
+echo "Creating ${RAM_SIZE}MB swap file at $SWAP_PATH..."
+if [[ "$FS_TYPE" == "btrfs" ]]; then
+    btrfs filesystem mkswapfile --size "${RAM_SIZE}m" "$SWAP_PATH"
+else
+    fallocate -l "${RAM_SIZE}M" "$SWAP_PATH"
+    chmod 600 "$SWAP_PATH"
+    mkswap "$SWAP_PATH"
+fi
+
+sync
+
+if ! grep -q "$SWAP_PATH" /etc/fstab; then
+    echo "Adding $SWAP_PATH to /etc/fstab..."
+    echo "$SWAP_PATH none swap sw 0 0" >>/etc/fstab
+fi
+
+echo "Activating swap..."
+swapon -a
+
+UUID=$(findmnt -no UUID -T "$SWAP_PATH")
+if [[ "$FS_TYPE" == "btrfs" ]]; then
+    OFFSET=$(btrfs inspect-internal map-swapfile -r "$SWAP_PATH")
+else
+    OFFSET=$(filefrag -v "$SWAP_PATH" | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
+fi
+
+RESUME_PARAMS="resume=UUID=$UUID resume_offset=$OFFSET"
+
+echo "Updating $CMDLINE_CONF with resume parameters..."
+mkdir -p "$CMDLINE_DIR"
+touch "$CMDLINE_CONF"
+cp "$CMDLINE_PROC" "$CMDLINE_CONF"
+sed -i -E 's/ ?resume=[^ ]*//g; s/ ?resume_offset=[^ ]*//g' "$CMDLINE_CONF"
+echo -n " $RESUME_PARAMS" >>"$CMDLINE_CONF"
+CLEAN_LINE=$(xargs <"$CMDLINE_CONF")
+echo "$CLEAN_LINE" >"$CMDLINE_CONF"
+echo "Rebuilding UKI..."
+mkinitcpio -P
+sync
+echo "Verifying EFI binary..."
+if file /boot/EFI/Linux/arch-linux.efi | grep -q "PE32+ executable"; then
+    echo "UKI looks healthy."
+else
+    echo "CRITICAL: UKI appears corrupted after build!"
+fi
+echo "===================================================="
+echo " SUCCESS! UKI updated with resume and resume_offset"
+echo "===================================================="
+echo "$RESUME_PARAMS"
+echo "===================================================="

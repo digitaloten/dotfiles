@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+# vi: ft=fish
 # No greeting text for now
 set fish_greeting
 
@@ -32,9 +33,6 @@ set -gx MAKEFLAGS "-j$JOBS"
 # Set paru pager
 set -gx PARU_PAGER "bat --color=always"
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
-
-# Carapace ENV
-set -gx CARAPACE_BRIDGES 'nu,zsh,fish,bash,inshellisense'
 
 # FZF theme
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
@@ -115,7 +113,7 @@ end
 # fastfetch
 function ff
     clear
-    fastfetch
+    fastfetch $argv
 end
 
 # Alias for lazygit
@@ -124,13 +122,29 @@ function lg
 end
 
 # Alias for quick and dirty git commit
-function g
-    git commit -am "$(quoty)"
+function gg
+    set -l msg (quoty)
+
+    if test -n "$msg"
+        git add .
+        git commit -m "$msg"
+    else
+        echo "Error: Could'nt get quote from quoty"
+        return 1
+    end
     git pull --no-edit
     git push
 end
-function gg
-    git add . && git commit -m "$(quoty)"
+function gl
+    set -l loc (curl -s https://ipinfo.io/loc)
+
+    if test -n "$loc"
+        git add .
+        git commit -m "$loc"
+    else
+        echo "Error: Could'nt get location"
+        return 1
+    end
     git pull --no-edit
     git push
 end
@@ -279,4 +293,6 @@ if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
 end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
+    . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'
+end

@@ -1,0 +1,14 @@
+" vi: ft=vim
+
+set windowtitle="%app - %title: %url"
+
+" Tokyo Night
+colorscheme tokyonight
+
+" Switch Tabs with H and L
+nmap H <previousTab>
+nmap L <nextTab>
+
+" History with J and K
+nmap J <backInHistory>
+nmap K <forwardInHistory>
