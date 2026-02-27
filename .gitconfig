@@ -1,7 +1,7 @@
 [user]
 	name = shinobu
 	email = pekora@usada.io
-	signingkey = pekora@usada.io
+	#signingkey = pekora@usada.io
 [color]
 	ui = true
 [core]
@@ -9,7 +9,7 @@
 [pull]
 	rebase = false
 [commit]
-	gpgsign = true
+	#gpgsign = true
 [push]
 	autoSetupRemote = true
 [fetch]
