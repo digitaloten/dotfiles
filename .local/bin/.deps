@@ -95,6 +95,7 @@ if command -v pacman >/dev/null; then
         nss-mdns \
         nwg-displays \
         nwg-look \
+        opencode \
         papirus-icon-theme \
         pass \
         pass-otp \
@@ -217,6 +218,7 @@ if command -v pacman >/dev/null; then
     sudo ufw allow mdns >/dev/null 2>&1
     sudo ufw allow 42069 >/dev/null 2>&1                                      # COT
     sudo ufw allow 9993/udp >/dev/null 2>&1                                   # zerotier port
+    sudo ufw allow 11434 >/dev/null 2>&1                                      # ollama
     sudo ufw allow proto udp from any to any port 27031:27036 >/dev/null 2>&1 # steam
     sudo ufw allow proto tcp from any to any port 27040 >/dev/null 2>&1       # steam
 
@@ -238,6 +240,7 @@ if command -v dnf >/dev/null; then
         neovim \
         nodejs \
         npm \
+        opencode \
         ripgrep \
         stow \
         tealdeer \
@@ -263,6 +266,7 @@ if command -v brew >/dev/null; then
         neovim \
         nodejs \
         npm \
+        opencode \
         ripgrep \
         rustup \
         starship \
@@ -294,6 +298,7 @@ if command -v apt-get >/dev/null; then
         neovim \
         nodejs \
         npm \
+        opencode \
         pkg-config \
         python3 \
         python3-venv \
