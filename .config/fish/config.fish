@@ -277,3 +277,6 @@ end
 if command -v -q fnm
     fnm env --shell fish | source
 end
+
+# opencode
+fish_add_path /home/shinobu/.opencode/bin
