@@ -1,5 +1,4 @@
 #!/usr/bin/env fish
-# vi: ft=fish
 # No greeting text for now
 set fish_greeting
 
@@ -33,6 +32,9 @@ set -gx MAKEFLAGS "-j$JOBS"
 # Set paru pager
 set -gx PARU_PAGER "bat --color=always"
 set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# Carapace ENV
+set -gx CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
 
 # FZF theme
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
@@ -79,9 +81,9 @@ function cat
     bat --plain $argv
 end
 
-# Claude resume alias
+# Alias for cmatrix
 function c
-    claude --resume $argv
+    cmatrix $argv
 end
 
 # Git typo
@@ -113,7 +115,7 @@ end
 # fastfetch
 function ff
     clear
-    fastfetch $argv
+    fastfetch
 end
 
 # Alias for lazygit
@@ -122,29 +124,13 @@ function lg
 end
 
 # Alias for quick and dirty git commit
-function gg
-    set -l msg (quoty)
-
-    if test -n "$msg"
-        git add .
-        git commit -m "$msg"
-    else
-        echo "Error: Could'nt get quote from quoty"
-        return 1
-    end
+function g
+    git commit -am "$(quoty)"
     git pull --no-edit
     git push
 end
-function gl
-    set -l loc (curl -s https://ipinfo.io/loc)
-
-    if test -n "$loc"
-        git add .
-        git commit -m "$loc"
-    else
-        echo "Error: Could'nt get location"
-        return 1
-    end
+function gg
+    git add . && git commit -m "$(quoty)"
     git pull --no-edit
     git push
 end
@@ -166,18 +152,18 @@ end
 
 # Replace tree command with eza
 function tree
-    eza --tree $argv
+    eza --tree
 end
 
 # Some more ls
 function l
-    ls -lF $argv
+    ls -lF
 end
 function la
-    ls -aF $argv
+    ls -aF
 end
 function ll
-    ls -alF $argv
+    ls -alF
 end
 
 # Clear alias
@@ -281,9 +267,6 @@ end
 if command -v -q fnm
     fnm env --shell fish | source
 end
-
-# opencode
-fish_add_path /home/shinobu/.opencode/bin
 
 # carapace
 if command -v -q carapace
