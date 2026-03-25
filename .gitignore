@@ -24,8 +24,12 @@
 butler
 compile_commands.json
 history.txt
+.config/gtk-3.0/bookmarks
 .local/bin/claude
+.local/bin/hf
+.local/bin/hugo
 .local/bin/python3.12
 .local/bin/python3.14
 .local/bin/uv
 .local/bin/uvx
+.local/share/
