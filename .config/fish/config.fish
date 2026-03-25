@@ -212,11 +212,6 @@ function vim
     nvim $argv
 end
 
-# Use ggrep (For Mac OS)
-function grep
-    ggrep $argv
-end
-
 # TokyoNight Color Palette
 set -l foreground c0caf5
 set -l selection 283457
