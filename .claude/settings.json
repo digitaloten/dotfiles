@@ -1,0 +1,55 @@
+{
+  "env": {
+    "CLAUDE_CODE_USE_VERTEX": "1",
+    "CLOUD_ML_REGION": "asia-southeast1",
+    "ANTHROPIC_VERTEX_PROJECT_ID": "em-claude-code-assistance",
+    "VERTEX_REGION_CLAUDE_4_6_OPUS": "asia-southeast1",
+    "VERTEX_REGION_CLAUDE_4_5_OPUS": "asia-southeast1",
+    "VERTEX_REGION_CLAUDE_4_6_SONNET": "asia-southeast1",
+    "VERTEX_REGION_CLAUDE_4_5_SONNET": "asia-southeast1",
+    "VERTEX_REGION_CLAUDE_4_5_HAIKU": "global"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cargo build*)",
+      "Bash(cargo check*)",
+      "Bash(cargo clippy*)",
+      "Bash(cargo fmt*)",
+      "Bash(cargo run*)",
+      "Bash(cargo test*)",
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(npx *)",
+      "Bash(yarn *)",
+      "Bash(pnpm *)",
+      "Bash(quasar dev*)",
+      "Bash(quasar build*)",
+      "Bash(composer install*)",
+      "Bash(composer update*)",
+      "Bash(php artisan*)",
+      "Bash(./vendor/bin/pest*)",
+      "Bash(./vendor/bin/phpcs*)",
+      "Bash(./composer *)",
+      "Bash(./artisan *)",
+      "Bash(prettier *)",
+      "Bash(docker *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git stash*)"
+    ]
+  },
+  "model": "claude-opus-4-6[1m]",
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true
+  },
+  "effortLevel": "high"
+}
