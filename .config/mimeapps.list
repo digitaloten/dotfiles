@@ -1,6 +1,7 @@
 
 [Default Applications]
 text/html=chromium.desktop
+multipart/related=chromium.desktop
 x-scheme-handler/http=chromium.desktop
 x-scheme-handler/https=chromium.desktop
 x-scheme-handler/about=chromium.desktop
