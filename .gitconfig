@@ -9,7 +9,7 @@
 [pull]
 	rebase = false
 [commit]
-	gpgsign = true
+	gpgsign = false
 [push]
 	autoSetupRemote = true
 [fetch]
