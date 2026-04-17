@@ -289,3 +289,6 @@ end
 if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
     . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'
 end
+
+# opencode
+fish_add_path /Users/shinobu/.opencode/bin
