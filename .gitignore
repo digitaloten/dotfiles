@@ -33,3 +33,5 @@ history.txt
 .local/bin/uv
 .local/bin/uvx
 .local/share/
+.local/bin/hermes
+.local/bin/python3.11
