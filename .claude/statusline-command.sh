@@ -33,14 +33,14 @@ FG_DARKGREEN="\e[38;5;83m" # bright green   — model/effort segment
 SEP="\e[38;5;244m"         # mid separator
 RESET="\e[0m"
 
-# Nerd Font icons — octal UTF-8 bytes (POSIX sh safe)
-DIR_ICON=$(printf '\357\205\233')    # U+F15B
-BRANCH_ICON=$(printf '\356\202\240') # U+E0A0
-UP_ICON=$(printf '\357\201\242')     # U+F062
-DOWN_ICON=$(printf '\357\201\243')   # U+F063
-MODEL_ICON=$(printf '\357\224\245')  # U+F525
-EFFORT_ICON=$(printf '\357\203\247') # U+F0E7
-BONE_ICON=🦴
+# Nerd Font icons — vim/lualine style
+DIR_ICON=    #  file (buffer icon)
+BRANCH_ICON= #  git branch
+UP_ICON=     #  arrow-up (in tokens)
+DOWN_ICON=   #  arrow-down (out tokens)
+MODEL_ICON=  #  android (model)
+EFFORT_ICON= #  bolt (effort)
+BONE_ICON=🦴   # bone
 BAR=" | "
 
 # Build left segments
