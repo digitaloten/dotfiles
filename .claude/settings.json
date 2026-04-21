@@ -33,9 +33,9 @@
       "Bash(git branch*)",
       "Bash(git checkout*)",
       "Bash(git stash*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
@@ -61,6 +61,8 @@
     }
   },
   "effortLevel": "medium",
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true
 }
