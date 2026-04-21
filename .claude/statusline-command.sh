@@ -40,6 +40,7 @@ UP_ICON=$(printf '\357\201\242')     # U+F062
 DOWN_ICON=$(printf '\357\201\243')   # U+F063
 MODEL_ICON=$(printf '\357\224\245')  # U+F525
 EFFORT_ICON=$(printf '\357\203\247') # U+F0E7
+BONE_ICON=🦴
 BAR=" | "
 
 # Build left segments
@@ -55,7 +56,7 @@ caveman_flag="$HOME/.claude/.caveman-active"
 if [ -f "$caveman_flag" ]; then
     caveman_mode=$(cat "$caveman_flag" 2>/dev/null)
     caveman_mode=${caveman_mode:-full}
-    left="${left}${SEP}${BAR}\e[38;5;172m🦴 ${caveman_mode}"
+    left="${left}${SEP}${BAR}\e[38;5;172m${BONE_ICON} ${caveman_mode}"
 fi
 
 if [ -n "$input_tokens" ]; then
