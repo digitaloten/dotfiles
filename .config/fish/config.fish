@@ -4,13 +4,14 @@
 set fish_greeting
 
 # Set some stuff for out path
-fish_add_path -g ~/.cargo/bin
-fish_add_path -g ~/.local/bin
-fish_add_path -g ~/.config/composer/vendor/bin
-fish_add_path -g ~/.local/share/nvim/mason/bin
 fish_add_path -g /opt/homebrew/bin
-fish_add_path -g /opt/homebrew/opt/m4/bin
 fish_add_path -g /opt/homebrew/opt/llvm/bin
+fish_add_path -g /opt/homebrew/opt/m4/bin
+fish_add_path -g ~/.cargo/bin
+fish_add_path -g ~/.config/composer/vendor/bin
+fish_add_path -g ~/.dotnet/tools
+fish_add_path -g ~/.local/bin
+fish_add_path -g ~/.local/share/nvim/mason/bin
 
 # Set default editor to vim
 set -gx EDITOR nvim
@@ -79,9 +80,14 @@ function cat
     bat --plain $argv
 end
 
-# Claude resume alias
+# Claude continue alias
 function c
-    claude --resume $argv
+    claude --continue $argv || claude
+end
+
+# Opencode continue alias
+function o
+    opencode --continue $argv || opencode
 end
 
 # Git typo
@@ -132,7 +138,7 @@ function gg
         echo "Error: Could'nt get quote from quoty"
         return 1
     end
-    git pull --no-edit
+    git pull --rebase
     git push
 end
 function gl
@@ -145,7 +151,7 @@ function gl
         echo "Error: Could'nt get location"
         return 1
     end
-    git pull --no-edit
+    git pull --rebase
     git push
 end
 
@@ -183,6 +189,11 @@ end
 # Clear alias
 function cl
     clear
+end
+
+# Alias for :q to exit terminal
+function :q
+    exit
 end
 
 # NVM
