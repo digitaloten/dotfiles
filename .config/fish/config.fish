@@ -33,7 +33,7 @@ set -gx MAKEFLAGS "-j$JOBS"
 
 # Set paru pager
 set -gx PARU_PAGER "bat --color=always"
-set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+set -gx MANPAGER "bat -p -lman"
 
 # FZF theme
 set -gx FZF_CTRL_T_OPTS "--preview 'bat -n --color=always {}'"
@@ -82,6 +82,12 @@ end
 
 # Claude continue alias
 function c
+    claude --continue $argv || claude
+end
+
+# Claude work account (separate config dir)
+function cw
+    set -lx CLAUDE_CONFIG_DIR $HOME/.claude-work
     claude --continue $argv || claude
 end
 
