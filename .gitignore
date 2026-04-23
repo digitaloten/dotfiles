@@ -17,6 +17,7 @@
 .config/hypr/monitors.conf
 .config/hypr/workspaces.conf
 .config/nvim/lazy-lock.json
+.config/opencode/opencode.json
 .config/qutebrowser/autoconfig.yml
 .config/qutebrowser/bookmarks/urls
 .config/qutebrowser/qsettings/QtProject.conf
