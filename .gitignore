@@ -46,3 +46,7 @@
 butler
 compile_commands.json
 history.txt
+.local/bin/claude
+.local/bin/python3.14
+.local/bin/uv
+.local/bin/uvx
