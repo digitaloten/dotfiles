@@ -251,10 +251,12 @@ if command -v dnf >/dev/null; then
         fish \
         fzf \
         git \
+        mpv \
         neovim \
         nodejs \
         npm \
         opencode \
+        libnotify \
         ripgrep \
         stow \
         tealdeer \
@@ -308,7 +310,9 @@ if command -v apt-get >/dev/null; then
         fish \
         fzf \
         git \
+        libnotify-bin \
         libssl-dev \
+        mpv \
         neovim \
         nodejs \
         npm \
@@ -340,5 +344,8 @@ echo -e "$GREEN_CHECK Installing Rust tools (quoty)..."
 cargo install quoty >/dev/null 2>&1
 echo -e "$GREEN_CHECK Installing Rust tools (fnm)..."
 cargo install fnm >/dev/null 2>&1
+
+echo -e "$GREEN_CHECK Setup RTK for LLMs..."
+cargo install --git https://github.com/rtk-ai/rtk >/dev/null 2>&1
 
 echo -e "$GREEN_CHECK Dependency installation complete."
