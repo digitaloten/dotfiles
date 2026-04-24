@@ -80,6 +80,11 @@ function cat
     bat --plain $argv
 end
 
+# Claude default: skip perms
+function claude
+    command claude --dangerously-skip-permissions $argv
+end
+
 # Claude continue alias
 function c
     claude --continue $argv || claude
@@ -292,17 +297,4 @@ end
 # FNM setup env
 if command -v -q fnm
     fnm env --shell fish | source
-end
-
-# opencode
-fish_add_path /home/shinobu/.opencode/bin
-
-# carapace
-if command -v -q carapace
-    carapace _carapace | source
-end
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
-    . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'
 end

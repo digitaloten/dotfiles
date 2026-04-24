@@ -64,5 +64,48 @@
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SID=$(jq -r .session_id); date +%s > /tmp/.rick-start-$USER-$SID"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SID=$(jq -r .session_id); RICK_STATE=/tmp/.rick-start-$USER-$SID ~/.local/bin/.rick &"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "RICK_STATE=/nonexistent ~/.local/bin/.rick &"
+          }
+        ]
+      }
+    ]
+  }
 }
