@@ -4,7 +4,9 @@
 !.claude-work/statusline-command.sh
 !.claude/CLAUDE.md
 !.claude/settings.json
+!.claude/settings.local.json
 !.claude/statusline-command.sh
+!.claude/skills/
 !.codex/AGENTS.md
 !.codex/config.toml
 !.config/Vieb/colors
@@ -26,11 +28,6 @@
 .cache
 .claude-work/*
 .claude/*
-!.claude/CLAUDE.md
-!.claude/settings.json
-!.claude/settings.local.json
-!.claude/statusline-command.sh
-!.claude/skills/
 .codex/*
 .config/Vieb/*
 .config/dconf/user
