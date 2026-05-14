@@ -1,16 +1,26 @@
-notify = ["sh", "-c", "exec \"$HOME/.local/bin/.rick\" \"$@\"", "_"]
+approvals_reviewer = "guardian_subagent"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
 
-[profiles.ollama-launch]
-openai_base_url = "http://pc.mx.kryptic.sh:11434/v1/"
-forced_login_method = "api"
-model_provider = "ollama-launch"
+[projects."/home/shinobu/Projects/crawly-mccrawlface"]
+trust_level = "trusted"
 
-[model_providers.ollama-launch]
-name = "Ollama"
-base_url = "http://pc.mx.kryptic.sh:11434/v1/"
-
-[projects."/home/mxaddict"]
+[projects."/home/shinobu/Projects/scrapling"]
 trust_level = "trusted"
 
 [tui]
 theme = "nord"
+status_line = ["model-with-reasoning", "context-remaining", "weekly-limit", "five-hour-limit", "total-input-tokens", "total-output-tokens", "task-progress", "run-state"]
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[features]
+terminal_resize_reflow = true
+memories = true
+
+[plugins."atlassian-rovo@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true

@@ -47,39 +47,8 @@
           }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "SID=$(jq -r .session_id); date +%s > /tmp/.rick-start-$USER-$SID"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "SID=$(jq -r .session_id); RICK_STATE=/tmp/.rick-start-$USER-$SID ~/.local/bin/.rick &"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "RICK_STATE=/nonexistent ~/.local/bin/.rick &"
-          }
-        ]
-      }
     ]
   },
-  "model": "claude-opus-4-6[1m]",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
@@ -104,9 +73,14 @@
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true
+  "verbose": true,
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "model": "sonnet"
 }

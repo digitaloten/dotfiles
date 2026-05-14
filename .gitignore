@@ -61,3 +61,4 @@ history.txt
 .local/bin/python3.14
 .local/bin/uv
 .local/bin/uvx
+.local/bin/rtk
