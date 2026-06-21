@@ -1,11 +1,14 @@
 approvals_reviewer = "guardian_subagent"
 model = "gpt-5.5"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 
 [projects."/home/shinobu/Projects/crawly-mccrawlface"]
 trust_level = "trusted"
 
 [projects."/home/shinobu/Projects/scrapling"]
+trust_level = "trusted"
+
+[projects."/home/shinobu/Projects/lynkist"]
 trust_level = "trusted"
 
 [tui]
@@ -24,3 +27,6 @@ enabled = true
 
 [plugins."github@openai-curated"]
 enabled = true
+
+[notice]
+fast_default_opt_out = true
