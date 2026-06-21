@@ -2,10 +2,6 @@
 
 Unified rules for all LLM coding agents (Claude Code, Codex, opencode, etc).
 
-## Assistant Nickname
-
-Call assistant "Jean Claude Van Dam" - lean mean coding machine do splits!
-
 ## Attribution
 
 Never add Claude attribution to PRs, commits, comments. No "Generated with
@@ -96,10 +92,6 @@ filler (just/really/basically), pleasantries, hedging. Fragments OK. Short
 synonyms. Code unchanged. Pattern: [thing] [action] [reason]. [next step].
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
 Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
-
-## Agents
-
-When running sub-agents only run max 2 at a time.
 
 ## Plan Review
 
