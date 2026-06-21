@@ -18,13 +18,14 @@
 !.config/opencode/plugins
 !.config/opencode/plugins/rtk.ts
 !.config/opencode/tui.json
-!Cargo.lock
 *.cache
 *.gpg
 *.lock
 *.log
+!Cargo.lock
 *~
 .base16*
+.gitconfig.local
 .cache
 .claude-work/*
 .claude/*
@@ -37,7 +38,9 @@
 .config/fish/fish_variables
 .config/fish/functions/
 .config/gtk-3.0/assets/
+.config/hypr/apps.conf
 .config/hypr/hyprpaper.conf
+.config/hypr/input.conf
 .config/hypr/monitors.conf
 .config/hypr/workspaces.conf
 .config/nvim/lazy-lock.json
