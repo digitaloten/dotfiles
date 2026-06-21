@@ -101,4 +101,43 @@ Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
 
 When running sub-agents only run max 2 at a time.
 
+## Plan Review
+
+When a plan/spec/runbook/roadmap is written, auto-review it before execution —
+don't wait to be asked ("plan review" = this). Scope is the plan doc only:
+review and refine it; NO implementation, code, or config changes inside the
+review.
+
+**Method scales with complexity:**
+
+- Simple plan → a single pass of the sequence below.
+- Complex plan, critical task, or anything touching critical services/processes
+  (correctness + stability paramount) → a dynamic loop-until-converged Workflow
+  (see Loop).
+
+**The sequence (one round):**
+
+1. **Review** — dispatch subagent(s) to find correctness errors, missing
+   edge-cases, gaps in steps/coverage, wrong assumptions, untested risks,
+   ordering/dependency issues. Returns concrete severity-tagged findings, NOT a
+   rewrite. Split across subagents by module/topic when it helps; run in
+   parallel (respect the max-2 rule above).
+2. **Verify** — independently check each finding against source. Reject
+   false-positives explicitly (note why). Never rubber-stamp.
+3. **Update** — fold verified findings into the plan body (fix the sketches in
+   place, execute-ready — not an appended addendum).
+4. **Flag** — call out anything needing the user: decisions, infra/access, prod
+   DDL/writes, running CLIs against live services.
+5. **Track + commit** — per the repo's plan-tracking rule if it has one.
+
+**Loop (complex/critical only):** steps 1–3 are one round. Re-review the
+_updated_ plan each round; stop when a round finds no new verified issues
+(converged/dry) or the cap is hit. **Default cap = 10 rounds unless stated
+otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
+
+**Invariants:** no auto-apply (every finding clears the verify gate first);
+plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
+the user = max N rounds, not N agents (use as many subagents per round as the
+task needs).
+
 @RTK.md
