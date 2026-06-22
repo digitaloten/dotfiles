@@ -1,1 +1,1 @@
-../.claude/CLAUDE.md
+/home/shinobu/.files/.claude/CLAUDE.md
