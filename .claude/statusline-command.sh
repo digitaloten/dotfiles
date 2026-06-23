@@ -1,5 +1,6 @@
 #!/bin/sh
 input=$(cat)
+
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 branch=$(git -C "$cwd" --no-optional-locks branch --show-current 2>/dev/null)
 input_tokens=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
@@ -93,6 +94,92 @@ fi
 
 if [ -n "$effort" ]; then
     left="${left}${SEP}${BAR}${FG_RED}${EFFORT_ICON} ${effort}"
+fi
+
+# Format seconds as "5d 4h 3m"
+fmt_duration() {
+    secs=$1
+    if [ "$secs" -le 0 ]; then printf "now"; return; fi
+    d=$((secs / 86400))
+    h=$(( (secs % 86400) / 3600 ))
+    m=$(( (secs % 3600) / 60 ))
+    out=""
+    if [ "$d" -gt 0 ]; then out="${d}d"; fi
+    if [ "$h" -gt 0 ]; then
+        if [ -n "$out" ]; then out="${out} ${h}h"; else out="${h}h"; fi
+    fi
+    if [ "$m" -gt 0 ]; then
+        if [ -n "$out" ]; then out="${out} ${m}m"; else out="${m}m"; fi
+    fi
+    if [ -z "$out" ]; then out="< 1m"; fi
+    printf "%s" "$out"
+}
+
+# Parse reset_at (Unix timestamp or ISO-8601) → Unix seconds
+parse_reset_at() {
+    val=$1
+    case "$val" in
+        [0-9]*) printf "%s" "$val" ;;
+        *) date -d "$val" +%s 2>/dev/null || printf "0" ;;
+    esac
+}
+
+# Context-style bg-fill bar: " label | time_remaining "
+rate_bar() {
+    pct=$1
+    label=$2
+    reset_at=$3
+    now=$4
+    if [ "$reset_at" -gt 0 ]; then
+        remaining_secs=$(( reset_at - now ))
+        remaining=$(fmt_duration "$remaining_secs")
+    else
+        remaining="${pct}%"
+    fi
+    text=" ${label} (${pct}%) "
+    text_len=${#text}
+    filled=$(( (pct * (text_len + 1) + 50) / 100 ))
+    if [ "$pct" -ge 90 ]; then
+        BG_RATE_FILLED="\e[48;5;160m\e[38;5;255m"
+    elif [ "$pct" -ge 75 ]; then
+        BG_RATE_FILLED="\e[48;5;136m\e[38;5;255m"
+    else
+        BG_RATE_FILLED="\e[48;5;30m\e[38;5;255m"
+    fi
+    BG_RATE_EMPTY="\e[48;5;236m\e[38;5;250m"
+    bar=""
+    i=0
+    while [ $i -lt $text_len ]; do
+        ch=$(printf '%s' "$text" | cut -c$((i + 1)))
+        if [ $((i + 1)) -lt $filled ]; then bar="${bar}${BG_RATE_FILLED}${ch}"; else bar="${bar}${BG_RATE_EMPTY}${ch}"; fi
+        i=$((i + 1))
+    done
+    printf "%s\e[0m \e[38;5;244m%s\e[0m" "$bar" "$remaining"
+}
+
+five_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+week_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+five_reset_raw=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+week_reset_raw=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+now_ts=$(date +%s)
+if [ -n "$five_pct" ] || [ -n "$week_pct" ]; then
+    rate_str=""
+    if [ -n "$five_pct" ]; then
+        five_int=$(printf '%.0f' "$five_pct")
+        five_reset=0
+        if [ -n "$five_reset_raw" ]; then five_reset=$(parse_reset_at "$five_reset_raw"); fi
+        rate_str="$(rate_bar "$five_int" "5h" "$five_reset" "$now_ts")"
+    fi
+    if [ -n "$week_pct" ]; then
+        week_int=$(printf '%.0f' "$week_pct")
+        week_reset=0
+        if [ -n "$week_reset_raw" ]; then week_reset=$(parse_reset_at "$week_reset_raw"); fi
+        if [ -n "$rate_str" ]; then rate_str="${rate_str}${SEP}${BAR}"; fi
+        rate_str="${rate_str}$(rate_bar "$week_int" "7d" "$week_reset" "$now_ts")"
+    fi
+    if [ -n "$rate_str" ]; then
+        left="${left}${SEP}${BAR}${rate_str}"
+    fi
 fi
 
 printf "%b\n" "${left}${RESET}"
