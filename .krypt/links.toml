@@ -80,8 +80,8 @@ src = ".config/hypr/hyprqt6engine.conf"
 dst = "${XDG_CONFIG}/hypr/hyprqt6engine.conf"
 
 [[link]]
-src = ".config/hypr/exfil.png"
-dst = "${XDG_CONFIG}/hypr/exfil.png"
+src = ".config/hypr/shinobu.jpg"
+dst = "${XDG_CONFIG}/hypr/shinobu.jpg"
 
 [[link]]
 src_glob = ".config/lazygit/**/*"
