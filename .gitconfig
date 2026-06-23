@@ -1,7 +1,5 @@
-[user]
-	name = shinobu
-	email = pekora@usada.io
-	signingkey = pekora@usada.io
+[include]
+	path = ~/.gitconfig.local
 [color]
 	ui = true
 [core]
@@ -35,5 +33,3 @@
 [credential "https://gist.github.com"]
 	helper =
 	helper = !/usr/bin/gh auth git-credential
-[include]
-	path = ~/.gitconfig.local
