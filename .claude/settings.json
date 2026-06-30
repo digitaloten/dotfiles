@@ -84,7 +84,7 @@
       }
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
@@ -94,5 +94,7 @@
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "model": "sonnet"
+  "env": {
+    "CLAUDE_CODE_TMPDIR": "/var/tmp"
+  }
 }
