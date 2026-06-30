@@ -3,8 +3,27 @@ input=$(cat)
 
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 branch=$(git -C "$cwd" --no-optional-locks branch --show-current 2>/dev/null)
-input_tokens=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
-output_tokens=$(echo "$input" | jq -r '.context_window.total_output_tokens // empty')
+# Session-cumulative input/output tokens, parsed from the transcript.
+# Each assistant turn's usage is duplicated once per content block, so dedup by
+# message.id (take first per id) before summing. Input is billed-style: fresh
+# input + cache writes (excludes cache reads); output is generated tokens.
+transcript=$(echo "$input" | jq -r '.transcript_path // empty')
+input_tokens=""
+output_tokens=""
+if [ -n "$transcript" ] && [ -f "$transcript" ]; then
+    session_tokens=$(jq -rs '
+        [ .[] | select(.message.usage and .message.id) ]
+        | group_by(.message.id) | map(.[0].message.usage) as $u
+        | { i: ([ $u[] | (.input_tokens + (.cache_creation_input_tokens // 0)) ] | add // 0),
+            o: ([ $u[].output_tokens ] | add // 0) }
+        | "\(.i) \(.o)"' "$transcript" 2>/dev/null)
+    if [ -n "$session_tokens" ]; then
+        in_tok=${session_tokens%% *}
+        out_tok=${session_tokens##* }
+        [ "$in_tok" != "0" ] && input_tokens="$in_tok"
+        [ "$out_tok" != "0" ] && output_tokens="$out_tok"
+    fi
+fi
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 model_name=$(echo "$input" | jq -r '.model.display_name // empty')
 effort=$(jq -r '.effortLevel // empty' "$HOME/.claude/settings.json" 2>/dev/null)
