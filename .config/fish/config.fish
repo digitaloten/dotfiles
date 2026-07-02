@@ -7,6 +7,7 @@ set fish_greeting
 fish_add_path -g /opt/homebrew/bin
 fish_add_path -g /opt/homebrew/opt/llvm/bin
 fish_add_path -g /opt/homebrew/opt/m4/bin
+fish_add_path -g ~.foundry/bin
 fish_add_path -g ~/.cargo/bin
 fish_add_path -g ~/.config/composer/vendor/bin
 fish_add_path -g ~/.dotnet/tools
@@ -171,6 +172,28 @@ function q
     kweri $argv
 end
 
+# Alias for hjkl
+function h
+    hjkl $argv
+end
+function hj
+    hjkl $argv
+end
+function hjk
+    hjkl $argv
+end
+
+# Alias for sqeel
+function s
+    sqeel $argv
+end
+function sq
+    sqeel $argv
+end
+function sql
+    sqeel $argv
+end
+
 # Add navcoin alias
 function nav
     navcoin-cli $argv
@@ -298,3 +321,19 @@ end
 if command -v -q fnm
     fnm env --shell fish | source
 end
+
+# opencode
+fish_add_path /home/shinobu/.opencode/bin
+
+# carapace
+if command -v -q carapace
+    carapace _carapace | source
+end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc' ]
+    . '/Users/shinobu/Downloads/google-cloud-sdk/path.fish.inc'
+end
+
+# Cap cargo at half the system threads to keep desktop responsive
+set -gx CARGO_BUILD_JOBS (math (.nproc) / 2)

@@ -1,0 +1,14 @@
+; Copy to ~/.gitconfig.local and fill in your details.
+; This file is loaded via [include] from ~/.gitconfig.
+; Keep it out of version control — it holds personal identity.
+
+[user]
+	name = Your Name
+	email = you@example.com
+	; signingkey only needed if you uncomment [commit] gpgsign below.
+	; signingkey = you@example.com
+
+; Uncomment to enable GPG signing on every commit.
+; Requires a working GPG setup and a key matching `signingkey` above.
+; [commit]
+; 	gpgsign = true
