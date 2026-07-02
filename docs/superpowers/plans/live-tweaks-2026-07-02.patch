@@ -1,0 +1,105 @@
+diff --git a/.claude/settings.json b/.claude/settings.json
+index 1878307..d8d473a 100644
+--- a/.claude/settings.json
++++ b/.claude/settings.json
+@@ -32,7 +32,8 @@
+       "Bash(git push*)",
+       "Bash(git branch*)",
+       "Bash(git checkout*)",
+-      "Bash(git stash*)"
++      "Bash(git stash*)",
++      "Bash(ssh agent@*)"
+     ],
+     "defaultMode": "auto"
+   },
+@@ -103,9 +104,11 @@
+       }
+     }
+   },
+-  "effortLevel": "medium",
++  "effortLevel": "xhigh",
+   "awaySummaryEnabled": false,
+   "tui": "fullscreen",
+   "skipDangerousModePermissionPrompt": true,
++  "verbose": true,
++  "inputNeededNotifEnabled": true,
+   "skipAutoPermissionPrompt": true
+ }
+diff --git a/.config/hypr/hyprland.conf b/.config/hypr/hyprland.conf
+index 703b4de..78e0de0 100644
+--- a/.config/hypr/hyprland.conf
++++ b/.config/hypr/hyprland.conf
+@@ -45,7 +45,6 @@ misc {
+     key_press_enables_dpms = true
+ 
+     vrr = true
+-    vfr = true
+ }
+ 
+ input {
+@@ -89,7 +88,6 @@ animations {
+ }
+ 
+ dwindle {
+-    pseudotile = true
+     preserve_split = true
+ }
+ 
+diff --git a/.config/opencode/opencode.json b/.config/opencode/opencode.json
+index 38f53ba..6cec2a3 100644
+--- a/.config/opencode/opencode.json
++++ b/.config/opencode/opencode.json
+@@ -5,29 +5,33 @@
+       "npm": "@ai-sdk/openai-compatible",
+       "name": "Ollama @ Home",
+       "options": {
+-        "baseURL": "http://pc.mx.kryptic.sh:11434/v1"
++        "baseURL": "http://137.175.76.24:20678/v1",
++        "apiKey": "sk-noauth"
+       },
+       "models": {
+-        "qwen3-coder:30b": {
+-          "name": "qwen3-coder:30b"
++        "unsloth/Qwen3.6-35B-A3B-NVFP4": {
++          "name": "unsloth/Qwen3.6-35B-A3B-NVFP4",
++          "limit": {
++            "context": 262144,
++            "output": 32768
++          }
+         },
+-        "qwen2.5-coder:32b": {
+-          "name": "qwen2.5-coder:32b"
+-        },
+-        "qwen2.5-coder:14b": {
+-          "name": "qwen2.5-coder:14b"
+-        },
+-        "qwen3.5:27b": {
+-          "name": "qwen3.5:27b"
+-        },
+-        "qwen3.5:9b": {
+-          "name": "qwen3.5:9b"
+-        },
+-        "gemma4:e4b": {
+-          "name": "gemma4:e4b"
+-        },
+-        "gemma4:26b": {
+-          "name": "gemma4:26b"
++      }
++    },
++    "vllm": {
++      "npm": "@ai-sdk/openai-compatible",
++      "name": "vLLM RunPod (Qwen3.6)",
++      "options": {
++        "baseURL": "https://udk419zr4nhmf7-8000.proxy.runpod.net/v1",
++        "apiKey": "sk-2c99aae35eea7dbfa47c53238c217d3c"
++      },
++      "models": {
++        "nvidia/Qwen3.6-35B-A3B-NVFP4": {
++          "name": "Qwen3.6-35B-A3B",
++          "limit": {
++            "context": 262144,
++            "output": 32768
++          }
+         }
+       }
+     }
