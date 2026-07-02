@@ -32,7 +32,8 @@
       "Bash(git push*)",
       "Bash(git branch*)",
       "Bash(git checkout*)",
-      "Bash(git stash*)"
+      "Bash(git stash*)",
+      "Bash(ssh agent@*)"
     ],
     "defaultMode": "auto"
   },
@@ -77,6 +78,17 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command // \"\"' | grep -qiE \"\\bgit\\b[^&|;]*\\bpush\\b\" && printf \"%s\" '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"A git push just ran. Standing user instruction: after every push, monitor CI. Identify the pushed commit(s), then poll the repo CI until the pipeline reaches a terminal state (GitLab: glab ci status; GitHub: gh run watch). If a job failed, read its log and report the cause; retry transient/infra failures. Report the final pipeline status. Skip only if the push itself failed.\"}}' || true"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -87,6 +99,7 @@
     "caveman@caveman": true,
     "clangd-lsp@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "php-lsp@claude-plugins-official": true,
     "playwright@claude-plugins-official": false,
@@ -103,9 +116,17 @@
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true
+  "theme": "dark",
+  "verbose": true,
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "env": {
+    "CLAUDE_CODE_TMPDIR": "/var/tmp"
+  }
 }

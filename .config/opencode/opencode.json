@@ -5,29 +5,33 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama @ Home",
       "options": {
-        "baseURL": "http://pc.mx.kryptic.sh:11434/v1"
+        "baseURL": "http://137.175.76.24:20678/v1",
+        "apiKey": "sk-noauth"
       },
       "models": {
-        "qwen3-coder:30b": {
-          "name": "qwen3-coder:30b"
-        },
-        "qwen2.5-coder:32b": {
-          "name": "qwen2.5-coder:32b"
-        },
-        "qwen2.5-coder:14b": {
-          "name": "qwen2.5-coder:14b"
-        },
-        "qwen3.5:27b": {
-          "name": "qwen3.5:27b"
-        },
-        "qwen3.5:9b": {
-          "name": "qwen3.5:9b"
-        },
-        "gemma4:e4b": {
-          "name": "gemma4:e4b"
-        },
-        "gemma4:26b": {
-          "name": "gemma4:26b"
+        "unsloth/Qwen3.6-35B-A3B-NVFP4": {
+          "name": "unsloth/Qwen3.6-35B-A3B-NVFP4",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
+        }
+      }
+    },
+    "vllm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM RunPod (Qwen3.6)",
+      "options": {
+        "baseURL": "https://udk419zr4nhmf7-8000.proxy.runpod.net/v1",
+        "apiKey": "sk-2c99aae35eea7dbfa47c53238c217d3c"
+      },
+      "models": {
+        "nvidia/Qwen3.6-35B-A3B-NVFP4": {
+          "name": "Qwen3.6-35B-A3B",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
         }
       }
     }

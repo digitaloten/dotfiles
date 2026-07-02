@@ -1,1 +1,1 @@
-@/home/mxaddict/.codex/RTK.md
+@/home/shinobu/.codex/RTK.md

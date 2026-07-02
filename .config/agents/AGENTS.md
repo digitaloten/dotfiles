@@ -40,7 +40,9 @@ Rust project changes → always run cargo clippy, cargo fmt, cargo test after.
 User says "**BCTP**", execute in order:
 
 1. **B**ump patch version (semver) in manifest. Detect automatically:
-   - Rust: `Cargo.toml` (regenerate `Cargo.lock` with `cargo generate-lockfile`)
+   - Rust: `Cargo.toml` (regenerate `Cargo.lock` with `cargo generate-lockfile`
+     if `Cargo.lock` is tracked; library crates that gitignore `Cargo.lock` skip
+     the regen)
    - Node: `package.json` (regenerate lockfile:
      `npm install --package-lock-only`, `pnpm install --lockfile-only`, or
      `yarn install --mode=update-lockfile`, match project's package manager)
@@ -50,10 +52,22 @@ User says "**BCTP**", execute in order:
    - PHP: `composer.json` (regenerate `composer.lock` with
      `composer update --lock`)
    - Generic: `VERSION` file or language equivalent
-2. **C**ommit version bump with message `chore: bump version`. Stage only
-   manifest and lockfile.
-3. **T**ag commit as `vX.Y.Z` matching new version.
-4. **P**ush commit and tag to remote.
+2. **Update CHANGELOG** before committing. If `CHANGELOG.md` (or equivalent:
+   `CHANGES.md`, `HISTORY.md`, `RELEASES.md`) exists in the repo:
+   - Move entries under `## [Unreleased]` to a new `## [X.Y.Z] - YYYY-MM-DD`
+     heading, keeping `## [Unreleased]` empty above it.
+   - If `Unreleased` is empty or missing, draft entries from the unreleased
+     commit log (`git log $(git describe --tags --abbrev=0)..HEAD`) using
+     Keep-a-Changelog sections (`Added` / `Changed` / `Fixed` / `Removed` /
+     `Deprecated` / `Breaking`). Be specific — name the APIs / files / behaviors
+     that changed; don't just rephrase commit subjects.
+   - Run `prettier --write` on the file per the markdown rule below.
+   - Stage `CHANGELOG.md` alongside the manifest in step 3. If no changelog file
+     exists, skip — don't create one unless asked.
+3. **C**ommit version bump with message `chore: bump version`. Stage only
+   manifest, lockfile, and changelog.
+4. **T**ag commit as `vX.Y.Z` matching new version.
+5. **P**ush commit and tag to remote.
 
 Defaults:
 
@@ -67,6 +81,14 @@ Defaults:
 
 - **cut** / **cut release** — alias for **BCTP**.
 
+## Delegate
+
+User says "**delegate**" → spawn subagent on cheaper model than current (Opus →
+Sonnet, Sonnet → Haiku). Use Agent tool with `model` param. Always review
+subagent output after — read changed files, verify diff matches intent, run
+tests/lints. Fix issues found yourself. Ask user clarifying questions if scope
+ambiguous before delegating.
+
 ## Caveman
 
 Terse like caveman. Technical substance exact. Only fluff die. Drop: articles,
@@ -74,5 +96,44 @@ filler (just/really/basically), pleasantries, hedging. Fragments OK. Short
 synonyms. Code unchanged. Pattern: [thing] [action] [reason]. [next step].
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
 Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
+
+## Plan Review
+
+When a plan/spec/runbook/roadmap is written, auto-review it before execution —
+don't wait to be asked ("plan review" = this). Scope is the plan doc only:
+review and refine it; NO implementation, code, or config changes inside the
+review.
+
+**Method scales with complexity:**
+
+- Simple plan → a single pass of the sequence below.
+- Complex plan, critical task, or anything touching critical services/processes
+  (correctness + stability paramount) → a dynamic loop-until-converged Workflow
+  (see Loop).
+
+**The sequence (one round):**
+
+1. **Review** — dispatch subagent(s) to find correctness errors, missing
+   edge-cases, gaps in steps/coverage, wrong assumptions, untested risks,
+   ordering/dependency issues. Returns concrete severity-tagged findings, NOT a
+   rewrite. Split across subagents by module/topic when it helps; run in
+   parallel (respect the max-2 rule above).
+2. **Verify** — independently check each finding against source. Reject
+   false-positives explicitly (note why). Never rubber-stamp.
+3. **Update** — fold verified findings into the plan body (fix the sketches in
+   place, execute-ready — not an appended addendum).
+4. **Flag** — call out anything needing the user: decisions, infra/access, prod
+   DDL/writes, running CLIs against live services.
+5. **Track + commit** — per the repo's plan-tracking rule if it has one.
+
+**Loop (complex/critical only):** steps 1–3 are one round. Re-review the
+_updated_ plan each round; stop when a round finds no new verified issues
+(converged/dry) or the cap is hit. **Default cap = 10 rounds unless stated
+otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
+
+**Invariants:** no auto-apply (every finding clears the verify gate first);
+plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
+the user = max N rounds, not N agents (use as many subagents per round as the
+task needs).
 
 @RTK.md

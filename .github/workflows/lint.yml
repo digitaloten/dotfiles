@@ -1,0 +1,93 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Run shellcheck
+        run: |
+          shopt -s nullglob
+          # Third-party scripts we ship as-is — don't lint upstream.
+          skip=(".local/bin/grimblast" ".local/bin/t")
+          is_skipped() {
+            local f="$1"
+            for s in "${skip[@]}"; do [ "$f" = "$s" ] && return 0; done
+            return 1
+          }
+          fail=0
+          for f in .local/bin/.* .local/bin/*; do
+            [ -f "$f" ] || continue
+            [ -x "$f" ] || continue
+            is_skipped "$f" && { echo "== skip (upstream) $f =="; continue; }
+            head -n1 "$f" | grep -qE '^#!.*(bash|sh)\b' || continue
+            echo "== shellcheck $f =="
+            shellcheck -x "$f" || fail=1
+          done
+          exit "$fail"
+
+  prettier:
+    name: prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Install prettier
+        run: npm install --global prettier@3
+      - name: Check formatting
+        run: |
+          prettier --check \
+            --no-error-on-unmatched-pattern \
+            --ignore-path .gitignore \
+            --ignore-path .prettierignore \
+            "**/*.md" \
+            "**/*.json" \
+            "**/*.jsonc" \
+            "**/*.yml" \
+            "**/*.yaml" \
+            "**/*.ts" \
+            "**/*.tsx" \
+            "**/*.js" \
+            "**/*.jsx"
+
+  validate-configs:
+    name: validate JSON / TOML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install validators
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip jq
+          pip3 install --user tomli
+      - name: Validate JSON files
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            # git ls-files may list paths not present on disk (symlinks,
+            # ignored content). Skip if missing.
+            [ -f "$f" ] || { echo "== skip (missing) $f =="; continue; }
+            echo "== json $f =="
+            jq empty "$f" || fail=1
+          done < <(git ls-files '*.json')
+          exit "$fail"
+      # JSONC (.jsonc) is parsed by the prettier job — no separate step here.
+      - name: Validate TOML files
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || { echo "== skip (missing) $f =="; continue; }
+            echo "== toml $f =="
+            python3 -c "import tomli, sys; tomli.loads(open('$f','rb').read().decode())" || fail=1
+          done < <(git ls-files '*.toml')
+          exit "$fail"
