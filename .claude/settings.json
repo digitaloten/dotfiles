@@ -32,7 +32,8 @@
       "Bash(git push*)",
       "Bash(git branch*)",
       "Bash(git checkout*)",
-      "Bash(git stash*)"
+      "Bash(git stash*)",
+      "Bash(ssh agent@*)"
     ],
     "defaultMode": "auto"
   },
@@ -115,7 +116,7 @@
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,

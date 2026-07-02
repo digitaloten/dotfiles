@@ -1,42 +1,37 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "provider": {
-    "llama-cpp": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Llama.cpp (local)",
-      "options": {
-        "baseURL": "http://127.0.0.1:8000/v1"
-      },
-      "models": {
-        "qwen3.5-27b-opus": {
-          "id": "qwen3.5-27b-opus",
-          "name": "Qwen 3.5 27B Opus (Reasoning)"
-        }
-      }
-    },
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
+      "name": "Ollama @ Home",
       "options": {
-        "baseURL": "http://10.0.1.1:11434/v1"
+        "baseURL": "http://137.175.76.24:20678/v1",
+        "apiKey": "sk-noauth"
       },
       "models": {
-        "qwen3-coder:30b": {
-          "name": "qwen3-coder:30b"
+        "unsloth/Qwen3.6-35B-A3B-NVFP4": {
+          "name": "unsloth/Qwen3.6-35B-A3B-NVFP4",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
         }
       }
     },
-    "lmstudio": {
+    "vllm": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "LM Studio (local)",
+      "name": "vLLM RunPod (Qwen3.6)",
       "options": {
-        "baseURL": "http://127.0.0.1:1234/v1",
-        "apiKey": "sk-lm-0wMOHm58:a1dqPY7pTMhF7Sl3rgBh"
+        "baseURL": "https://udk419zr4nhmf7-8000.proxy.runpod.net/v1",
+        "apiKey": "sk-2c99aae35eea7dbfa47c53238c217d3c"
       },
       "models": {
-        "qwen3.5-27b-claude-4.6-opus-reasoning-distilled": {
-          "id": "qwen3.5-27b-claude-4.6-opus-reasoning-distilled",
-          "name": "qwen3.5-27b-claude-4.6-opus-reasoning-distilled"
+        "nvidia/Qwen3.6-35B-A3B-NVFP4": {
+          "name": "Qwen3.6-35B-A3B",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
         }
       }
     }
