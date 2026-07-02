@@ -56,9 +56,17 @@ dst = "${XDG_CONFIG}/gh/"
 src_glob = ".config/gtk-3.0/**/*"
 dst = "${XDG_CONFIG}/gtk-3.0/"
 
+# gtk-4.0: only the real user files. assets/, gtk.css, gtk-dark.css are symlinks
+# to the root-owned system theme (/usr/share/themes/adw-gtk3-dark) and are
+# managed by the theme / nwg-look, not krypt — a `**/*` glob would follow them
+# and copy through the symlink into /usr/share (Permission denied).
 [[link]]
-src_glob = ".config/gtk-4.0/**/*"
-dst = "${XDG_CONFIG}/gtk-4.0/"
+src = ".config/gtk-4.0/colors.css"
+dst = "${XDG_CONFIG}/gtk-4.0/colors.css"
+
+[[link]]
+src = ".config/gtk-4.0/settings.ini"
+dst = "${XDG_CONFIG}/gtk-4.0/settings.ini"
 
 # Hyprland: only versioned files; the live *.conf (apps.conf, input.conf,
 # monitors.conf, hyprpaper.conf, workspaces.conf) are gitignored and managed
