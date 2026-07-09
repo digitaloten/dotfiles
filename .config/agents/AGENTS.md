@@ -117,7 +117,7 @@ review.
    edge-cases, gaps in steps/coverage, wrong assumptions, untested risks,
    ordering/dependency issues. Returns concrete severity-tagged findings, NOT a
    rewrite. Split across subagents by module/topic when it helps; run in
-   parallel (respect the max-2 rule above).
+   parallel (max 2 subagents in parallel — see OPS.md Delegation contract).
 2. **Verify** — independently check each finding against source. Reject
    false-positives explicitly (note why). Never rubber-stamp.
 3. **Update** — fold verified findings into the plan body (fix the sketches in
@@ -134,7 +134,7 @@ otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
 **Invariants:** no auto-apply (every finding clears the verify gate first);
 plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
 the user = max N rounds, not N agents (use as many subagents per round as the
-task needs).
+task needs, run ≤2 concurrently per the max-2 rule).
 
 @RTK.md
 

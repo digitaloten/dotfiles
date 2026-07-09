@@ -2,7 +2,9 @@
 
 General, repo-agnostic rules promoted from `crawly-mccrawlface/AGENTS.md` + its
 runbooks — each one exists because the behaviour kept recurring. Per-repo files
-may repeat these for non-configured tools; this copy is canonical.
+may repeat these for non-configured tools; this copy is canonical **wording**
+only — on conflict over a project's specifics, that project's own AGENTS.md wins
+(workspace precedence rule).
 
 ## Delegation contract
 
@@ -25,14 +27,23 @@ Non-negotiables:
 - **No persistent-worker shape** — long tail beyond one turn → main thread owns
   the long step (harness-tracked background + monitor) and delegates only
   bounded chunks.
+- **Max 2 subagents in parallel** — house convention, not from the runbook above
+  (this defines the "max-2 rule" the Plan Review contract references); batch
+  larger fan-outs into waves of ≤2.
 
 ## Delegation economics
 
 Delegate for **context preservation** (genuinely huge/unknown output, long
 session), not as a blanket token-saver — output filters (rtk tee hook) are the
-primary saver. Subagent cold-start bills ~15–20k tok before doing anything.
-Never delegate lint/format (the returned summary alone outweighs filtered
-output); tests optional, direct by default.
+primary saver. Subagent cold-start bills ~15–20k tok before doing anything, plus
+latency (spawn + ≥2 model turns). Never delegate lint/format (the returned
+summary alone outweighs filtered output); tests optional, direct by default.
+Magnitudes were measured on crawly's Node/eslint/jest stack (2026-07-02) —
+spot-check filtered-output size before assuming the same ratios on another
+stack. Dispatch tier: default mid-tier; cheapest for mechanical work (log reads,
+DB queries, large/unknown reads); top tier only if requested or genuinely
+needed. (The user-keyword "delegate" rule in AGENTS.md — spawn
+cheaper-than-current — applies only to that explicit command.)
 
 ## Monitors & watchers
 
@@ -41,6 +52,11 @@ remote-process/rented-instance monitors, DB/deploy waiters:
 
 - **Fast-fail every poll** — detect failure each iteration; never wait out a
   timeout to "find out what happened".
+- **Success is observed, never inferred** — absence of an error is not
+  completion; on eventually-consistent/distributed checks (instance lists,
+  replica status, k8s state) require ≥3 consecutive confirmations before
+  declaring a terminal state — a single poll can lag. Report only observed
+  evidence — never project an ETA.
 - **Two layers** — monitor the item (process/log/status) AND the machine
   (cpu/ram/gpu/disk); a live process on an idle GPU is a failure.
 - **Bracket-pgrep** — `pgrep -f "[w]orker"`; plain `-f` self-matches the command
@@ -50,9 +66,9 @@ remote-process/rented-instance monitors, DB/deploy waiters:
 - **Detectors ship `--test` self-tests**; expensive targets require an
   injected-failure dry run first.
 
-Detail + metered-instance cost rules:
-`crawly-mccrawlface/docs/runbooks/monitors.md`,
-`docs/runbooks/on-demand-instances.md`.
+This list is a subset — the full rule set (with the incident behind each rule)
+is `crawly-mccrawlface/docs/runbooks/monitors.md`; metered-instance cost rules
+in `docs/runbooks/on-demand-instances.md`.
 
 ## Shell honesty — no exit-code laundering
 
@@ -65,9 +81,12 @@ Detail + metered-instance cost rules:
 
 ## Push gating
 
-Every push you manage is gated by green lint + full test suite, verified by bare
-exit codes. Red → fix first, re-run to green, then push. Docs-only pushes exempt
-from the test gate; still format changed `.md`.
+Every push you manage — **including tag/release pushes that trigger CI/CD
+deploys** — is gated by green lint + full test suite, verified by bare exit
+codes. Red → fix first, re-run to green, then push. Docs-only pushes exempt from
+the test gate; still format changed `.md`. If the repo has no lint/test tooling
+configured, state that explicitly to the user (chat reply, commit body, or PR
+description) — don't fabricate a gate and don't skip silently.
 
 ## Destructive ops & data safety
 
@@ -80,6 +99,15 @@ from the test gate; still format changed `.md`.
   every row persists); volume anomalies are caught by observability, not by
   failing the job.
 
+Source: `crawly-mccrawlface/AGENTS.md` §Testing, §Gotchas.
+
+## Tooling hooks
+
+- Claude Code's PostToolUse prettier-on-edit hook can corrupt files near Unicode
+  (other tools: check for an equivalent post-edit format hook) — for targeted
+  replacements adjacent to Unicode, use `sed -i` via shell (GNU sed; no `''`
+  backup arg — that's BSD/macOS) instead of the Edit tool.
+
 ## Cross-repo MySQL scars
 
 - Unaliased `information_schema` columns come back **UPPERCASE** from the
@@ -89,5 +117,14 @@ from the test gate; still format changed `.md`.
 - Resolving strings to ids via a pre-fetched name→id map against a `*_ci` /
   `*_ai_ci` UNIQUE column: normalize BOTH sides first, or resolve per-row with
   `WHERE name = ?` (rides the column collation). An exact-match map keyed on raw
-  input silently misses every casing/accent variant — one repo dropped 48.8% of
-  its edges this way.
+  input silently misses every casing/accent variant — `rsty-tweekin` dropped
+  48.8% of its edges this way (2026-07-08).
+- MySQL rejects `LIMIT` inside `IN`/`ALL`/`ANY`/`SOME` subqueries — use a `JOIN`
+  on a derived table.
+- systemd MySQL `LimitNOFILE` defaults to 10,000 → `table_open_cache`
+  thrashing + semaphore-timeout crashes under load on shared DB hosts; fix is a
+  drop-in raising it (e.g. `LimitNOFILE=200000`) + daemon-reload + restart.
+
+Source: `crawly-mccrawlface/AGENTS.md` §Gotchas; memories
+`gotcha-information-schema-uppercase-keys`,
+`gotcha-tweekin-case-lookup-vs-ai-ci-collation`.
