@@ -19,9 +19,10 @@ scope is unverified — rule 9 applies.
 Sweep depth scales with undo-cost. Hard-irreversible (DROP/DELETE of data,
 destroying a resource, revoking access you can't re-grant identically) gets the
 full sweep below. Consequential-but-reversible (disabling a cron or feature
-flag, retiring an endpoint — the toggle undoes, the effect window doesn't) gets
-a sweep scoped to known/likely consumers during that window. For the full sweep,
-enumerate **every place a client could live**, not just the current repo:
+flag, retiring an endpoint — the change undoes via toggle or revert+redeploy,
+the effect window doesn't) gets a sweep scoped to known/likely consumers during
+that window. For the full sweep, enumerate **every place a client could live**,
+not just the current repo:
 
 - all repos in the workspace (grep each, record repo + verdict per repo)
 - non-repo clients: cron on hosts, systemd timers, k8s CronJobs, dashboards
@@ -31,12 +32,13 @@ enumerate **every place a client could live**, not just the current repo:
 
 Record the sweep (what was searched, verdict each) in the spec — or, when no
 spec exists, in a durable sink (commit message, handoff/incident doc, memory
-file), not only in ephemeral chat. Single-repo grep is not a blast radius.
-Liveness is per-artifact: one frozen table does not imply sibling tables/objects
-in the same schema are dead — verify each independently. Same class as
-wrong-host checks: confirm the host/schema before declaring data absent (against
-the project's topology map if it keeps one; otherwise state the host/schema
-explicitly in the finding).
+file), not only in ephemeral chat. This recording rule applies to the scoped
+consumer sweep too, not just the full sweep. Single-repo grep is not a blast
+radius. Liveness is per-artifact: one frozen table does not imply sibling
+tables/objects in the same schema are dead — verify each independently. Same
+class as wrong-host checks: confirm the host/schema before declaring data absent
+(against the project's topology map if it keeps one; otherwise state the
+host/schema explicitly in the finding).
 
 ## 3. Dependency behaviour claims cite dependency source
 
