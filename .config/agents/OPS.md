@@ -27,6 +27,12 @@ Non-negotiables:
 - **No persistent-worker shape** — long tail beyond one turn → main thread owns
   the long step (harness-tracked background + monitor) and delegates only
   bounded chunks.
+- **State the contract in the delegation prompt** — every long/remote delegation
+  names the concrete deliverable + its success check, and says explicitly:
+  detached remote processes notify no one, you own the poll loop until the
+  artifact exists; you are single-shot, return `INCOMPLETE` if you can't finish,
+  never a plain success. The prompt is a backstop — the artifact check
+  (verify-before-trust) is the gate.
 - **Max 2 subagents in parallel** — house convention, not from the runbook above
   (this defines the "max-2 rule" the Plan Review contract references); batch
   larger fan-outs into waves of ≤2.
@@ -61,6 +67,9 @@ remote-process/rented-instance monitors, DB/deploy waiters:
   (cpu/ram/gpu/disk); a live process on an idle GPU is a failure.
 - **Bracket-pgrep** — `pgrep -f "[w]orker"`; plain `-f` self-matches the command
   carrying it.
+- **Parse structured data via stdin** — pipe API/JSON responses into a real
+  parser; never string-interpolate a response into shell/python source (embedded
+  quotes/control chars crash the parser and blind the monitor).
 - **Every phase covered from creation**, per-phase timeouts, teardown in
   `trap`/`finally` and verified after.
 - **Detectors ship `--test` self-tests**; expensive targets require an

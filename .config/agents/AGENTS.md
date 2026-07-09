@@ -83,11 +83,11 @@ Defaults:
 
 ## Delegate
 
-User says "**delegate**" → spawn subagent on cheaper model than current (Opus →
-Sonnet, Sonnet → Haiku). Use Agent tool with `model` param. Always review
-subagent output after — read changed files, verify diff matches intent, run
-tests/lints. Fix issues found yourself. Ask user clarifying questions if scope
-ambiguous before delegating.
+User says "**delegate**" → spawn subagent on cheaper model than current
+(Fable/Mythos → Sonnet, Opus → Sonnet, Sonnet → Haiku). Use Agent tool with
+`model` param. Always review subagent output after — read changed files, verify
+diff matches intent, run tests/lints. Fix issues found yourself. Ask user
+clarifying questions if scope ambiguous before delegating.
 
 ## Caveman
 

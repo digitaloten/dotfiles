@@ -14,7 +14,7 @@ rds.02**". A reader (including future you) silently upgrades an unscoped
 negative to a universal one. Reader side: an inherited negative without stated
 scope is unverified — rule 9 applies.
 
-## 2. Blast radius before anything irreversible
+## 2. Blast radius before removing or disabling anything
 
 Sweep depth scales with undo-cost. Hard-irreversible (DROP/DELETE of data,
 destroying a resource, revoking access you can't re-grant identically) gets the
@@ -111,6 +111,7 @@ implementer will get wrong.
 ## 9. Inherited claims re-verify before they gate action
 
 Handoff docs, memory files, prior-session summaries, and reviewer findings are
-**claims, not facts**. Before one gates an irreversible action, re-verify it and
-note provenance ("per handoff X, re-verified against Y"). The costliest
-near-miss was an inherited single-repo negative treated as a universal fact.
+**claims, not facts**. Before one gates a consequential action (either rule-2
+tier, or any step that's costly to walk back), re-verify it and note provenance
+("per handoff X, re-verified against Y"). The costliest near-miss was an
+inherited single-repo negative treated as a universal fact.
