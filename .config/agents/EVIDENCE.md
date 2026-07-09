@@ -53,7 +53,10 @@ source of truth** (e.g. re-run the aggregate query), never read off the
 pre-change artifact. If the change alters a table, that table is not evidence
 about the change. Corollaries: baselines taken from buggy runs are contaminated;
 `TABLE_ROWS` is an InnoDB estimate — use `COUNT(*)` (or exact `GROUP BY`) for
-anything that gates acceptance.
+anything that gates acceptance; any new cost model/estimate is validated against
+the provider's billing export (compare PER-ROW cost, not totals) before its
+numbers are quoted or used for decisions — two uncalibrated assumptions once
+compounded to a 3× understatement ("$219" quoted, $664 billed).
 
 ## 6. Quote current behaviour before claiming a delta
 
