@@ -112,10 +112,25 @@ Source: `crawly-mccrawlface/AGENTS.md` §Testing, §Gotchas.
 
 ## Tooling hooks
 
-- Claude Code's PostToolUse prettier-on-edit hook can corrupt files near Unicode
-  (other tools: check for an equivalent post-edit format hook) — for targeted
-  replacements adjacent to Unicode, use `sed -i` via shell (GNU sed; no `''`
-  backup arg — that's BSD/macOS) instead of the Edit tool.
+- A post-edit format hook (Claude Code's `PostToolUse` on `Write|Edit`; other
+  tools: check for the equivalent) rewrites the file after your edit lands. A
+  follow-up `Edit` whose `old_string` reproduces text you just wrote will then
+  miss — the hook reformatted it. Read the file before that second edit. This is
+  the real mechanism behind the retired "prettier corrupts files near Unicode"
+  note: prettier 3.8.1 was tested byte-for-byte over CJK, arrows, accents and
+  guillemets and changed nothing (2026-07-10). Do NOT reach for `sed -i` to
+  dodge a formatter that is not misbehaving.
+- Multiple hook commands under one matcher **run in parallel** ("All matching
+  hooks run in parallel", Claude Code hooks doc). Two of them writing the same
+  file is a lost-update race. One writer per file: if your eslint config extends
+  `eslint-plugin-prettier/recommended`, `eslint --fix` already applies prettier
+  — do not also run prettier.
+- Never end a hook command with `2>/dev/null || true`. It buries formatter
+  crashes, missing binaries and unfixable lint errors. Let a non-zero status
+  surface (`exit 2` shows stderr to the agent).
+- Hooks are not path-scoped by default; a `Write|Edit` hook fires on scratchpad
+  and out-of-tree files too. Gate on `$CLAUDE_PROJECT_DIR` — and bail when it is
+  unset, or the `"$DIR"/*` glob matches every absolute path.
 
 ## Cross-repo MySQL scars
 
