@@ -113,9 +113,14 @@ invisible to hooks.
 They had silently diverged: the tracked copy was last written 2026-07-02, while
 the live one accumulated changes nobody committed. Reconciled by union merge on
 2026-07-10 — live scalars won (`effortLevel: high`, four LSP plugins disabled),
-tracked-only entries were restored (`.rick` `Notification` / `Stop` /
-`UserPromptSubmit` hooks, `Bash(ssh agent@*)`, `claude-md-management`). Backups
-of both sides: `~/.claude/settings.json.bak-20260710-212658{,.tracked}`.
+tracked-only entries were restored (`Bash(ssh agent@*)`, `claude-md-management`,
+and the `.rick` hooks, which were then deleted outright in a later commit along
+with `skillOverrides`). Pre-merge `.bak` files were removed once verified; the
+tracked side survives as `git show db08f7ce:.claude/settings.json`, the merge
+result as `c13c5e61`.
+
+`~/.claude-derb/settings.json` and `~/.claude-work/settings.json` are symlinks
+to the same file. See `docs/claude-environments.md`.
 
 Watch for this: some apps save config by writing a temp file and renaming it
 over the target, which **replaces a symlink with a regular file**. If

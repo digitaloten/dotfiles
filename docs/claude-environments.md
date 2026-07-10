@@ -269,8 +269,9 @@ and still carried a hook that had been fixed elsewhere.
 
 Reconciled by union merge into `.files/.claude/settings.json` (live scalars won;
 entries only the tracked copy had were restored), then all three dirs symlinked
-to it. Backups: `~/.claude/settings.json.bak-20260710-212658{,.tracked}` and
-`~/.claude-derb/settings.json.bak-*`.
+to it. The pre-merge `.bak` files were deleted once the merge was verified; the
+tracked side is recoverable as `git show db08f7ce:.claude/settings.json`, and
+the merge result is `c13c5e61`.
 
 **Detect a recurrence in one command:**
 
