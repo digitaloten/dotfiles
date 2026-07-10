@@ -128,6 +128,6 @@ over the target, which **replaces a symlink with a regular file**. If
 the divergence has restarted — re-link it and commit whatever the live file
 gained.
 
-The other `.claude/` files (`CLAUDE.md`, `statusline-command.sh`,
-`settings.local.json`) are still independent copies, not symlinks. Only
-`settings.json` and `hooks/` are managed here.
+`CLAUDE.md`, `statusline-command.sh`, `settings.local.json` and `hooks/` are
+symlinked into this repo too — everything shared is a link, nothing is a copy.
+Only `.credentials.json` and per-account state stay local to each config dir.
