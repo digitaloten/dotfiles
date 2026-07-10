@@ -105,9 +105,24 @@ reference). `PostToolUseFailure` is a distinct event from `PostToolUse` — the
 latter fires only on success, which is why Edit failures were previously
 invisible to hooks.
 
-## Caveat: `~/.claude` is not symlinked to this repo
+## Settings: this repo is the source of truth
 
-`~/.claude/settings.json` and `.files/.claude/settings.json` are independent
-files and have drifted. The live one is what Claude Code reads. Copies here are
-backups, not a stow target — reconcile by hand before assuming either is
-current.
+`~/.claude/settings.json` is a **symlink** to `.files/.claude/settings.json`
+(since 2026-07-10). Edit the file here; the live config follows.
+
+They had silently diverged: the tracked copy was last written 2026-07-02, while
+the live one accumulated changes nobody committed. Reconciled by union merge on
+2026-07-10 — live scalars won (`effortLevel: high`, four LSP plugins disabled),
+tracked-only entries were restored (`.rick` `Notification` / `Stop` /
+`UserPromptSubmit` hooks, `Bash(ssh agent@*)`, `claude-md-management`). Backups
+of both sides: `~/.claude/settings.json.bak-20260710-212658{,.tracked}`.
+
+Watch for this: some apps save config by writing a temp file and renaming it
+over the target, which **replaces a symlink with a regular file**. If
+`~/.claude/settings.json` ever stops being a symlink after a `/config` change,
+the divergence has restarted — re-link it and commit whatever the live file
+gained.
+
+The other `.claude/` files (`CLAUDE.md`, `statusline-command.sh`,
+`settings.local.json`) are still independent copies, not symlinks. Only
+`settings.json` and `hooks/` are managed here.
