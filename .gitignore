@@ -62,3 +62,8 @@ history.txt
 .local/bin/uvx
 .local/share/
 .local/bin/rtk
+
+# Hook scripts referenced by .claude/settings.json (negation must follow .claude/*).
+!.claude/hooks/
+!.claude/hooks/*
+__pycache__/
