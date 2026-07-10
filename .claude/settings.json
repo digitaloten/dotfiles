@@ -1,41 +1,47 @@
 {
+  "env": {
+    "CLAUDE_CODE_TMPDIR": "/var/tmp"
+  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
+      "Bash(./artisan *)",
+      "Bash(./composer *)",
+      "Bash(./vendor/bin/pest*)",
+      "Bash(./vendor/bin/phpcs*)",
       "Bash(cargo build*)",
       "Bash(cargo check*)",
       "Bash(cargo clippy*)",
       "Bash(cargo fmt*)",
       "Bash(cargo run*)",
       "Bash(cargo test*)",
+      "Bash(composer install*)",
+      "Bash(composer update*)",
+      "Bash(docker *)",
+      "Bash(git add*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git commit*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git push*)",
+      "Bash(git stash*)",
+      "Bash(git status*)",
       "Bash(npm install*)",
       "Bash(npm run*)",
       "Bash(npx *)",
-      "Bash(yarn *)",
-      "Bash(pnpm *)",
-      "Bash(quasar dev*)",
-      "Bash(quasar build*)",
-      "Bash(composer install*)",
-      "Bash(composer update*)",
       "Bash(php artisan*)",
-      "Bash(./vendor/bin/pest*)",
-      "Bash(./vendor/bin/phpcs*)",
-      "Bash(./composer *)",
-      "Bash(./artisan *)",
+      "Bash(pnpm *)",
       "Bash(prettier *)",
-      "Bash(docker *)",
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)",
-      "Bash(git add*)",
-      "Bash(git commit*)",
-      "Bash(git push*)",
-      "Bash(git branch*)",
-      "Bash(git checkout*)",
-      "Bash(git stash*)",
-      "Bash(ssh agent@*)"
+      "Bash(quasar build*)",
+      "Bash(quasar dev*)",
+      "Bash(ssh agent@*)",
+      "Bash(yarn *)"
     ],
     "defaultMode": "auto"
+  },
+  "skillOverrides": {
+    "context7-mcp": "off"
   },
   "hooks": {
     "PreToolUse": [
@@ -47,14 +53,26 @@
             "command": "rtk hook claude"
           }
         ]
-      }
-    ],
-    "UserPromptSubmit": [
+      },
       {
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "SID=$(jq -r .session_id); date +%s > /tmp/.rick-start-$USER-$SID"
+            "command": "python3 \"$HOME/.claude/hooks/edit_audit.py\" pre",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOME/.claude/hooks/edit_audit.py\" fail",
+            "timeout": 15
           }
         ]
       }
@@ -65,6 +83,27 @@
           {
             "type": "command",
             "command": "SID=$(jq -r .session_id); RICK_STATE=/tmp/.rick-start-$USER-$SID ~/.local/bin/.rick &"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$HOME/.claude/hooks/edit_audit.py\" stop",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/notify-git-push.sh\"",
+            "timeout": 10
           }
         ]
       }
@@ -79,13 +118,12 @@
         ]
       }
     ],
-    "PostToolUse": [
+    "UserPromptSubmit": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.command // \"\"' | grep -qiE \"\\bgit\\b[^&|;]*\\bpush\\b\" && printf \"%s\" '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"A git push just ran. Standing user instruction: after every push, monitor CI. Identify the pushed commit(s), then poll the repo CI until the pipeline reaches a terminal state (GitLab: glab ci status; GitHub: gh run watch). If a job failed, read its log and report the cause; retry transient/infra failures. Report the final pipeline status. Skip only if the push itself failed.\"}}' || true"
+            "command": "SID=$(jq -r .session_id); date +%s > /tmp/.rick-start-$USER-$SID"
           }
         ]
       }
@@ -97,13 +135,13 @@
   },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "clangd-lsp@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
+    "code-review@claude-plugins-official": false,
     "context7@claude-plugins-official": true,
-    "php-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": false,
     "playwright@claude-plugins-official": false,
-    "pyright-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true
@@ -116,7 +154,7 @@
       }
     }
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
@@ -125,8 +163,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "env": {
-    "CLAUDE_CODE_TMPDIR": "/var/tmp"
-  }
+  "skipAutoPermissionPrompt": true
 }
