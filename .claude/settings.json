@@ -40,9 +40,6 @@
     ],
     "defaultMode": "auto"
   },
-  "skillOverrides": {
-    "context7-mcp": "off"
-  },
   "hooks": {
     "PreToolUse": [
       {
@@ -82,14 +79,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SID=$(jq -r .session_id); RICK_STATE=/tmp/.rick-start-$USER-$SID ~/.local/bin/.rick &"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "python3 \"$HOME/.claude/hooks/edit_audit.py\" stop",
             "timeout": 15
           }
@@ -104,26 +93,6 @@
             "type": "command",
             "command": "bash \"$HOME/.claude/hooks/notify-git-push.sh\"",
             "timeout": 10
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "RICK_STATE=/nonexistent ~/.local/bin/.rick &"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "SID=$(jq -r .session_id); date +%s > /tmp/.rick-start-$USER-$SID"
           }
         ]
       }
