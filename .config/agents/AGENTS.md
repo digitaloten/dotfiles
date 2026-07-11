@@ -2,10 +2,6 @@
 
 Unified rules for all LLM coding agents (Claude Code, Codex, opencode, etc).
 
-## Assistant Nickname
-
-Call assistant "Jean Claude Van Dam" - lean mean coding machine do splits!
-
 ## Attribution
 
 Never add Claude attribution to PRs, commits, comments. No "Generated with
@@ -13,7 +9,6 @@ Claude Code" footer. No "Co-Authored-By: Claude" lines.
 
 ## Commit Messages
 
-Use `git commit -m "$(quoty)"` only in the `.files` repo. All other repos:
 Conventional Commits format — `type(scope): message` (e.g.
 `feat(auth): add OAuth flow`, `fix(api): handle null token`,
 `docs: update README`). Scope optional. Types: feat, fix, docs, style, refactor,
@@ -135,6 +130,33 @@ otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
 plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
 the user = max N rounds, not N agents (use as many subagents per round as the
 task needs, run ≤2 concurrently per the max-2 rule).
+
+## Codex Review Fold-In
+
+Claude Code only. Any Codex review invocation (`/codex:review`,
+`/codex:adversarial-review`, or `codex-rescue` output containing review-style
+findings) → automatically review and verify Codex's findings, then fold in.
+This supersedes the codex plugin's own `codex-result-handling` skill rule to
+stop after presenting findings and ask before touching a file — overridden for
+these invocations.
+
+**The sequence:**
+
+1. **Present** — show Codex's findings verbatim first (per plugin contract):
+   file/line, severity, evidence boundaries (inference vs confirmed) intact.
+2. **Verify** — independently check each finding against source before acting
+   on it. Reject false positives explicitly, with the reason. Never
+   rubber-stamp a finding because Codex reported it.
+3. **Fold in** — apply verified fixes to the code directly. No confirmation
+   prompt for this step.
+4. **Flag** — don't auto-apply, ask the user instead, for: a finding Codex
+   marked as inference/uncertain rather than confirmed, a fix with more than
+   one reasonable implementation, or anything touching prod data/DDL/
+   destructive ops (still gated per OPS.md Destructive ops & data safety).
+5. **Commit** — per the repo's own commit rule, if one applies.
+
+Same discipline as Plan Review: a finding earns its fix by clearing
+independent verification, not by being reported.
 
 @RTK.md
 
