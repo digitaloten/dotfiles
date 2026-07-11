@@ -65,8 +65,13 @@ remote-process/rented-instance monitors, DB/deploy waiters:
   evidence — never project an ETA.
 - **Two layers** — monitor the item (process/log/status) AND the machine
   (cpu/ram/gpu/disk); a live process on an idle GPU is a failure.
-- **Bracket-pgrep** — `pgrep -f "[w]orker"`; plain `-f` self-matches the command
-  carrying it.
+- **Liveness checks must not match their own carrier** — trigger: your search pattern
+  is a literal in the command running the search (wrapper `bash -c`/`ssh`/cron
+  `sh -c`, heredoc, filename arg). The bracket form `[w]orker` is a `ps | grep` idiom
+  and only a half-fix; one plain occurrence on a live carrier defeats it. The fix
+  (anchor the match), its precision caveats, and the `comm`-reports-`MainThread`-on-
+  node≥24 trap all live in the canonical statement — read it, don't restate it here:
+  `crawly-mccrawlface/docs/runbooks/monitors.md` rule 5.
 - **Parse structured data via stdin** — pipe API/JSON responses into a real
   parser; never string-interpolate a response into shell/python source (embedded
   quotes/control chars crash the parser and blind the monitor).
