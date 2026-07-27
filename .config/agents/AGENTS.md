@@ -175,41 +175,6 @@ invocations.
 Same discipline as Plan Review: a finding earns its fix by clearing independent
 verification, not by being reported.
 
-## Jira Ticket Defaults
-
-Applies to EVERY repo/workspace. When creating a Jira work item in project `DCI`
-(PartnerMatrix Intelligence, `everymatrix.atlassian.net`, cloud id
-`50ea46f3-db34-463c-a744-76d9c5fa4c6e`), set **QA Assignee** unless the user
-names a different QA person for that ticket:
-
-| Field       | Id                  | Type                | Value                                                        |
-| ----------- | ------------------- | ------------------- | ------------------------------------------------------------ |
-| QA Assignee | `customfield_19556` | userpicker (1 user) | Jayson Gesim — `712020:de836d25-0dfe-4451-9340-15a839627fff` |
-
-`acli … --from-json`:
-
-```json
-"additionalAttributes": {
-  "customfield_19556": { "accountId": "712020:de836d25-0dfe-4451-9340-15a839627fff" }
-}
-```
-
-MCP: same key/value under `additional_fields` for `createJiraIssue`, under
-`fields` for `editJiraIssue`. Backfill an existing ticket with `editJiraIssue` —
-the `acli … workitem edit` path cannot write custom fields.
-
-Scope + caveats:
-
-- Verified 2026-07-27 against DCI **Task** create metadata: field present,
-  `operations: ["set"]`, `hasDefaultValue: false`. Story/Bug/Epic use the same
-  field id per the crawly Jira runbook; **Sub-task unverified** — re-read create
-  metadata before assuming it is on that screen.
-- Field ids are per-project. Another Jira project needs its own lookup; do not
-  reuse `customfield_19556` blindly.
-- This is an agent-side default, not a Jira-side one. A real project default
-  needs a Jira admin to set a default value on field context `26238` — not
-  configurable from this account.
-
 @RTK.md
 
 @EVIDENCE.md
