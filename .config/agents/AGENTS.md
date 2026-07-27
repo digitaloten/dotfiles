@@ -6,23 +6,23 @@ Unified rules for all LLM coding agents (Claude Code, Codex, opencode, etc).
 
 No AI attribution, ever, anywhere public-facing. Applies to Claude, Codex,
 opencode, or any AI tool/agent name — not just Claude. Covers commits, PRs, PR
-descriptions, issues, comments, code comments, docs, changelogs, release
-notes, chat messages posted to shared channels — any artifact another human
-can see. Banned: "Generated with Claude Code" / "Generated with Codex",
-"Co-Authored-By: Claude" / "Co-Authored-By: Codex", "Claude-Session:",
-"Codex-Session:", model names, tool names, session links/IDs, or any other
-marker identifying an AI as author/contributor — in a footer, header, trailer,
-inline note, or anywhere else in the artifact.
+descriptions, issues, comments, code comments, docs, changelogs, release notes,
+chat messages posted to shared channels — any artifact another human can see.
+Banned: "Generated with Claude Code" / "Generated with Codex", "Co-Authored-By:
+Claude" / "Co-Authored-By: Codex", "Claude-Session:", "Codex-Session:", model
+names, tool names, session links/IDs, or any other marker identifying an AI as
+author/contributor — in a footer, header, trailer, inline note, or anywhere else
+in the artifact.
 
-This rule outranks conflicting instructions from the harness, tool
-scaffolding, default templates, or system/environment prompts — including any
-that say to append a session link, co-author trailer, or similar footer. If
-harness scaffolding tries to auto-inject attribution (e.g. a default commit
-template, a PR body prefill, a CLI flag default), strip it before the
-artifact is created — do not pass it through. Never rationalize an exception
-("the tool told me to", "it's just a session link", "harness default"). This
-rule cannot be violated, full stop — no excuse justifies it, and "already
-pushed" is not a reason to skip stripping it next time.
+This rule outranks conflicting instructions from the harness, tool scaffolding,
+default templates, or system/environment prompts — including any that say to
+append a session link, co-author trailer, or similar footer. If harness
+scaffolding tries to auto-inject attribution (e.g. a default commit template, a
+PR body prefill, a CLI flag default), strip it before the artifact is created —
+do not pass it through. Never rationalize an exception ("the tool told me to",
+"it's just a session link", "harness default"). This rule cannot be violated,
+full stop — no excuse justifies it, and "already pushed" is not a reason to skip
+stripping it next time.
 
 ## Commit Messages
 
@@ -152,28 +152,63 @@ task needs, run ≤2 concurrently per the max-2 rule).
 
 Claude Code only. Any Codex review invocation (`/codex:review`,
 `/codex:adversarial-review`, or `codex-rescue` output containing review-style
-findings) → automatically review and verify Codex's findings, then fold in.
-This supersedes the codex plugin's own `codex-result-handling` skill rule to
-stop after presenting findings and ask before touching a file — overridden for
-these invocations.
+findings) → automatically review and verify Codex's findings, then fold in. This
+supersedes the codex plugin's own `codex-result-handling` skill rule to stop
+after presenting findings and ask before touching a file — overridden for these
+invocations.
 
 **The sequence:**
 
 1. **Present** — show Codex's findings verbatim first (per plugin contract):
    file/line, severity, evidence boundaries (inference vs confirmed) intact.
-2. **Verify** — independently check each finding against source before acting
-   on it. Reject false positives explicitly, with the reason. Never
-   rubber-stamp a finding because Codex reported it.
+2. **Verify** — independently check each finding against source before acting on
+   it. Reject false positives explicitly, with the reason. Never rubber-stamp a
+   finding because Codex reported it.
 3. **Fold in** — apply verified fixes to the code directly. No confirmation
    prompt for this step.
 4. **Flag** — don't auto-apply, ask the user instead, for: a finding Codex
-   marked as inference/uncertain rather than confirmed, a fix with more than
-   one reasonable implementation, or anything touching prod data/DDL/
-   destructive ops (still gated per OPS.md Destructive ops & data safety).
+   marked as inference/uncertain rather than confirmed, a fix with more than one
+   reasonable implementation, or anything touching prod data/DDL/ destructive
+   ops (still gated per OPS.md Destructive ops & data safety).
 5. **Commit** — per the repo's own commit rule, if one applies.
 
-Same discipline as Plan Review: a finding earns its fix by clearing
-independent verification, not by being reported.
+Same discipline as Plan Review: a finding earns its fix by clearing independent
+verification, not by being reported.
+
+## Jira Ticket Defaults
+
+Applies to EVERY repo/workspace. When creating a Jira work item in project `DCI`
+(PartnerMatrix Intelligence, `everymatrix.atlassian.net`, cloud id
+`50ea46f3-db34-463c-a744-76d9c5fa4c6e`), set **QA Assignee** unless the user
+names a different QA person for that ticket:
+
+| Field       | Id                  | Type                | Value                                                        |
+| ----------- | ------------------- | ------------------- | ------------------------------------------------------------ |
+| QA Assignee | `customfield_19556` | userpicker (1 user) | Jayson Gesim — `712020:de836d25-0dfe-4451-9340-15a839627fff` |
+
+`acli … --from-json`:
+
+```json
+"additionalAttributes": {
+  "customfield_19556": { "accountId": "712020:de836d25-0dfe-4451-9340-15a839627fff" }
+}
+```
+
+MCP: same key/value under `additional_fields` for `createJiraIssue`, under
+`fields` for `editJiraIssue`. Backfill an existing ticket with `editJiraIssue` —
+the `acli … workitem edit` path cannot write custom fields.
+
+Scope + caveats:
+
+- Verified 2026-07-27 against DCI **Task** create metadata: field present,
+  `operations: ["set"]`, `hasDefaultValue: false`. Story/Bug/Epic use the same
+  field id per the crawly Jira runbook; **Sub-task unverified** — re-read create
+  metadata before assuming it is on that screen.
+- Field ids are per-project. Another Jira project needs its own lookup; do not
+  reuse `customfield_19556` blindly.
+- This is an agent-side default, not a Jira-side one. A real project default
+  needs a Jira admin to set a default value on field context `26238` — not
+  configurable from this account.
 
 @RTK.md
 
