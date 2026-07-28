@@ -47,9 +47,10 @@ summary alone outweighs filtered output); tests optional, direct by default.
 Magnitudes were measured on crawly's Node/eslint/jest stack (2026-07-02) —
 spot-check filtered-output size before assuming the same ratios on another
 stack. Dispatch tier: default mid-tier; cheapest for mechanical work (log reads,
-DB queries, large/unknown reads); top tier only if requested or genuinely
-needed. (The user-keyword "delegate" rule in AGENTS.md — spawn
-cheaper-than-current — applies only to that explicit command.)
+DB queries, large/unknown reads); top tier only if requested or genuinely needed
+— standing case: the FINAL review pass before something ships or is built from
+(see AGENTS.md Plan Review). (The user-keyword "delegate" rule in AGENTS.md —
+spawn cheaper-than-current — applies only to that explicit command.)
 
 ## Monitors & watchers
 
@@ -65,12 +66,13 @@ remote-process/rented-instance monitors, DB/deploy waiters:
   evidence — never project an ETA.
 - **Two layers** — monitor the item (process/log/status) AND the machine
   (cpu/ram/gpu/disk); a live process on an idle GPU is a failure.
-- **Liveness checks must not match their own carrier** — trigger: your search pattern
-  is a literal in the command running the search (wrapper `bash -c`/`ssh`/cron
-  `sh -c`, heredoc, filename arg). The bracket form `[w]orker` is a `ps | grep` idiom
-  and only a half-fix; one plain occurrence on a live carrier defeats it. The fix
-  (anchor the match), its precision caveats, and the `comm`-reports-`MainThread`-on-
-  node≥24 trap all live in the canonical statement — read it, don't restate it here:
+- **Liveness checks must not match their own carrier** — trigger: your search
+  pattern is a literal in the command running the search (wrapper
+  `bash -c`/`ssh`/cron `sh -c`, heredoc, filename arg). The bracket form
+  `[w]orker` is a `ps | grep` idiom and only a half-fix; one plain occurrence on
+  a live carrier defeats it. The fix (anchor the match), its precision caveats,
+  and the `comm`-reports-`MainThread`-on- node≥24 trap all live in the canonical
+  statement — read it, don't restate it here:
   `crawly-mccrawlface/docs/runbooks/monitors.md` rule 5.
 - **Parse structured data via stdin** — pipe API/JSON responses into a real
   parser; never string-interpolate a response into shell/python source (embedded

@@ -129,7 +129,13 @@ review.
    edge-cases, gaps in steps/coverage, wrong assumptions, untested risks,
    ordering/dependency issues. Returns concrete severity-tagged findings, NOT a
    rewrite. Split across subagents by module/topic when it helps; run in
-   parallel (max 2 subagents in parallel — see OPS.md Delegation contract).
+   parallel (max 2 subagents in parallel — see OPS.md Delegation contract). Tier
+   by fit: mid-tier default for early rounds; reserve top tier (Fable-class) for
+   the FINAL pass before something ships or is built from. Always delegate — the
+   main session never reviews its own artifact (it reads intent into text that
+   doesn't carry it). Don't feed the reviewer prior rounds' findings or "already
+   verified clean" regions — a generic adversarial stance is fine; steering
+   kills the fresh eyes that justify delegating.
 2. **Verify** — independently check each finding against source. Reject
    false-positives explicitly (note why). Never rubber-stamp.
 3. **Update** — fold verified findings into the plan body (fix the sketches in
