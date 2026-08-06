@@ -71,11 +71,16 @@ pre-existing materialized artifact whose contents already encode the bug being
 fixed. If the change alters a table, that table is not evidence about the
 change. Corollaries: baselines taken from buggy runs are contaminated;
 `TABLE_ROWS` is an InnoDB estimate — use `COUNT(*)` (or an exact `GROUP BY`) for
-anything that gates acceptance; any new cost model/estimate is validated against
-the provider's billing export (compare PER-ROW cost, not totals) before its
-numbers are quoted or used for decisions — two uncalibrated assumptions once
-compounded to a 3× understatement ("$219" quoted, $664 billed; UK-278 scar,
-crawly `AGENTS.md` §Gotchas).
+anything that gates acceptance. A presence/parity count is blind to duplication,
+and to duplication offsetting loss: any check gating a merge, migration, or
+reconciliation must also assert distinct-key uniqueness — `COUNT(DISTINCT key)`
+equals `COUNT(*)`, or `sort | uniq -d` on the key column comes back empty. Scar:
+a "none dropped or duplicated" merge check passed over 83 doubled status rows
+and 449 doubled change-log rows (crawly `9c6c34e0`, repaired `1a9c222b`); any
+new cost model/estimate is validated against the provider's billing export
+(compare PER-ROW cost, not totals) before its numbers are quoted or used for
+decisions — two uncalibrated assumptions once compounded to a 3× understatement
+("$219" quoted, $664 billed; UK-278 scar, crawly `AGENTS.md` §Gotchas).
 
 ## 6. Quote current behaviour before claiming a delta
 
