@@ -94,6 +94,11 @@ in `docs/runbooks/on-demand-instances.md`.
   Multiple red pushes shipped exactly this way.
 - `set -euo pipefail` + `var=$(cmd | filter)` — a failing `cmd` aborts the
   caller silently; wrap tolerable failures in local `set +e +o pipefail`.
+- `cd` persists across an agent harness's shell calls — a later command inherits
+  whatever directory an earlier call left. Anything backgrounded or detached
+  uses absolute paths and re-`cd`s at the top of its own command; one launch
+  went to the wrong directory and wrote its file into the wrong folder this way
+  (crawly `docs/incidents/2026-08-06-en-parity-session-retrospective.md` §5).
 
 ## Push gating
 
@@ -103,6 +108,11 @@ codes. Red → fix first, re-run to green, then push. Docs-only pushes exempt fr
 the test gate; still format changed `.md`. If the repo has no lint/test tooling
 configured, state that explicitly to the user (chat reply, commit body, or PR
 description) — don't fabricate a gate and don't skip silently.
+
+Verify the pushed RANGE, not just the tip: `git log --oneline @{u}..HEAD` before
+every push. The local branch can carry unreviewed commits from another session,
+and a push ships them all — two went out exactly this way on 2026-08-05 (crawly
+EN-parity retrospective §5).
 
 ## Destructive ops & data safety
 

@@ -115,3 +115,29 @@ Handoff docs, memory files, prior-session summaries, and reviewer findings are
 tier, or any step that's costly to walk back), re-verify it and note provenance
 ("per handoff X, re-verified against Y"). The costliest near-miss was an
 inherited single-repo negative treated as a universal fact.
+
+## 10. Objective from whoever owns the consequences, before optimising
+
+Before any optimisation loop, acceptance gate, or ship/no-ship verdict: get the
+objective stated by the owner of the consequences, in writing. An inherited
+default metric is the most expensive thing in an experiment — every downstream
+measurement inherits it and looks rigorous while doing so, and nobody defends a
+default. Scar: five prompt-iteration rounds plus a preregistered confirmation
+graded on detection F1 nobody had endorsed; the owner's actual objective (fewer
+fabrications; misses acceptable) re-scored the same measurements FAIL → pass
+(crawly `docs/incidents/2026-08-06-en-parity-session-retrospective.md` §1).
+Corollary: re-gating after seeing results is **post hoc** and must be recorded
+as such wherever the result is quoted.
+
+## 11. Every number names its provenance
+
+A quoted number (throughput, cost, latency, score) names the run, model, engine,
+and input population that produced it — in the same sentence or table row. This
+blocks two authoring mechanisms: (a) **fusing measurements from different
+contexts** into one constant — a llama.cpp flag for a 27B model fused with a
+vLLM 14B timeout claim nearly imposed a false ~4× throughput ceiling; (b)
+**reusing a rate across runs whose populations differ** — "same model, same
+prompt, same configuration" concealed a different input mix (94.5% vs 48.7%
+offer-bearing → 1.55× cost). Derived tables use the statistic their own caveat
+demands (a batch-sizing table computed from mean latency sat directly above a
+warning to use p99). Same retrospective, §3.

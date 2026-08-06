@@ -148,6 +148,16 @@ review.
 _updated_ plan each round; stop when a round finds no new verified issues
 (converged/dry) or the cap is hit. **Default cap = 10 rounds unless stated
 otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
+**Alternate the review technique every round; never repeat one** (correctness,
+operations, cold-executor walkthrough, post-fold consistency audit,
+failure-timeline simulation, measurement red-team, security boundary, premise
+challenge, diff-review of fold commits) — empirically every new technique found
+defects and no repeated one did. **Restructure trigger:** two consecutive rounds
+whose blockers trace mostly to the previous round's fold means the doc's
+STRUCTURE is wrong — stop patching; restructure (e.g. §DECIDED with a mechanism
+per item / §BLOCKED naming what unblocks each, none implementer-inventable),
+then resume rounds (crawly
+`docs/incidents/2026-08-06-en-parity-session-retrospective.md` §4).
 
 **Invariants:** no auto-apply (every finding clears the verify gate first);
 plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
