@@ -42,6 +42,13 @@
       "Bash(ssh agent@*)",
       "Bash(yarn *)"
     ],
+    "ask": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git add -A*)",
+      "Bash(git add --all*)",
+      "Bash(git add .)"
+    ],
     "defaultMode": "auto"
   },
   "model": "claude-fable-5[1m]",
