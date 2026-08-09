@@ -191,8 +191,6 @@ invocations.
 Same discipline as Plan Review: a finding earns its fix by clearing independent
 verification, not by being reported.
 
-@RTK.md
-
 @EVIDENCE.md
 
 @OPS.md
