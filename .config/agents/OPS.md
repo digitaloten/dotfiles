@@ -73,7 +73,9 @@ remote-process/rented-instance monitors, DB/deploy waiters:
   a live carrier defeats it. The fix (anchor the match), its precision caveats,
   and the `comm`-reports-`MainThread`-on- node≥24 trap all live in the canonical
   statement — read it, don't restate it here:
-  `crawly-mccrawlface/docs/runbooks/monitors.md` rule 5.
+  `crawly-mccrawlface/docs/runbooks/monitors.md` rule 5. Working form (copy,
+  don't improvise): `ps -eo args | awk '$1 ~ /bin\/node$/ && /<pattern>/'` —
+  anchor on the executable; arguments cannot impersonate it.
 - **Parse structured data via stdin** — pipe API/JSON responses into a real
   parser; never string-interpolate a response into shell/python source (embedded
   quotes/control chars crash the parser and blind the monitor).
@@ -94,6 +96,11 @@ in `docs/runbooks/on-demand-instances.md`.
   Multiple red pushes shipped exactly this way.
 - `set -euo pipefail` + `var=$(cmd | filter)` — a failing `cmd` aborts the
   caller silently; wrap tolerable failures in local `set +e +o pipefail`.
+- `check && act` cannot block — the action fires on the exit code, not on a
+  human reading the output. `git log @{u}..HEAD && git push` specifically; any
+  verify-then-proceed generally. Run the check, read it, act as a separate
+  command (crawly
+  `docs/incidents/2026-08-09-review-converged-on-an-incomplete-spec.md` §6c).
 - `cd` persists across an agent harness's shell calls — a later command inherits
   whatever directory an earlier call left. Anything backgrounded or detached
   uses absolute paths and re-`cd`s at the top of its own command; one launch

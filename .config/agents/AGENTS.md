@@ -159,6 +159,18 @@ per item / §BLOCKED naming what unblocks each, none implementer-inventable),
 then resume rounds (crawly
 `docs/incidents/2026-08-06-en-parity-session-retrospective.md` §4).
 
+**Completeness pass (mandatory, at least once per review — simple or complex):**
+every alternating technique above is a reading, and readings share a blind
+spot — they cannot see what is absent. At least one round must compare the
+artifact against something outside it: for every configuration, schema, or
+parameter set the doc reproduces from a canonical source, enumerate the
+source's fields and account for each — present, deliberately omitted with a
+reason, or missing. Silence is a finding. Report "converged" as what it is —
+reviewer yield ran dry — never as "complete"; say which was measured. Scar:
+crawly `docs/incidents/2026-08-09-review-converged-on-an-incomplete-spec.md`
+(9 rounds, 15 read-only techniques, one missing per-request kwarg, 11×
+throughput miss).
+
 **Invariants:** no auto-apply (every finding clears the verify gate first);
 plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
 the user = max N rounds, not N agents (use as many subagents per round as the
