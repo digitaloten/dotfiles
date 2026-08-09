@@ -11,46 +11,33 @@ only — on conflict over a project's specifics, that project's own AGENTS.md wi
 Full contract: `crawly-mccrawlface/docs/runbooks/delegation.md`.
 Non-negotiables:
 
-- **Subagents are single-shot** — nothing resumes a returned subagent;
-  completion notifications go to the main thread only. A detached remote process
-  (`setsid`/`nohup` + log file) notifies NO ONE — the only way to know it
-  finished is to poll it. "I'll auto-resume when the watcher fires" is
-  structurally impossible for a subagent.
-- **Deliverable-gated completion** — a subagent reports success only when the
-  concrete artifact is verified present; an in-flight terminal step is
-  `INCOMPLETE` (`done`/`remaining`/`resume-cmd`), never a plain success.
-- **Verify-before-trust** — a subagent's completion is a claim; the main thread
-  verifies the artifact independently. A final message citing a "watcher /
-  notify-me-later" instead of the artifact = assume unfinished, take over.
-  Repeated false-complete → take the work over; don't re-delegate the same
-  shape.
+- **Subagents are single-shot** — nothing resumes a returned subagent; a
+  detached remote process notifies NO ONE, poll it.
+- **Deliverable-gated completion** — in-flight terminal step = `INCOMPLETE`
+  (`done`/`remaining`/`resume-cmd`), never a plain success.
+- **Verify-before-trust** — a completion is a claim; the main thread verifies
+  the artifact independently. "Watcher / notify-me-later" cited instead of the
+  artifact = assume unfinished, take over.
 - **No persistent-worker shape** — long tail beyond one turn → main thread owns
-  the long step (harness-tracked background + monitor) and delegates only
-  bounded chunks.
-- **State the contract in the delegation prompt** — every long/remote delegation
-  names the concrete deliverable + its success check, and says explicitly:
-  detached remote processes notify no one, you own the poll loop until the
-  artifact exists; you are single-shot, return `INCOMPLETE` if you can't finish,
-  never a plain success. The prompt is a backstop — the artifact check
-  (verify-before-trust) is the gate.
-- **Max 2 subagents in parallel** — house convention, not from the runbook above
-  (this defines the "max-2 rule" the Plan Review contract references); batch
-  larger fan-outs into waves of ≤2.
+  the long step; delegate only bounded chunks.
+- **State the contract in the delegation prompt** — deliverable + success
+  check, single-shot, `INCOMPLETE` over false success. The prompt is a
+  backstop; the artifact check is the gate.
+- **Max 2 subagents in parallel** — house convention (defines the "max-2 rule"
+  Plan Review references); batch larger fan-outs into waves of ≤2.
 
 ## Delegation economics
 
 Delegate for **context preservation** (genuinely huge/unknown output, long
-session), not as a blanket token-saver — output filters (rtk tee hook) are the
-primary saver. Subagent cold-start bills ~15–20k tok before doing anything, plus
-latency (spawn + ≥2 model turns). Never delegate lint/format (the returned
-summary alone outweighs filtered output); tests optional, direct by default.
-Magnitudes were measured on crawly's Node/eslint/jest stack (2026-07-02) —
-spot-check filtered-output size before assuming the same ratios on another
-stack. Dispatch tier: default mid-tier; cheapest for mechanical work (log reads,
-DB queries, large/unknown reads); top tier only if requested or genuinely needed
-— standing case: the FINAL review pass before something ships or is built from
-(see AGENTS.md Plan Review). (The user-keyword "delegate" rule in AGENTS.md —
-spawn cheaper-than-current — applies only to that explicit command.)
+session), not as a blanket token-saver. Subagent cold-start billed ~15–20k tok
+plus latency (measured Claude Code, crawly stack, 2026-07-02 — don't assume
+elsewhere; detail in `crawly-mccrawlface/docs/runbooks/delegation.md`
+§Appendix). Never delegate lint/format; tests optional, direct by default.
+Dispatch tier: default mid; cheapest for mechanical work (logs, DB queries,
+large/unknown reads); top only if requested or genuinely needed — standing
+case: the FINAL review pass before something ships or is built from (see
+AGENTS.md Plan Review). (The user-keyword "delegate" rule — spawn
+cheaper-than-current — applies only to that explicit command.)
 
 ## Monitors & watchers
 
@@ -139,11 +126,9 @@ Source: `crawly-mccrawlface/AGENTS.md` §Testing, §Gotchas.
 - A post-edit format hook (Claude Code's `PostToolUse` on `Write|Edit`; other
   tools: check for the equivalent) rewrites the file after your edit lands. A
   follow-up `Edit` whose `old_string` reproduces text you just wrote will then
-  miss — the hook reformatted it. Read the file before that second edit. This is
-  the real mechanism behind the retired "prettier corrupts files near Unicode"
-  note: prettier 3.8.1 was tested byte-for-byte over CJK, arrows, accents and
-  guillemets and changed nothing (2026-07-10). Do NOT reach for `sed -i` to
-  dodge a formatter that is not misbehaving.
+  miss — the hook reformatted it. Read the file before that second edit.
+  ("Prettier corrupts Unicode" is a retired myth — byte-for-byte tested
+  2026-07-10; do NOT `sed -i` around a formatter that is not misbehaving.)
 - Multiple hook commands under one matcher **run in parallel** ("All matching
   hooks run in parallel", Claude Code hooks doc). Two of them writing the same
   file is a lost-update race. One writer per file: if your eslint config extends

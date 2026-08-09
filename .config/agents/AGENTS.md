@@ -103,18 +103,20 @@ clarifying questions if scope ambiguous before delegating.
 
 ## Caveman
 
-Terse like caveman. Technical substance exact. Only fluff die. Drop: articles,
-filler (just/really/basically), pleasantries, hedging. Fragments OK. Short
-synonyms. Code unchanged. Pattern: [thing] [action] [reason]. [next step].
-ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
-Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
+The `caveman` plugin (skill + SessionStart hook) is the canonical definition —
+it injects the active-mode spec each session; don't restate it here. Standing
+defaults: technical substance exact, code/commits/PRs written normal; off with
+"stop caveman" / "normal mode". Harnesses without the plugin: terse
+caveman-style prose, drop articles/filler/pleasantries/hedging, fragments OK.
 
 ## Plan Review
 
 When a plan/spec/runbook/roadmap is written, auto-review it before execution —
 don't wait to be asked ("plan review" = this). Scope is the plan doc only:
 review and refine it; NO implementation, code, or config changes inside the
-review.
+review. Canonical mechanics:
+`crawly-mccrawlface/docs/runbooks/plan-review.md` — on conflict it wins; this
+section is the always-loaded digest.
 
 **Method scales with complexity:**
 
@@ -146,13 +148,15 @@ review.
 
 **Loop (complex/critical only):** steps 1–3 are one round. Re-review the
 _updated_ plan each round; stop when a round finds no new verified issues
-(converged/dry) or the cap is hit. **Default cap = 10 rounds unless stated
-otherwise** (mandatory — fixes can oscillate). Do steps 4–5 once at the end.
+(converged/dry). **Default cap = 10 rounds unless stated otherwise** (mandatory
+— fixes can oscillate); reaching the cap never counts as reviewed — a final
+round that still adds findings → mark `INCOMPLETE`, block execution, request a
+cap extension. Do steps 4–5 once at the end.
 **Alternate the review technique every round; never repeat one** (correctness,
 operations, cold-executor walkthrough, post-fold consistency audit,
 failure-timeline simulation, measurement red-team, security boundary, premise
-challenge, diff-review of fold commits) — empirically every new technique found
-defects and no repeated one did. **Restructure trigger:** two consecutive rounds
+challenge, diff-review of fold commits, source-parity/completeness) —
+empirically every new technique found defects and no repeated one did. **Restructure trigger:** two consecutive rounds
 whose blockers trace mostly to the previous round's fold means the doc's
 STRUCTURE is wrong — stop patching; restructure (e.g. §DECIDED with a mechanism
 per item / §BLOCKED naming what unblocks each, none implementer-inventable),
