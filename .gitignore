@@ -67,3 +67,10 @@ history.txt
 !.claude/hooks/
 !.claude/hooks/*
 __pycache__/
+
+# AI attribution guard — machine-local enforcement, deliberately not published.
+# Must come after the .claude/hooks/ negation above: last matching pattern wins.
+.local/bin/ai-attribution-scan
+.config/git/hooks/
+.claude/hooks/ai-attribution-guard.py
+.claude/hooks/ai-attribution-guard-test.py

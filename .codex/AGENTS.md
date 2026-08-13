@@ -1,1 +1,1 @@
-@/home/shinobu/.codex/RTK.md
+../.config/agents/AGENTS.md

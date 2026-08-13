@@ -114,9 +114,8 @@ caveman-style prose, drop articles/filler/pleasantries/hedging, fragments OK.
 When a plan/spec/runbook/roadmap is written, auto-review it before execution —
 don't wait to be asked ("plan review" = this). Scope is the plan doc only:
 review and refine it; NO implementation, code, or config changes inside the
-review. Canonical mechanics:
-`crawly-mccrawlface/docs/runbooks/plan-review.md` — on conflict it wins; this
-section is the always-loaded digest.
+review. Canonical mechanics: `crawly-mccrawlface/docs/runbooks/plan-review.md` —
+on conflict it wins; this section is the always-loaded digest.
 
 **Method scales with complexity:**
 
@@ -151,12 +150,12 @@ _updated_ plan each round; stop when a round finds no new verified issues
 (converged/dry). **Default cap = 10 rounds unless stated otherwise** (mandatory
 — fixes can oscillate); reaching the cap never counts as reviewed — a final
 round that still adds findings → mark `INCOMPLETE`, block execution, request a
-cap extension. Do steps 4–5 once at the end.
-**Alternate the review technique every round; never repeat one** (correctness,
-operations, cold-executor walkthrough, post-fold consistency audit,
-failure-timeline simulation, measurement red-team, security boundary, premise
-challenge, diff-review of fold commits, source-parity/completeness) —
-empirically every new technique found defects and no repeated one did. **Restructure trigger:** two consecutive rounds
+cap extension. Do steps 4–5 once at the end. **Alternate the review technique
+every round; never repeat one** (correctness, operations, cold-executor
+walkthrough, post-fold consistency audit, failure-timeline simulation,
+measurement red-team, security boundary, premise challenge, diff-review of fold
+commits, source-parity/completeness) — empirically every new technique found
+defects and no repeated one did. **Restructure trigger:** two consecutive rounds
 whose blockers trace mostly to the previous round's fold means the doc's
 STRUCTURE is wrong — stop patching; restructure (e.g. §DECIDED with a mechanism
 per item / §BLOCKED naming what unblocks each, none implementer-inventable),
@@ -164,16 +163,15 @@ then resume rounds (crawly
 `docs/incidents/2026-08-06-en-parity-session-retrospective.md` §4).
 
 **Completeness pass (mandatory, at least once per review — simple or complex):**
-every alternating technique above is a reading, and readings share a blind
-spot — they cannot see what is absent. At least one round must compare the
-artifact against something outside it: for every configuration, schema, or
-parameter set the doc reproduces from a canonical source, enumerate the
-source's fields and account for each — present, deliberately omitted with a
-reason, or missing. Silence is a finding. Report "converged" as what it is —
-reviewer yield ran dry — never as "complete"; say which was measured. Scar:
-crawly `docs/incidents/2026-08-09-review-converged-on-an-incomplete-spec.md`
-(9 rounds, 15 read-only techniques, one missing per-request kwarg, 11×
-throughput miss).
+every alternating technique above is a reading, and readings share a blind spot
+— they cannot see what is absent. At least one round must compare the artifact
+against something outside it: for every configuration, schema, or parameter set
+the doc reproduces from a canonical source, enumerate the source's fields and
+account for each — present, deliberately omitted with a reason, or missing.
+Silence is a finding. Report "converged" as what it is — reviewer yield ran dry
+— never as "complete"; say which was measured. Scar: crawly
+`docs/incidents/2026-08-09-review-converged-on-an-incomplete-spec.md` (9 rounds,
+15 read-only techniques, one missing per-request kwarg, 11× throughput miss).
 
 **Invariants:** no auto-apply (every finding clears the verify gate first);
 plan-doc edits only (keeps it reversible — nothing implemented); "max N" from
@@ -207,6 +205,13 @@ invocations.
 Same discipline as Plan Review: a finding earns its fix by clearing independent
 verification, not by being reported.
 
-@EVIDENCE.md
+## Supporting Instructions
 
+Before doing any work, read these files completely and follow their
+instructions:
+
+- `/home/shinobu/.config/agents/EVIDENCE.md`
+- `/home/shinobu/.config/agents/OPS.md`
+
+@EVIDENCE.md
 @OPS.md
