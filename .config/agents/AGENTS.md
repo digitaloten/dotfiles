@@ -31,21 +31,80 @@ Conventional Commits format — `type(scope): message` (e.g.
 `docs: update README`). Scope optional. Types: feat, fix, docs, style, refactor,
 test, chore, perf, ci, build.
 
-## Prettier for all
+Target 50 characters for the subject and never exceed 72, including the prefix.
+If a body is needed, add one blank line, then 1–3 short paragraphs wrapped at 72
+columns. Explain what changed and why; do not restate the diff. A
+repository-specific commit rule overrides this default.
 
-Project has prettier setup → run on changes.
+## Staging Commits
 
-## Formatting for all
+Stage explicit paths only: `git add -- {file_name}` per file. Do not use
+`git add -A`, `git add .`, or `git commit -am`. Review the staged diff before
+committing and include only the intended files.
 
-Project has format command (e.g. `npm run format`) → run on all changed files.
+## Working Rules
 
-## Updating markdown files
+- Change only what the task needs. Avoid unrelated refactors, renames,
+  formatting, and files. Ask when ambiguity changes the result; otherwise take
+  the narrow obvious path and state it.
+- Treat a search hit as a coordinate. Read its block, guards, feature flags,
+  later definitions, and call sites before concluding or editing.
+- Follow nearby code and analogous implementations. Prefer a project helper,
+  then the standard library, then an existing dependency. A new dependency
+  requires user approval. Read the resolved dependency's installed interface;
+  use the project package manager to add, update, or remove it.
+- Finish what you write. Do not leave accidental stubs, ignored errors, or docs
+  that overstate behavior. Update every caller of a changed shared interface.
+  Change generated sources, then run the project generator.
+- Extract shared logic only when it is the same knowledge. Avoid speculative
+  abstractions. Prioritize correctness, relevant-path performance, then
+  readability. Split only where structure blocks a safe change.
+- Parameterize SQL, keep secrets out of code, validate external input, and do
+  not build commands or paths from unsanitized input. Enforce contracts around
+  unsafe or unchecked operations with types or runtime validation.
 
-Updating markdown → run `prettier --write {path_to_markdown_file}`.
+## Formatting
+
+Project has prettier setup → run on changes. Project has format command (e.g.
+`npm run format`) → run on all changed files. Updating markdown → run
+`prettier --write {path_to_markdown_file}`.
 
 ## Rust
 
-Rust project changes → always run cargo clippy, cargo fmt, cargo test after.
+After any Rust change, run these from the workspace root:
+
+```bash
+cargo fmt --all
+cargo clippy --workspace --all-targets -- -D warnings
+cargo test --workspace
+```
+
+Run all three over the workspace. A local run does not compile code disabled by
+the current platform's `cfg` gates. Name that coverage gap and use the relevant
+CI targets for the verdict.
+
+## Verification
+
+Run fresh checks, read their full output, and use their real exit codes. Never
+claim an unrun or failed check passed. For a new or changed test, assertion,
+detector, or guard, show fail-then-pass when safe.
+
+The compiler verifies shape; mechanisms need an observable result. Name and
+check the value or state that changes. Do not weaken or delete a test to make
+code pass; if evidence shows its contract is wrong, explain why and ask first.
+
+## Destructive Operations
+
+Name and inspect exact targets before deleting, restoring, or discarding. Check
+both unstaged and staged Git diffs. Never discard work you did not create or run
+broad restore, reset, clean, or delete operations without explicit approval. A
+command must not both discover its targets and delete them.
+
+## Changelog as You Go
+
+For a user-visible change, update an existing changelog's `## [Unreleased]` in
+the same commit. Skip internal, test-only, docs-only, and unreleased churn. Do
+not create a changelog unless asked. Format it with Prettier.
 
 ## BCTP Workflow
 
@@ -68,6 +127,9 @@ User says "**BCTP**", execute in order:
    `CHANGES.md`, `HISTORY.md`, `RELEASES.md`) exists in the repo:
    - Move entries under `## [Unreleased]` to a new `## [X.Y.Z] - YYYY-MM-DD`
      heading, keeping `## [Unreleased]` empty above it.
+   - If the file uses reference links, repoint `[Unreleased]` to
+     `vX.Y.Z...HEAD`, add the new version's `vPREV...vX.Y.Z` link, and confirm
+     every version heading has a matching reference.
    - If `Unreleased` is empty or missing, draft entries from the unreleased
      commit log (`git log $(git describe --tags --abbrev=0)..HEAD`) using
      Keep-a-Changelog sections (`Added` / `Changed` / `Fixed` / `Removed` /
@@ -76,18 +138,28 @@ User says "**BCTP**", execute in order:
    - Run `prettier --write` on the file per the markdown rule below.
    - Stage `CHANGELOG.md` alongside the manifest in step 3. If no changelog file
      exists, skip — don't create one unless asked.
-3. **C**ommit version bump with message `chore: bump version`. Stage only
-   manifest, lockfile, and changelog.
-4. **T**ag commit as `vX.Y.Z` matching new version.
-5. **P**ush commit and tag to remote.
+3. **C**ommit the version bump. Before committing, run the repository's full
+   formatting, lint, and test gates. Stage only the manifest, lockfile, and
+   changelog. Follow the repository's commit rule; otherwise use
+   `chore: bump version`.
+4. **T**ag the commit as `vX.Y.Z`. Never move or reuse a published release tag;
+   cut the next version instead.
+5. **P**ush the commit and tag. First inspect the complete range that the push
+   will publish, per `OPS.md`.
+6. If the tag triggers CI or publishing, watch the run to completion. Enumerate
+   its jobs, confirm the publish job ran, and verify the artifact exists in the
+   release page or registry. A successful push only proves that the remote
+   accepted the tag.
 
 Defaults:
 
-- Patch bump unless user says minor/major.
+- Patch bump unless user says minor/major. Before 1.0, a breaking public change
+  bumps the minor version and updates internal dependency pins that name the old
+  version.
 - Never skip hooks or force-push.
 - No version field → ask before proceeding.
-- CI/deploy triggered by version tags → push completes release. No manual
-  deploy.
+- CI/deploy triggered by version tags → push starts the release; step 6
+  completes it. No manual deploy.
 
 ## Aliases
 
@@ -96,10 +168,14 @@ Defaults:
 ## Delegate
 
 User says "**delegate**" → spawn subagent on cheaper model than current
-(Fable/Mythos → Sonnet, Opus → Sonnet, Sonnet → Haiku). Use Agent tool with
-`model` param. Always review subagent output after — read changed files, verify
-diff matches intent, run tests/lints. Fix issues found yourself. Ask user
-clarifying questions if scope ambiguous before delegating.
+(Fable/Mythos → Sonnet, Opus → Sonnet, Sonnet → Haiku) when those tiers are
+available. Use the harness's model selector. Follow `OPS.md`: at most two
+subagents run concurrently and at most one may write. Give a writer exact path
+ownership.
+
+Always review subagent output: read changed files, verify the diff matches the
+intent, and run the relevant tests and lints yourself. Fix verified issues. Ask
+the user before delegating when the scope is ambiguous.
 
 ## Caveman
 
@@ -213,5 +289,4 @@ instructions:
 - `/home/shinobu/.config/agents/EVIDENCE.md`
 - `/home/shinobu/.config/agents/OPS.md`
 
-@EVIDENCE.md
-@OPS.md
+@EVIDENCE.md @OPS.md
