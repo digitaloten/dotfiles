@@ -207,13 +207,13 @@ on conflict it wins; this section is the always-loaded digest.
    ordering/dependency issues. Returns concrete severity-tagged findings, NOT a
    rewrite. Split across subagents by module/topic when it helps; run in
    parallel (max 2 subagents in parallel — see OPS.md Delegation contract). Tier
-   by fit: top tier (Fable-class) for the premise gate (round 1) and for the
-   FINAL pass before something ships or is built from; mid-tier for the
-   iterative rounds between. Always delegate — the main session never reviews
-   its own artifact (it reads intent into text that doesn't carry it). Don't
-   feed the reviewer prior rounds' findings or "already verified clean" regions
-   — a generic adversarial stance is fine; steering kills the fresh eyes that
-   justify delegating.
+   by fit: top tier (Fable-class) for the premise gate (round 1) and for
+   confirmation rounds, including the FINAL pass before something ships or is
+   built from; mid-tier for the iterative rounds between. Always delegate — the
+   main session never reviews its own artifact (it reads intent into text that
+   doesn't carry it). Don't feed the reviewer prior rounds' findings or "already
+   verified clean" regions — a generic adversarial stance is fine; steering
+   kills the fresh eyes that justify delegating.
 2. **Verify** — independently check each finding against source. Reject
    false-positives explicitly (note why). Never rubber-stamp.
 3. **Update** — fold verified findings into the plan body (fix the sketches in
@@ -245,17 +245,21 @@ rate, and does every number in the justification name the query, host, and date
 that produced it? In a loop this is a dedicated round 1 — no correctness,
 ordering, or edge-case review until the premise survives. In a single-pass
 review it is the first question of that pass. Premise challenge is therefore not
-part of the alternating rotation. Scar: rusty-data
-`SPEC-provider-fault-handling.md` (2026-08-13) — premise challenge ran third and
-ended the design in one pass; the two prior rounds perfected the mechanics of
-something that should not be built.
+part of the alternating rotation, and a clean gate does not count toward
+convergence — converged/dry is measured over mechanics rounds only. A gate that
+surfaced provenance gaps re-runs after they are folded; mechanics rounds start
+only after a clean gate. Scar: rusty-data `SPEC-provider-fault-handling.md`
+(2026-08-13) — premise challenge ran third and ended the design in one pass; the
+two prior rounds perfected the mechanics of a design that was then mostly
+shelved (three small fixes survived).
 
 **Premise-invalidated is a terminal state.** A round that falsifies the
 justification, or shrinks the artifact below the complexity that justified a
 loop, ends the loop — record which claim failed and against what evidence. This
 exit is distinct from converged/dry and from the cap, and does not count as
 reviewed. Shelve or restructure, then open a fresh loop only if something
-survives.
+survives. Applies to single-pass reviews too: a falsified premise discards that
+pass's mechanics findings — shelve or restructure; don't fold them.
 
 **Completeness pass (mandatory, at least once per review — simple or complex):**
 every alternating technique above is a reading, and readings share a blind spot

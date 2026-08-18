@@ -20,9 +20,9 @@ Non-negotiables:
   artifact = assume unfinished, take over.
 - **No persistent-worker shape** — long tail beyond one turn → main thread owns
   the long step; delegate only bounded chunks.
-- **State the contract in the delegation prompt** — deliverable + success
-  check, single-shot, `INCOMPLETE` over false success. The prompt is a
-  backstop; the artifact check is the gate.
+- **State the contract in the delegation prompt** — deliverable + success check,
+  single-shot, `INCOMPLETE` over false success. The prompt is a backstop; the
+  artifact check is the gate.
 - **Max 2 subagents in parallel** — house convention (defines the "max-2 rule"
   Plan Review references); batch larger fan-outs into waves of ≤2.
 
@@ -35,9 +35,9 @@ elsewhere; detail in `crawly-mccrawlface/docs/runbooks/delegation.md`
 §Appendix). Never delegate lint/format; tests optional, direct by default.
 Dispatch tier: default mid; cheapest for mechanical work (logs, DB queries,
 large/unknown reads); top only if requested or genuinely needed — standing
-case: the FINAL review pass before something ships or is built from (see
-AGENTS.md Plan Review). (The user-keyword "delegate" rule — spawn
-cheaper-than-current — applies only to that explicit command.)
+cases: the premise gate (round 1) and the FINAL review pass before something
+ships or is built from (see AGENTS.md Plan Review). (The user-keyword "delegate"
+rule — spawn cheaper-than-current — applies only to that explicit command.)
 
 ## Monitors & watchers
 

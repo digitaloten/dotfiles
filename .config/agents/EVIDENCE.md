@@ -145,10 +145,11 @@ tables use the statistic their own caveat demands (mean vs p99). Scars: crawly
 
 Before dispatching any reviewer (subagent or human) on a spec/plan you wrote,
 run rules 1, 4, and 11 against your own justification section: every number
-names the query/method, host, and date that produced it; every negative names
-its searched set; every absolute carries a citation or gets bounded. A number
-whose method you cannot name is not evidence — remove it or go measure it. This
-is the author-side mirror of rule 7 (fixes are claims): rule 7 audits the fold,
-this audits the first draft. Scar: rusty-data `SPEC-provider-fault-handling.md`
-(2026-08-13) — "~7 model loads" was read off log mtimes, logs never opened; two
-review rounds ran before round 3 killed it.
+carries rule 11's full provenance (run/query, method, host or engine, input
+population, date); every negative names its searched set; every absolute carries
+a citation or gets bounded. A number whose method you cannot name is not
+evidence — remove it or go measure it. This is the author-side mirror of rule 7
+(fixes are claims): rule 7 audits the fold, this audits the first draft. Scar:
+rusty-data `SPEC-provider-fault-handling.md` (2026-08-13) — "~7 model loads"
+entered the spec with no named method and was disproven by the spec's own §1
+audit table; two review rounds ran before round 3 killed it.
