@@ -74,8 +74,8 @@ change. Corollaries: baselines taken from buggy runs are contaminated;
 anything that gates acceptance. A presence/parity count is blind to duplication,
 and to duplication offsetting loss: any check gating a merge, migration, or
 reconciliation must also assert distinct-key uniqueness — `COUNT(DISTINCT key)`
-equals `COUNT(*)`, or `sort | uniq -d` on the key column comes back empty
-(scar: crawly `9c6c34e0`, repaired `1a9c222b`). Any new cost model/estimate is
+equals `COUNT(*)`, or `sort | uniq -d` on the key column comes back empty (scar:
+crawly `9c6c34e0`, repaired `1a9c222b`). Any new cost model/estimate is
 validated against the provider's billing export — compare PER-ROW cost, not
 totals — before its numbers are quoted (3× understatement scar: crawly
 `AGENTS.md` §Gotchas, UK-278).
@@ -125,8 +125,8 @@ Before any optimisation loop, acceptance gate, or ship/no-ship verdict: get the
 objective stated by the owner of the consequences, in writing. An inherited
 default metric is the most expensive thing in an experiment — every downstream
 measurement inherits it and looks rigorous while doing so, and nobody defends a
-default. Scar: an unendorsed default metric re-scored the same measurements
-FAIL → pass once the owner's real objective surfaced (crawly
+default. Scar: an unendorsed default metric re-scored the same measurements FAIL
+→ pass once the owner's real objective surfaced (crawly
 `docs/incidents/2026-08-06-en-parity-session-retrospective.md` §1). Corollary:
 re-gating after seeing results is **post hoc** and must be recorded as such
 wherever the result is quoted.
@@ -136,8 +136,19 @@ wherever the result is quoted.
 A quoted number (throughput, cost, latency, score) names the run, model, engine,
 and input population that produced it — in the same sentence or table row. This
 blocks two authoring mechanisms: (a) **fusing measurements from different
-contexts** into one constant; (b) **reusing a rate across runs whose
-populations differ** — "same model, same prompt" can conceal a different input
-mix. Derived tables use the statistic their own caveat demands (mean vs p99).
-Scars: crawly `docs/incidents/2026-08-06-en-parity-session-retrospective.md`
-§3.
+contexts** into one constant; (b) **reusing a rate across runs whose populations
+differ** — "same model, same prompt" can conceal a different input mix. Derived
+tables use the statistic their own caveat demands (mean vs p99). Scars: crawly
+`docs/incidents/2026-08-06-en-parity-session-retrospective.md` §3.
+
+## 12. Drafts are claims — self-audit before review
+
+Before dispatching any reviewer (subagent or human) on a spec/plan you wrote,
+run rules 1, 4, and 11 against your own justification section: every number
+names the query/method, host, and date that produced it; every negative names
+its searched set; every absolute carries a citation or gets bounded. A number
+whose method you cannot name is not evidence — remove it or go measure it. This
+is the author-side mirror of rule 7 (fixes are claims): rule 7 audits the fold,
+this audits the first draft. Scar: rusty-data `SPEC-provider-fault-handling.md`
+(2026-08-13) — "~7 model loads" was read off log mtimes, logs never opened; two
+review rounds ran before round 3 killed it.
