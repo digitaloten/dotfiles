@@ -229,14 +229,32 @@ round that still adds findings → mark `INCOMPLETE`, block execution, request a
 cap extension. Do steps 4–5 once at the end. **Alternate the review technique
 every round; never repeat one** (correctness, operations, cold-executor
 walkthrough, post-fold consistency audit, failure-timeline simulation,
-measurement red-team, security boundary, premise challenge, diff-review of fold
-commits, source-parity/completeness) — empirically every new technique found
-defects and no repeated one did. **Restructure trigger:** two consecutive rounds
-whose blockers trace mostly to the previous round's fold means the doc's
-STRUCTURE is wrong — stop patching; restructure (e.g. §DECIDED with a mechanism
-per item / §BLOCKED naming what unblocks each, none implementer-inventable),
-then resume rounds (crawly
-`docs/incidents/2026-08-06-en-parity-session-retrospective.md` §4).
+measurement red-team, security boundary, diff-review of fold commits,
+source-parity/completeness) — empirically every new technique found defects and
+no repeated one did. **Restructure trigger:** two consecutive rounds whose
+blockers trace mostly to the previous round's fold means the doc's STRUCTURE is
+wrong — stop patching; restructure (e.g. §DECIDED with a mechanism per item /
+§BLOCKED naming what unblocks each, none implementer-inventable), then resume
+rounds (crawly `docs/incidents/2026-08-06-en-parity-session-retrospective.md`
+§4).
+
+**Premise first.** Every review opens by challenging the premise and its
+evidence, before any mechanics reading: is the problem real, at the claimed
+rate, and does every number in the justification name the query, host, and date
+that produced it? In a loop this is a dedicated round 1 — no correctness,
+ordering, or edge-case review until the premise survives. In a single-pass
+review it is the first question of that pass. Premise challenge is therefore not
+part of the alternating rotation. Scar: rusty-data
+`SPEC-provider-fault-handling.md` (2026-08-13) — premise challenge ran third and
+ended the design in one pass; the two prior rounds perfected the mechanics of
+something that should not be built.
+
+**Premise-invalidated is a terminal state.** A round that falsifies the
+justification, or shrinks the artifact below the complexity that justified a
+loop, ends the loop — record which claim failed and against what evidence. This
+exit is distinct from converged/dry and from the cap, and does not count as
+reviewed. Shelve or restructure, then open a fresh loop only if something
+survives.
 
 **Completeness pass (mandatory, at least once per review — simple or complex):**
 every alternating technique above is a reading, and readings share a blind spot
