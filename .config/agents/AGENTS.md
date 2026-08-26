@@ -97,7 +97,11 @@ code pass; if evidence shows its contract is wrong, explain why and ask first.
 Name and inspect exact targets before deleting, restoring, or discarding. Check
 both unstaged and staged Git diffs. Never discard work you did not create or run
 broad restore, reset, clean, or delete operations without explicit approval. A
-command must not both discover its targets and delete them.
+command must not both discover its targets and delete them. The destructive
+invocation itself takes literal absolute paths — no shell variables or globs in
+the `rm`/`mv` line — so the reviewed command shows exactly what goes and an
+unset variable cannot expand to a root-anchored path. One approval covers one
+action, never a category; do not chain several destructive steps under it.
 
 ## Changelog as You Go
 
@@ -157,6 +161,9 @@ Defaults:
   version.
 - Never skip hooks or force-push.
 - No version field → ask before proceeding.
+- Plans written before the release reference the version as `$NEXT_VERSION`,
+  captured at bump time — never a hard-coded `vX.Y.Z`. Parallel ships make the
+  next patch number unknowable at plan-write time.
 - CI/deploy triggered by version tags → push starts the release; step 6
   completes it. No manual deploy.
 
