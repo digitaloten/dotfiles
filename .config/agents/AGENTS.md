@@ -62,6 +62,18 @@ committing and include only the intended files.
   not build commands or paths from unsanitized input. Enforce contracts around
   unsafe or unchecked operations with types or runtime validation.
 
+## Backlog
+
+Any work item or follow-up you notice mid-task and are not doing now — a defect
+in adjacent code, a stale doc, a missing test, a cleanup, an open question —
+goes into the repo's `BACKLOG.md` in the same turn, never only into chat or a
+footnote of some other doc. Use the repo's existing backlog file if it has one
+under another name (e.g. `backlog.md`); otherwise create `BACKLOG.md` at the
+repo root. A row carries the item, its evidence (file:line, command, or query,
+with the date), and why it is deferred. Repos with a ticket tracker of record
+keep their own rule for when a row becomes a ticket; the backlog file is where
+the item survives until then.
+
 ## Formatting
 
 Project has prettier setup → run on changes. Project has format command (e.g.
