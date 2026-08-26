@@ -74,6 +74,13 @@ with the date), and why it is deferred. Repos with a ticket tracker of record
 keep their own rule for when a row becomes a ticket; the backlog file is where
 the item survives until then.
 
+The backlog file is shared by every concurrent session in the repo: check
+whether it already exists before creating it, re-read it right before every
+edit, append rows (never rewrite the file), and commit it on its own by explicit
+path so another session's uncommitted rows do not ride under your hash. Scar:
+2026-08-26, a `Write` two minutes after another session had created `BACKLOG.md`
+overwrote that session's rows.
+
 ## Formatting
 
 Project has prettier setup → run on changes. Project has format command (e.g.
