@@ -1,7 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(file .local/bin/*)",
       "Bash(git rm:*)"
     ]
   }
